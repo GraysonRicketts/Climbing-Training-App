@@ -6,7 +6,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, SectionList, Text, View} from 'react-native';
+import {Platform, StyleSheet, SectionList, Button, Text, View} from 'react-native';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -32,11 +32,22 @@ export default class TrainingSessionView extends Component {
                 sections={itemsData}
                 renderItem={renderItem}
                 renderSectionHeader={renderHeader}
-                keyExtractor={(_, index) => index}    
+                keyExtractor={(_, index) => index}
+                style={styles.sectionList}
             />
+
+            <Button
+                onPress={addExercise.bind(this, this.props.navigation)}
+                title={'Add'}
+                style={styles.addButton}
+            ></Button>
           </View>
         );
       }
+}
+
+function addExercise(navigation) {
+    navigation.navigate('AddModal');
 }
 
 function renderHeader(data) {
@@ -123,14 +134,16 @@ const itemsData = [
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      alignItems: 'center',
+      height: '100%',
+      flexDirection: 'column',
       backgroundColor: '#F5FCFF',
+      paddingBottom: '5%'
     },
     header: {
-      fontSize: 20,
-      textAlign: 'center',
-      margin: 10,
+        flexGrow: 1,
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10,
     },
     sectionHeader: {
         paddingTop: 2,
@@ -140,12 +153,16 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold',
         backgroundColor: 'rgba(247,247,247,1.0)',
-      },
-      item: {
+    },
+    sectionList: {
+        flexGrow: 2,
+        flexBasis: '75%'
+    },
+    item: {
         padding: 10,
         fontSize: 18,
         height: 44,
-      },
+    },
     instructions: {
       textAlign: 'center',
       color: '#333333',
