@@ -6,9 +6,10 @@
  */
 
 import React, {Component} from 'react';
-import { Modal, StyleSheet, Picker, Button, Text, View, TextInput, Dimensions } from 'react-native';
+import { StyleSheet, Picker, Button, Text, View, TextInput, Dimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import ClimbPicker from './ClimbPicker';
+import Modal from 'react-native-modal';
 
 const BoulderingValues = [
     {
@@ -106,12 +107,15 @@ export default class AddExerciseView extends Component {
 
     render() {
         return (
-            <Modal 
+            <Modal
+                style={styles.modal}
                 visible={this.props.visible}
                 animationType={'slide'}
                 onRequestClose={this.props.hideModal}
             >
-                <View style={styles.container}>
+                <View
+                    style={styles.container}
+                >
                     <TextInput
                         style={styles.exerciseSearch}
                         onChangeText={(text) => this.setState({text})}
@@ -122,7 +126,6 @@ export default class AddExerciseView extends Component {
                     />
 
                     <TabView
-                        style={styles.tabWindow}
                         navigationState={this.state.navigationState}
                         renderScene={SceneMap({
                             first: () => (
@@ -141,7 +144,7 @@ export default class AddExerciseView extends Component {
                         onIndexChange={index => this.setState({ index })}
                         initialLayout={{ 
                             width: Dimensions.get('window').width,
-                            height: (Dimensions.get('window').height * .4)
+                            height: 320
                         }}
                     />
 
@@ -163,20 +166,19 @@ const climbTypes = {
 }
 
 const styles = StyleSheet.create({
+    modal: {
+        justifyContent: 'flex-end',
+        margin: 0,
+    },
     container: {
-      height: '100%',
-      flexDirection: 'column',
-      backgroundColor: '#F5FCFF',
-      paddingTop: '10%',
-      paddingBottom: '2%'
+        backgroundColor: '#FFF',
+        height: 350,
+        paddingBottom: 30
     },
     exerciseSearch: {
         height: 40,
-        paddingLeft: '5%',
-        paddingRight: '5%',
-        fontSize: 20
-    },
-    tabWindow: {
-        flexGrow: 1
+        marginLeft: '5%',
+        marginRight: '5%',
+        fontSize: 20,
     }
   });

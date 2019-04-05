@@ -25,12 +25,17 @@ export default class ClimbPicker extends Component {
     render() {
         return (
             <Picker
+                style={{ flexGrow: 1}}
                 selectedValue={this.state.selectedValue}
                 onValueChange={this.updateList.bind(this)}
             >
                 {this.state.items.map((item) => {
                     return (
-                        <Picker.Item label={item.label} value={item.value} />
+                        <Picker.Item 
+                            label={item.label}
+                            value={item.value}
+                            key={item.label} 
+                        />
                     );
                 })}
             </Picker>

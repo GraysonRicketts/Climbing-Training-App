@@ -6,15 +6,8 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, SectionList, Button, Text, View} from 'react-native';
+import { StyleSheet, SectionList, Button, Text, View} from 'react-native';
 import AddClimbView from './AddClimbView';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
 export default class TrainingSessionView extends Component {
     constructor(props) {
@@ -22,7 +15,7 @@ export default class TrainingSessionView extends Component {
 
         // TODO: track start time + end time
         this.state = {
-            displayModal: false
+            modalVisible: false
         }
     }
 
@@ -45,7 +38,6 @@ export default class TrainingSessionView extends Component {
         return (
           <View style={styles.container}>
             <Text style={styles.header}>Session training screen</Text>
-            <Text style={styles.instructions}>{instructions}</Text>
             
             <SectionList
                 sections={itemsData}
@@ -58,9 +50,9 @@ export default class TrainingSessionView extends Component {
             <Button
                 onPress={this.showAddExercise.bind(this, this.props.navigation)}
                 title={'Add'}
-                style={styles.addButton}
             ></Button>
-            <AddClimbView 
+            <AddClimbView
+                style={styles.addClimbView}
                 visible={this.state.modalVisible}
                 hideModal={this.hideAddExercise.bind(this)}
             />
@@ -154,13 +146,12 @@ const itemsData = [
 
 const styles = StyleSheet.create({
     container: {
-      height: '100%',
-      flexDirection: 'column',
-      backgroundColor: '#F5FCFF',
-      paddingBottom: '5%'
+        flex: 1,
+        flexDirection: 'column',
+        backgroundColor: '#F5FCFF',
+        paddingBottom: '5%'
     },
     header: {
-        flexGrow: 1,
         fontSize: 20,
         textAlign: 'center',
         margin: 10,
@@ -175,18 +166,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(247,247,247,1.0)',
     },
     sectionList: {
-        flexGrow: 2,
-        flexBasis: '75%'
+        flexGrow: 2
     },
     item: {
         padding: 10,
         fontSize: 18,
         height: 44,
-    },
-    instructions: {
-      textAlign: 'center',
-      color: '#333333',
-      marginBottom: 5,
     },
   });
 
