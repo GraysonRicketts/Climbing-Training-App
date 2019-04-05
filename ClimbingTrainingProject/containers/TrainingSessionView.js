@@ -7,6 +7,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, SectionList, Button, Text, View} from 'react-native';
+import AddClimbView from './AddClimbView';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -20,6 +21,24 @@ export default class TrainingSessionView extends Component {
         super(props);
 
         // TODO: track start time + end time
+        this.state = {
+            displayModal: false
+        }
+    }
+
+    setModalVisible(visible) {
+        this.setState({
+            modalVisible: visible
+        })
+    }
+
+    showAddExercise(navigation) {
+        //navigation.navigate('AddModal');
+        this.setModalVisible(true);
+    }
+    
+    hideAddExercise() {
+        this.setModalVisible(false);
     }
 
     render() {
@@ -37,18 +56,19 @@ export default class TrainingSessionView extends Component {
             />
 
             <Button
-                onPress={addExercise.bind(this, this.props.navigation)}
+                onPress={this.showAddExercise.bind(this, this.props.navigation)}
                 title={'Add'}
                 style={styles.addButton}
             ></Button>
+            <AddClimbView 
+                visible={this.state.modalVisible}
+                hideModal={this.hideAddExercise.bind(this)}
+            />
           </View>
         );
       }
 }
 
-function addExercise(navigation) {
-    navigation.navigate('AddModal');
-}
 
 function renderHeader(data) {
     const section = data.section;

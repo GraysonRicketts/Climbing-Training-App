@@ -10,7 +10,7 @@ import WelcomeView from './containers/WelcomeView';
 import ProfileView from './containers/ProfileView';
 import StatsView from './containers/StatsView';
 import TrainingSessionView from './containers/TrainingSessionView';
-import AddContainerView from './containers/AddViews/AddContainerView';
+import AddClimbView from './containers/AddClimbView';
 
 
 const MainStack = createStackNavigator(
@@ -32,20 +32,5 @@ const MainStack = createStackNavigator(
     initialRouteName: 'Welcome'
   }
   );
-  
-  const RootStack = createStackNavigator(
-    {
-        Main: {
-          screen: MainStack
-        },
-        AddModal: {
-          screen: AddContainerView
-        }
-    },
-    {
-        mode: 'modal',
-        headerMode: 'none'
-    }
-  );
 
-export default createAppContainer(RootStack);
+export default createAppContainer(MainStack);
