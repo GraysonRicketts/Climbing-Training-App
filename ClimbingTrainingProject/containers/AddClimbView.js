@@ -10,6 +10,7 @@ import { StyleSheet, Button, View, TextInput, Dimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import ClimbPicker from './ClimbPicker';
 import Modal from 'react-native-modal';
+import ClimbingTypes from './../enums/ClimbingTypes';
 
 const BoulderingValues = {
     V0: 'V0',
@@ -36,10 +37,6 @@ const YosemiteValues = {
     '5.12c': '5.12c',
 };
 
-const ClimbPickerIndex = {
-    BOULDERING: 0,
-    YOSEMITE: 1
-}
 
 export default class AddExerciseView extends Component {
     constructor(props) {
@@ -51,7 +48,7 @@ export default class AddExerciseView extends Component {
             boulderGradeSelected: BoulderingValues.V0,
             yoesmiteGradeSelected: YosemiteValues['5.9'],
             navigationState: {
-                index: ClimbPickerIndex.BOULDERING,
+                index: ClimbingTypes.BOULDERING,
                 routes: [
                     { key: 'first', title: 'Bouldering' },
                     { key: 'second', title: 'Yosemite' },
@@ -70,7 +67,7 @@ export default class AddExerciseView extends Component {
          }));
 
         let climbSelected;
-        if (index === ClimbPickerIndex.BOULDERING) {
+        if (index === ClimbingTypes.BOULDERING) {
             climbSelected = this.state.boulderGradeSelected;
         }
         else {
@@ -83,9 +80,9 @@ export default class AddExerciseView extends Component {
         this.setState(prevState => ({
             ...prevState,
             climbSelected: value,
-            boulderGradeSelected: prevState.navigationState.index === ClimbPickerIndex.BOULDERING 
+            boulderGradeSelected: prevState.navigationState.index === ClimbingTypes.BOULDERING 
                 ? value : prevState.boulderGradeSelected,
-            yoesmiteGradeSelected: prevState.navigationState.index === ClimbPickerIndex.YOSEMITE 
+            yoesmiteGradeSelected: prevState.navigationState.index === ClimbingTypes.YOSEMITE 
                 ? value : prevState.yoesmiteGradeSelected
         }));
     }
@@ -95,6 +92,11 @@ export default class AddExerciseView extends Component {
             ...prevState,
             text
         }));
+    }
+
+    saveClimb() {
+        this.props.saveClimb(this.state.climbSelected, this.state.ClimbPickerIndex);
+        this.props.hideModal();
     }
 
     render() {
@@ -143,7 +145,7 @@ export default class AddExerciseView extends Component {
                     />
 
                     <Button
-                        onPress={this.props.hideModal}
+                        onPress={this.saveClimb.bind(this)}
                         title={'Save'}
                     ></Button>
                 </View>

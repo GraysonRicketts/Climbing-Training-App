@@ -6,32 +6,63 @@
  */
 
 import React, {Component} from 'react';
-import { StyleSheet, SectionList, Button, Text, View} from 'react-native';
+import { StyleSheet, Button, Text, View} from 'react-native';
 import AddClimbView from './AddClimbView';
+import { FlatList } from 'react-native-gesture-handler';
 
 export default class TrainingSessionView extends Component {
     constructor(props) {
         super(props);
+        this._key = 0;
 
         // TODO: track start time + end time
         this.state = {
-            modalVisible: false
+            modalVisible: false,
+            climbs: []
         }
     }
 
-    setModalVisible(visible) {
+    _setModalVisible(visible) {
         this.setState({
             modalVisible: visible
         })
     }
 
-    showAddExercise(navigation) {
-        //navigation.navigate('AddModal');
-        this.setModalVisible(true);
+    _getClimbingKey() {
+        this._key = this._key + 1;
+        return this._key;
+    }
+
+    showAddExercise() {
+        this._setModalVisible(true);
     }
     
     hideAddExercise() {
-        this.setModalVisible(false);
+        this._setModalVisible(false);
+    }
+
+    saveClimb(climb, climbType) {
+        const newClimb = {
+            route: {
+                key: this._getClimbingKey(),
+                climbType,
+                difficulty: climb
+            }
+        }
+        this.setState(prevState => ({
+            climbs: [...prevState.climbs, newClimb]
+        }));
+        // {
+        //     key: 1,
+        //     route: {
+        //         climbType: climbTypes.BOULDER,
+        //         name: 'The Godfather',
+        //         difficulty: 'V4',
+        //         location: {x: 21, y: 43}
+        //     },
+        //     attempts: 1,
+        //     climbed: true
+        // }
     }
 
     render() {
@@ -39,11 +70,11 @@ export default class TrainingSessionView extends Component {
           <View style={styles.container}>
             <Text style={styles.header}>Session training screen</Text>
             
-            <SectionList
-                sections={itemsData}
+            <FlatList
+                data={this.state.climbs}
+                keyExtractor={(item) => item.key}
                 renderItem={renderItem}
-                renderSectionHeader={renderHeader}
-                keyExtractor={(_, index) => index}
+                ListEmptyComponent={renderEmptyComponent}
                 style={styles.sectionList}
             />
 
@@ -55,94 +86,25 @@ export default class TrainingSessionView extends Component {
                 style={styles.addClimbView}
                 visible={this.state.modalVisible}
                 hideModal={this.hideAddExercise.bind(this)}
+                saveClimb={this.saveClimb.bind(this)}
             />
           </View>
         );
       }
 }
 
+function renderEmptyComponent() {
+    const instructions = 'Add a climb by clicking the button below';
 
-function renderHeader(data) {
-    const section = data.section;
-    const title = section.title;
-
-    return (<Text style={styles.sectionHeader}>{title}</Text>);
+    return (<Text>{instructions}</Text>);
 }
 
 function renderItem(data) {
-    const item = data.item;
-    const workoutType = item.workoutType;
-    let title = '';
-
-    if (workoutType === workoutTypes.CLIMBING) {
-        title = item.route.difficulty;
-    }
-    else {
-        title = item.exercise.name;
-    }
+    const climb = data.item;
+    const title = climb.route.difficulty;
 
     return (<Text style={styles.item}>{title}</Text>);
 }
-
-const workoutTypes = {
-    CLIMBING: 'climbing',
-    EXERCISE: 'exercise'
-}
-
-const climbTypes = {
-    TR: 'top-rope',
-    BOULDER: 'bouldering',
-    SPORT: 'sport',
-    TRAD: 'traditional'
-}
-
-const itemsData = [
-    {
-        title: 'Climbing',
-        data: [
-            {
-                workoutType: workoutTypes.CLIMBING,
-                route: {
-                    climbType: climbTypes.BOULDER,
-                    name: 'The Godfather',
-                    difficulty: 'V4',
-                    location: {x: 21, y: 43}
-                },
-                onSite: true,
-                attempts: 1,
-                completed: true
-            },
-            {
-                workoutType: workoutTypes.CLIMBING,
-                route: {
-                    climbType: climbTypes.BOULDER,
-                    name: 'Geronimo',
-                    difficulty: '5.11a',
-                    location: undefined
-                },
-                onSite: false,
-                attempts: 3,
-                completed: false
-            }
-        ]
-    },
-    {
-        title: '4x4',
-        data: [
-            {
-                workoutType: workoutTypes.EXERCISE,
-                exercise: {
-                    name: 'ab-wheel roll out',
-                    bodyPart: 'core'
-                },
-                reps: 0,
-                time: 1234838, // milliseconds
-                completed: true
-            }
-        ]
-    }
-]
-
 
 const styles = StyleSheet.create({
     container: {
