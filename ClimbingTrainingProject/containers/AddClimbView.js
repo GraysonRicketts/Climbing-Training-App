@@ -6,84 +6,40 @@
  */
 
 import React, {Component} from 'react';
-import { StyleSheet, Picker, Button, Text, View, TextInput, Dimensions } from 'react-native';
+import { StyleSheet, Button, View, TextInput, Dimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import ClimbPicker from './ClimbPicker';
 import Modal from 'react-native-modal';
 
-const BoulderingValues = [
-    {
-        label: 'V1',
-        value: '1'
-    },
-    {
-        label: 'V2',
-        value: '2'
-    },
-    {
-        label: 'V3',
-        value: '3'
-    },
-    {
-        label: 'V4',
-        value: '4'
-    },
-    {
-        label: 'V5',
-        value: '5'
-    },
-    {
-        label: 'V6',
-        value: '6'
-    },
-    {
-        label: 'V7',
-        value: '7'
-    }
-];
+const BoulderingValues = {
+    V0: 'V0',
+    V1: 'V1',
+    V2: 'V2',
+    V3: 'V3',
+    V4: 'V4',
+    V5: 'V5',
+    V7: 'V6',
+    V8: 'V7',
+    V9: 'V8',
+};
 
-const YosemiteValues = [
-    {
-        label: '5.6',
-        value: '5.6'
-    },
-    {
-        label: '5.7',
-        value: '5.7'
-    },
-    {
-        label: '5.8',
-        value: '5.8'
-    },
-    {
-        label: '5.9',
-        value: '5.9'
-    },
-    {
-        label: '5.10a',
-        value: '5.10a'
-    },
-    {
-        label: '5.10b',
-        value: '5.10b'
-    },
-    {
-        label: '5.10c',
-        value: '5.10c'
-    },
-    {
-        label: '5.11a',
-        value: '5.11a'
-    },
-    {
-        label: '5.11b',
-        value: '5.11b'
-    },
-    {
-        label: '5.11c',
-        value: '5.11c'
-    }
-];
+const YosemiteValues = {
+    '5.9': '5.9',
+    '5.10a': '5.10a',
+    '5.10b': '5.10b',
+    '5.10c': '5.10c',
+    '5.11a': '5.11a',
+    '5.11b': '5.11b',
+    '5.11c': '5.11c',
+    '5.12a': '5.12a',
+    '5.12b': '5.12b',
+    '5.12c': '5.12c',
+};
+
+const ClimbPickerIndex = {
+    BOULDERING: 0,
+    YOSEMITE: 1
+}
 
 export default class AddExerciseView extends Component {
     constructor(props) {
@@ -91,10 +47,11 @@ export default class AddExerciseView extends Component {
         
         this.state = {
             text: '',
-            type: climbTypes.BOULDER,
-            selectedValue: null,
+            climbSelected: BoulderingValues.V0,
+            boulderGradeSelected: BoulderingValues.V0,
+            yoesmiteGradeSelected: YosemiteValues['5.9'],
             navigationState: {
-                index: 0,
+                index: ClimbPickerIndex.BOULDERING,
                 routes: [
                     { key: 'first', title: 'Bouldering' },
                     { key: 'second', title: 'Yosemite' },
@@ -103,7 +60,42 @@ export default class AddExerciseView extends Component {
         }
     }
 
+    tabChanged(index) {
+        this.setState(prevState => ({
+            ...prevState,
+            navigationState: {
+                ...prevState.navigationState,
+                index
+            }
+         }));
 
+        let climbSelected;
+        if (index === ClimbPickerIndex.BOULDERING) {
+            climbSelected = this.state.boulderGradeSelected;
+        }
+        else {
+            climbSelected = this.state.yoesmiteGradeSelected;
+        }
+        this.climbSelectedChanged(climbSelected);
+    }
+
+    climbSelectedChanged(value) {
+        this.setState(prevState => ({
+            ...prevState,
+            climbSelected: value,
+            boulderGradeSelected: prevState.navigationState.index === ClimbPickerIndex.BOULDERING 
+                ? value : prevState.boulderGradeSelected,
+            yoesmiteGradeSelected: prevState.navigationState.index === ClimbPickerIndex.YOSEMITE 
+                ? value : prevState.yoesmiteGradeSelected
+        }));
+    }
+
+    searchInputChanged(text) {
+        this.setState(prevState => ({
+            ...prevState,
+            text
+        }));
+    }
 
     render() {
         return (
@@ -118,7 +110,7 @@ export default class AddExerciseView extends Component {
                 >
                     <TextInput
                         style={styles.exerciseSearch}
-                        onChangeText={(text) => this.setState({text})}
+                        onChangeText={(text) => this.searchInputChanged(text).bind(this)}
                         value={this.state.text}
                         numberOfLines={1}
                         placeholder={'🔍 Search'}
@@ -130,18 +122,20 @@ export default class AddExerciseView extends Component {
                         renderScene={SceneMap({
                             first: () => (
                                 <ClimbPicker
-                                    selectedValue={this.state.selectedValue}
+                                    climbSelected={this.state.climbSelected}
                                     items={BoulderingValues}
+                                    valueChanged={this.climbSelectedChanged.bind(this)}
                                 />
                             ),
                             second: () => (
                                 <ClimbPicker
-                                    selectedValue={this.state.selectedValue}
+                                    climbSelected={this.state.climbSelected}
                                     items={YosemiteValues}
+                                    valueChanged={this.climbSelectedChanged.bind(this)}
                                 />
                             ),
                         })}
-                        onIndexChange={index => this.setState({ index })}
+                        onIndexChange={this.tabChanged.bind(this)}
                         initialLayout={{ 
                             width: Dimensions.get('window').width,
                             height: 320
@@ -158,19 +152,15 @@ export default class AddExerciseView extends Component {
       }
 }
 
-const climbTypes = {
-    TR: 'top-rope',
-    BOULDER: 'bouldering',
-    SPORT: 'sport',
-    TRAD: 'traditional'
-}
-
 const styles = StyleSheet.create({
     modal: {
         justifyContent: 'flex-end',
         margin: 0,
     },
     container: {
+        borderColor: '#AAA',
+        borderTopWidth: 0.5,
+        borderRadius: 0,
         backgroundColor: '#FFF',
         height: 350,
         paddingBottom: 30

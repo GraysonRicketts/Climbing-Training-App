@@ -11,34 +11,25 @@ import { Picker } from 'react-native';
 export default class ClimbPicker extends Component {
     constructor(props) {
         super(props);
-        
-        this.state = {
-            selectedValue: props.selectedValue,
-            items: props.items
-        };
-    }
-    
-    updateList(value) {
-        this.setState({ selectedValue: value });
     }
 
     render() {
         return (
             <Picker
                 style={{ flexGrow: 1}}
-                selectedValue={this.state.selectedValue}
-                onValueChange={this.updateList.bind(this)}
+                selectedValue={this.props.climbSelected}
+                onValueChange={this.props.valueChanged}
             >
-                {this.state.items.map((item) => {
+                {Object.keys(this.props.items).map((itemKey) => {
                     return (
                         <Picker.Item 
-                            label={item.label}
-                            value={item.value}
-                            key={item.label} 
+                            key={itemKey} 
+                            label={itemKey}
+                            value={itemKey}
                         />
                     );
                 })}
             </Picker>
         );
-      }
+    }
 }
