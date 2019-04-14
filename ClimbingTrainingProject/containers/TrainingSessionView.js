@@ -17,6 +17,7 @@ export default class TrainingSessionView extends Component {
 
         // TODO: track start time + end time
         this.state = {
+            startTime: Date.now(),
             modalVisible: false,
             climbs: []
         }
@@ -25,8 +26,6 @@ export default class TrainingSessionView extends Component {
     render() {
         return (
         <View style={TrainingSessionView.styles.container}>
-            <Text style={TrainingSessionView.styles.header}>Session training screen</Text>
-            
             <FlatList
                 data={this.state.climbs}
                 keyExtractor={(item) => item.key.toString()}
@@ -47,6 +46,16 @@ export default class TrainingSessionView extends Component {
             />
           </View>
         );
+    }
+
+    componentDidMount() {
+        this.props.navigation.setParams({
+            saveSession: this.saveSession.bind(this)
+        })
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
     }
 
     showAddExercise() {
@@ -82,6 +91,16 @@ export default class TrainingSessionView extends Component {
         // }
     }
 
+    saveSession() {
+        this.props.navigation.goBack();
+    }
+
+    updateSecondsSinceStarted() {
+        this.setState(prevState => ({
+            secondsSinceStarted: prevState.secondsSinceStarted + 1
+        }));
+    }
+
     _setModalVisible(visible) {
         this.setState({
             modalVisible: visible
@@ -104,6 +123,25 @@ export default class TrainingSessionView extends Component {
         const instructions = 'Add a climb by clicking the button below';
     
         return (<Text>{instructions}</Text>);
+    }
+
+    static renderSaveSessionComponent(navigation) {
+        return (
+            <Button
+                title='Save workout'
+                onPress={navigation.getParam('saveSession')}
+            />
+        );
+    }
+
+    static navigationOptions(navigationState) {
+        const navigation = navigationState.navigation;
+        const saveSessionButton = TrainingSessionView.renderSaveSessionComponent(navigation);
+        
+        return {
+            headerLeft: <Text></Text>,
+            headerRight: saveSessionButton
+        }
     }
 
     static get styles() {
