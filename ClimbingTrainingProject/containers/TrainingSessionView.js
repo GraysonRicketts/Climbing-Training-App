@@ -54,10 +54,6 @@ export default class TrainingSessionView extends Component {
         })
     }
 
-    componentWillUnmount() {
-        clearInterval(this.timer);
-    }
-
     showAddExercise() {
         this._setModalVisible(true);
     }

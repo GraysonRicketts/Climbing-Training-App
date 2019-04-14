@@ -6,11 +6,12 @@
  */
 
 import React, {Component} from 'react';
-import { StyleSheet, Button, View, TextInput, Dimensions } from 'react-native';
+import { Text, StyleSheet, Button, View, TextInput, Dimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import ClimbPicker from './ClimbPicker';
 import Modal from 'react-native-modal';
 import ClimbingTypes from './../enums/ClimbingTypes';
+import { Switch } from 'react-native-gesture-handler';
 
 const BoulderingValues = {
     V0: 'V0',
@@ -44,6 +45,7 @@ export default class AddExerciseView extends Component {
         
         this.state = {
             text: '',
+            sentIt: true,
             climbSelected: BoulderingValues.V0,
             boulderGradeSelected: BoulderingValues.V0,
             yosemiteGradeSelected: YosemiteValues['5.9'],
@@ -94,6 +96,10 @@ export default class AddExerciseView extends Component {
         }));
     }
 
+    toggleSentSwitch(value) {
+        this.setState( { sentIt: value });
+    }
+
     saveClimb() {
         this.props.saveClimb(this.state.climbSelected, this.state.ClimbPickerIndex);
         this.props.hideModal();
@@ -110,6 +116,20 @@ export default class AddExerciseView extends Component {
                 <View
                     style={styles.container}
                 >
+                    <View
+                        style={styles.sentItRow}
+                    >
+                        <Text
+                            style={styles.sentItText}
+                        >
+                            Sent it?
+                        </Text>
+                        <Switch
+                            onValueChange={this.toggleSentSwitch.bind(this)}
+                            value={this.state.sentIt}
+                        />
+                    </View>
+
                     <TextInput
                         style={styles.exerciseSearch}
                         onChangeText={(text) => this.searchInputChanged(text).bind(this)}
@@ -169,8 +189,21 @@ const styles = StyleSheet.create({
     },
     exerciseSearch: {
         height: 40,
-        marginLeft: '5%',
-        marginRight: '5%',
+        paddingLeft: '5%',
+        paddingRight: '5%',
+        borderColor: '#BBB',
+        borderTopWidth: 0.5,
+        borderRadius: 0,
         fontSize: 20,
+    },
+    sentItRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 3,
+        marginBottom: 3
+    },
+    sentItText: {
+        flexGrow: 2,
+        fontSize: 18
     }
   });
