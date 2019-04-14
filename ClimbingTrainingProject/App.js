@@ -10,7 +10,6 @@ import WelcomeView from './containers/WelcomeView';
 import ProfileView from './containers/ProfileView';
 import StatsView from './containers/StatsView';
 import TrainingSessionView from './containers/TrainingSessionView';
-import AddClimbView from './containers/AddClimbView';
 
 
 const MainStack = createStackNavigator(

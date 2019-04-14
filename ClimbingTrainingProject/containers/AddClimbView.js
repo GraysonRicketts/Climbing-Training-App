@@ -46,7 +46,7 @@ export default class AddExerciseView extends Component {
             text: '',
             climbSelected: BoulderingValues.V0,
             boulderGradeSelected: BoulderingValues.V0,
-            yoesmiteGradeSelected: YosemiteValues['5.9'],
+            yosemiteGradeSelected: YosemiteValues['5.9'],
             navigationState: {
                 index: ClimbingTypes.BOULDERING,
                 routes: [
@@ -71,7 +71,7 @@ export default class AddExerciseView extends Component {
             climbSelected = this.state.boulderGradeSelected;
         }
         else {
-            climbSelected = this.state.yoesmiteGradeSelected;
+            climbSelected = this.state.yosemiteGradeSelected;
         }
         this.climbSelectedChanged(climbSelected);
     }
@@ -82,8 +82,8 @@ export default class AddExerciseView extends Component {
             climbSelected: value,
             boulderGradeSelected: prevState.navigationState.index === ClimbingTypes.BOULDERING 
                 ? value : prevState.boulderGradeSelected,
-            yoesmiteGradeSelected: prevState.navigationState.index === ClimbingTypes.YOSEMITE 
-                ? value : prevState.yoesmiteGradeSelected
+            yosemiteGradeSelected: prevState.navigationState.index === ClimbingTypes.YOSEMITE 
+                ? value : prevState.yosemiteGradeSelected
         }));
     }
 

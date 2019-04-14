@@ -22,15 +22,31 @@ export default class TrainingSessionView extends Component {
         }
     }
 
-    _setModalVisible(visible) {
-        this.setState({
-            modalVisible: visible
-        })
-    }
+    render() {
+        return (
+        <View style={TrainingSessionView.styles.container}>
+            <Text style={TrainingSessionView.styles.header}>Session training screen</Text>
+            
+            <FlatList
+                data={this.state.climbs}
+                keyExtractor={(item) => item.key.toString()}
+                renderItem={TrainingSessionView.renderItem}
+                ListEmptyComponent={TrainingSessionView.renderEmptyComponent}
+                style={TrainingSessionView.styles.sectionList}
+            />
 
-    _getClimbingKey() {
-        this._key = this._key + 1;
-        return this._key;
+            <Button
+                onPress={this.showAddExercise.bind(this, this.props.navigation)}
+                title={'Add'}
+            ></Button>
+            <AddClimbView
+                style={TrainingSessionView.styles.addClimbView}
+                visible={this.state.modalVisible}
+                hideModal={this.hideAddExercise.bind(this)}
+                saveClimb={this.saveClimb.bind(this)}
+            />
+          </View>
+        );
     }
 
     showAddExercise() {
@@ -43,12 +59,13 @@ export default class TrainingSessionView extends Component {
 
     saveClimb(climb, climbType) {
         const newClimb = {
+            key: this._getClimbingKey(),
             route: {
-                key: this._getClimbingKey(),
                 climbType,
                 difficulty: climb
             }
         }
+
         this.setState(prevState => ({
             climbs: [...prevState.climbs, newClimb]
         }));
@@ -65,75 +82,60 @@ export default class TrainingSessionView extends Component {
         // }
     }
 
-    render() {
-        return (
-          <View style={styles.container}>
-            <Text style={styles.header}>Session training screen</Text>
-            
-            <FlatList
-                data={this.state.climbs}
-                keyExtractor={(item) => item.key}
-                renderItem={renderItem}
-                ListEmptyComponent={renderEmptyComponent}
-                style={styles.sectionList}
-            />
+    _setModalVisible(visible) {
+        this.setState({
+            modalVisible: visible
+        })
+    }
 
-            <Button
-                onPress={this.showAddExercise.bind(this, this.props.navigation)}
-                title={'Add'}
-            ></Button>
-            <AddClimbView
-                style={styles.addClimbView}
-                visible={this.state.modalVisible}
-                hideModal={this.hideAddExercise.bind(this)}
-                saveClimb={this.saveClimb.bind(this)}
-            />
-          </View>
-        );
-      }
+    _getClimbingKey() {
+        this._key = this._key + 1;
+        return this._key;
+    }
+
+     static renderItem(data) {
+        const climb = data.item;
+        const title = climb.route.difficulty;
+    
+        return (<Text style={TrainingSessionView.styles.item}>{title}</Text>);
+    }
+
+    static renderEmptyComponent() {
+        const instructions = 'Add a climb by clicking the button below';
+    
+        return (<Text>{instructions}</Text>);
+    }
+
+    static get styles() {
+        return (StyleSheet.create({
+            container: {
+                flex: 1,
+                flexDirection: 'column',
+                backgroundColor: '#F5FCFF',
+                paddingBottom: '5%'
+            },
+            header: {
+                fontSize: 20,
+                textAlign: 'center',
+                margin: 10,
+            },
+            sectionHeader: {
+                paddingTop: 2,
+                paddingLeft: 10,
+                paddingRight: 10,
+                paddingBottom: 2,
+                fontSize: 14,
+                fontWeight: 'bold',
+                backgroundColor: 'rgba(247,247,247,1.0)',
+            },
+            sectionList: {
+                flexGrow: 2
+            },
+            item: {
+                padding: 10,
+                fontSize: 18,
+                height: 44,
+            },
+        }));
+    }
 }
-
-function renderEmptyComponent() {
-    const instructions = 'Add a climb by clicking the button below';
-
-    return (<Text>{instructions}</Text>);
-}
-
-function renderItem(data) {
-    const climb = data.item;
-    const title = climb.route.difficulty;
-
-    return (<Text style={styles.item}>{title}</Text>);
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        backgroundColor: '#F5FCFF',
-        paddingBottom: '5%'
-    },
-    header: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    sectionHeader: {
-        paddingTop: 2,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 2,
-        fontSize: 14,
-        fontWeight: 'bold',
-        backgroundColor: 'rgba(247,247,247,1.0)',
-    },
-    sectionList: {
-        flexGrow: 2
-    },
-    item: {
-        padding: 10,
-        fontSize: 18,
-        height: 44,
-    },
-  });
-
