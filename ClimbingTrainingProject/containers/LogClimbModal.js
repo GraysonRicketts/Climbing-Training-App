@@ -10,7 +10,7 @@ import { Text, StyleSheet, Button, View, TextInput, Dimensions } from 'react-nat
 import { TabView, SceneMap } from 'react-native-tab-view';
 import ClimbPicker from './ClimbPicker';
 import Modal from 'react-native-modal';
-import ClimbingTypes from './../enums/ClimbingTypes';
+import ClimbingTypes from '../enums/ClimbingTypes';
 import { Switch } from 'react-native-gesture-handler';
 
 const BoulderingValues = {
@@ -20,9 +20,9 @@ const BoulderingValues = {
     V3: 'V3',
     V4: 'V4',
     V5: 'V5',
-    V7: 'V6',
-    V8: 'V7',
-    V9: 'V8',
+    V6: 'V6',
+    V7: 'V7',
+    V8: 'V8',
 };
 
 const YosemiteValues = {
@@ -38,25 +38,59 @@ const YosemiteValues = {
     '5.12c': '5.12c',
 };
 
+const FrenchValues = {
+    '4': '4',
+    '5': '5',
+    '5+': '5+',
+    '6a': '6a',
+    '6a+': '6a+',
+    '6b': '6b',
+    '6b+': '6b+',
+    '6c': '6c',
+    '6c+': '6c+',
+    '7a': '7a',
+    '7a+': '7a+',
+    '7b': '7b',
+    '7b+': '7b+',
+    '7c': '7c',
+    '7c+': '7c+',
+    '8a': '8a',
+    '8a+': '8a+',
+    '8b': '8b',
+}
 
-export default class AddExerciseView extends Component {
+
+export default class LogClimbModal extends Component {
     constructor(props) {
         super(props);
         
         this.state = {
             text: '',
-            sentIt: true,
-            climbSelected: BoulderingValues.V0,
-            boulderGradeSelected: BoulderingValues.V0,
-            yosemiteGradeSelected: YosemiteValues['5.9'],
+            sentIt: props.sentIt ? props.sentIt : true,
+            climbSelected: props.climbSelected ? props.climbSelected : BoulderingValues.V0,
+            boulderGradeSelected: props.climbingType === ClimbingTypes.BOULDERING ? props.climbSelected : BoulderingValues.V0,
+            yosemiteGradeSelected: props.climbingType === ClimbingTypes.YOSEMITE ? props.climbSelected : YosemiteValues['5.9'],
+            frenchGradeSelected: props.climbingType === ClimbingTypes.FRENCH ? props.climbSelected : FrenchValues['4'],
             navigationState: {
-                index: ClimbingTypes.BOULDERING,
+                index: props.climbingType ? props.climbingType : ClimbingTypes.BOULDERING,
                 routes: [
                     { key: 'first', title: 'Bouldering' },
                     { key: 'second', title: 'Yosemite' },
+                    { key: 'third', title: 'French' }
                 ],
-            }
+            },
+            climbKey: undefined
         }
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState(prevState => ({
+            climbKey: props.climbKey,
+            climbSelected: props.climbSelected,
+            boulderGradeSelected: props.climbingType === ClimbingTypes.BOULDERING ? props.climbSelected : prevState.boulderGradeSelected,
+            yosemiteGradeSelected: props.climbingType === ClimbingTypes.YOSEMITE ? props.climbSelected : prevState.yosemiteGradeSelected,
+            frenchGradeSelected: props.climbingType === ClimbingTypes.FRENCH ? props.climbSelected : prevState.frenchGradeSelected,
+        }));
     }
 
     tabChanged(index) {
@@ -72,8 +106,11 @@ export default class AddExerciseView extends Component {
         if (index === ClimbingTypes.BOULDERING) {
             climbSelected = this.state.boulderGradeSelected;
         }
-        else {
+        else if (index === ClimbingTypes.YOSEMITE) {
             climbSelected = this.state.yosemiteGradeSelected;
+        }
+        else if (index === ClimbingTypes.FRENCH) {
+            climbSelected = this.state.frenchGradeSelected;
         }
         this.climbSelectedChanged(climbSelected);
     }
@@ -85,7 +122,9 @@ export default class AddExerciseView extends Component {
             boulderGradeSelected: prevState.navigationState.index === ClimbingTypes.BOULDERING 
                 ? value : prevState.boulderGradeSelected,
             yosemiteGradeSelected: prevState.navigationState.index === ClimbingTypes.YOSEMITE 
-                ? value : prevState.yosemiteGradeSelected
+                ? value : prevState.yosemiteGradeSelected,
+            frenchGradeSelected: prevState.navigationState.index === ClimbingTypes.FRENCH
+                ? value : prevState.frenchGradeSelected,
         }));
     }
 
@@ -101,7 +140,13 @@ export default class AddExerciseView extends Component {
     }
 
     saveClimb() {
-        this.props.saveClimb(this.state.climbSelected, this.state.ClimbPickerIndex);
+        this.props.saveClimb(
+            this.state.climbSelected, 
+            this.state.navigationState.index, 
+            this.state.sentIt,
+            this.state.climbKey);
+
+        this.setState({climbKey: undefined});
         this.props.hideModal();
     }
 
@@ -113,15 +158,9 @@ export default class AddExerciseView extends Component {
                 animationType={'slide'}
                 onRequestClose={this.props.hideModal}
             >
-                <View
-                    style={styles.container}
-                >
-                    <View
-                        style={styles.sentItRow}
-                    >
-                        <Text
-                            style={styles.sentItText}
-                        >
+                <View style={styles.container} >
+                    <View style={styles.sentItRow} >
+                        <Text style={styles.sentItText}>
                             Sent it?
                         </Text>
                         <Switch
@@ -156,6 +195,13 @@ export default class AddExerciseView extends Component {
                                     valueChanged={this.climbSelectedChanged.bind(this)}
                                 />
                             ),
+                            third: () => (
+                                <ClimbPicker
+                                    climbSelected={this.state.climbSelected}
+                                    items={FrenchValues}
+                                    valueChanged={this.climbSelectedChanged.bind(this)}
+                                />
+                            )
                         })}
                         onIndexChange={this.tabChanged.bind(this)}
                         initialLayout={{ 

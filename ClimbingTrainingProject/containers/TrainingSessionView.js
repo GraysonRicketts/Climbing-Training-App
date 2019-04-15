@@ -7,8 +7,8 @@
 
 import React, {Component} from 'react';
 import { StyleSheet, Button, Text, View} from 'react-native';
-import AddClimbView from './AddClimbView';
-import { FlatList } from 'react-native-gesture-handler';
+import LogClimbModal from './LogClimbModal';
+import { FlatList, TouchableHighlight } from 'react-native-gesture-handler';
 
 export default class TrainingSessionView extends Component {
     constructor(props) {
@@ -19,7 +19,8 @@ export default class TrainingSessionView extends Component {
         this.state = {
             startTime: Date.now(),
             modalVisible: false,
-            climbs: []
+            climbs: [],
+            climbSelected: {},
         }
     }
 
@@ -29,20 +30,23 @@ export default class TrainingSessionView extends Component {
             <FlatList
                 data={this.state.climbs}
                 keyExtractor={(item) => item.key.toString()}
-                renderItem={TrainingSessionView.renderItem}
+                renderItem={this.renderClimb.bind(this)}
                 ListEmptyComponent={TrainingSessionView.renderEmptyComponent}
                 style={TrainingSessionView.styles.sectionList}
             />
 
             <Button
-                onPress={this.showAddExercise.bind(this, this.props.navigation)}
+                onPress={this.showClimbModal.bind(this, this.props.navigation)}
                 title={'Add'}
             ></Button>
-            <AddClimbView
+            <LogClimbModal
                 style={TrainingSessionView.styles.addClimbView}
                 visible={this.state.modalVisible}
-                hideModal={this.hideAddExercise.bind(this)}
+                hideModal={this.hideClimbModal.bind(this)}
                 saveClimb={this.saveClimb.bind(this)}
+                climbSelected={this.state.climbSelected.difficulty}
+                climbingType={this.state.climbSelected.type}
+                climbKey={this.state.climbSelected.key}
             />
           </View>
         );
@@ -54,26 +58,64 @@ export default class TrainingSessionView extends Component {
         })
     }
 
-    showAddExercise() {
+    showClimbModal() {
         this._setModalVisible(true);
     }
     
-    hideAddExercise() {
+    hideClimbModal() {
         this._setModalVisible(false);
     }
 
-    saveClimb(climb, climbType) {
-        const newClimb = {
-            key: this._getClimbingKey(),
-            route: {
-                climbType,
-                difficulty: climb
-            }
+    editClimb(climbKey) {
+        const climb = this.state.climbs.find(climb => climb.key === climbKey);
+
+        if (climb) {
+            this.setState((prevState) => ({
+                ...prevState,
+                climbSelected: {
+                    key: climb.key,
+                    difficulty: climb.route.difficulty,
+                    type: climb.route.climbType,
+                    sentIt: climb.sentIt
+                }
+            }))
+        }
+        else {
+            // TODO: log error that unable to edit climb
         }
 
-        this.setState(prevState => ({
-            climbs: [...prevState.climbs, newClimb]
-        }));
+        this.showClimbModal();
+    }
+
+    saveClimb(climb, climbType, sentIt, _key) {
+        const newClimb = {
+            key: _key ? _key : this._getClimbingKey(),
+            route: {
+                climbType: climbType,
+                difficulty: climb
+            },
+            sentIt,
+        }
+
+        if (!_key) {
+            this.setState(prevState => ({
+                climbs: [...prevState.climbs, newClimb]
+            }));
+        }
+        else { // Edit existing climb
+            let updatedClimbs = this.state.climbs.slice();
+            updatedClimbs = updatedClimbs.map((climb) => {
+                if (climb.key === _key) {
+                    return {
+                        ...climb,
+                        route: newClimb.route,
+                        sentIt: newClimb.sentIt
+                    }
+                }
+            })
+
+            this.setState(({ climbs: updatedClimbs }));
+        }
         // {
         //     key: 1,
         //     route: {
@@ -108,11 +150,23 @@ export default class TrainingSessionView extends Component {
         return this._key;
     }
 
-     static renderItem(data) {
+    renderClimb(data) {
         const climb = data.item;
         const title = climb.route.difficulty;
+        const sentIt = climb.sentIt;
     
-        return (<Text style={TrainingSessionView.styles.item}>{title}</Text>);
+        return (
+            <TouchableHighlight onPress={this.editClimb.bind(this, climb.key)}>
+                <View style={TrainingSessionView.styles.climbRow}>
+                    <Text style={TrainingSessionView.styles.climbDifficulty}>
+                        {title}
+                    </Text>
+                    <Text style={TrainingSessionView.styles.climbSent}>
+                        {sentIt ? '✔️' : '❌'}
+                    </Text>
+                </View>
+            </TouchableHighlight>
+        );
     }
 
     static renderEmptyComponent() {
@@ -170,6 +224,23 @@ export default class TrainingSessionView extends Component {
                 fontSize: 18,
                 height: 44,
             },
+            climbRow: {
+                flexDirection: 'row',
+                paddingLeft: 50,
+                paddingRight: 50,
+                paddingTop: 5,
+                paddingBottom: 5,
+                borderColor: '#AAA',
+                borderRadius: 0,
+                borderBottomWidth: 0.5
+            },
+            climbDifficulty: {
+                fontSize: 20,
+                flexGrow: 2
+            },
+            climbSent: {
+                fontSize: 20
+            }
         }));
     }
 }
