@@ -7,27 +7,50 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class StatsView extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+          climbingSessions: []
+        }
+    }
+
+    componentWillMount() {
+      this._getClimbingSessions();
     }
 
     render() {
         return (
           <View style={styles.container}>
-            <Text style={styles.welcome}>Stats screen</Text>
-            <Text style={styles.instructions}>{instructions}</Text>
+            <Text>lolol</Text>
           </View>
         );
       }
+
+    async _getClimbingSessions() {
+      try {
+        let sessionKeys = await AsyncStorage.getAllKeys();
+        if (!sessionKeys) {
+          return undefined;
+        }
+
+        let climbingSessions = await AsyncStorage.multiGet(sessionKeys);
+        for (let sessionIdx = 0; sessionIdx < climbingSessions.length; sessionIdx++) {
+          let sessionInfo = climbingSessions[sessionIdx][1]
+          climbingSessions[sessionIdx][1] = JSON.parse(sessionInfo); // Turn string back into climbs object
+        }
+
+        this.setState({
+          climbingSessions
+        })
+      }
+      catch(error) {
+        console.error(error);
+      }
+    }
 }
 
 const styles = StyleSheet.create({

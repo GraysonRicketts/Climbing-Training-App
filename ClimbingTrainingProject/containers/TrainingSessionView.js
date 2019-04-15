@@ -8,16 +8,18 @@
 import React, {Component} from 'react';
 import { StyleSheet, Button, Text, View} from 'react-native';
 import LogClimbModal from './LogClimbModal';
-import { FlatList, TouchableHighlight } from 'react-native-gesture-handler';
+import { FlatList } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-community/async-storage';
+import ClimbDataRow from './../components/ClimbDataRow';
 
 export default class TrainingSessionView extends Component {
     constructor(props) {
         super(props);
         this._key = 0;
 
-        // TODO: track start time + end time
         this.state = {
             startTime: Date.now(),
+            endTime: undefined,
             modalVisible: false,
             climbs: [],
             climbSelected: {
@@ -34,7 +36,14 @@ export default class TrainingSessionView extends Component {
                 <FlatList
                     data={this.state.climbs}
                     keyExtractor={(item) => item.key.toString()}
-                    renderItem={this.renderClimb.bind(this)}
+                    renderItem={(data) => (
+                        <ClimbDataRow 
+                            difficulty={data.item.route.difficulty}
+                            sentIt={data.item.sentIt}
+                            isSelected={data.item.key === this.state.climbSelected.key}
+                            onPress={this.editClimb.bind(this, data.item.key)}
+                        />
+                    )}
                     ListEmptyComponent={TrainingSessionView.renderEmptyComponent}
                     style={TrainingSessionView.styles.sectionList}
                 />
@@ -142,7 +151,22 @@ export default class TrainingSessionView extends Component {
         // }
     }
 
-    saveSession() {
+    async saveSession() {
+        this.setState({
+            endTime: Date.now()
+        })
+
+        if (this.state.climbs.length > 0) {
+            const sessionStringified = JSON.stringify(this.state.climbs);
+            const sessionKey = Date.now().toString();
+    
+            try {
+                await AsyncStorage.setItem(sessionKey, sessionStringified);
+            } catch(error) {
+                console.error(error);
+            }
+        }
+
         this.props.navigation.goBack();
     }
 
@@ -161,31 +185,6 @@ export default class TrainingSessionView extends Component {
     _getClimbingKey() {
         this._key = this._key + 1;
         return this._key;
-    }
-
-    renderClimb(data) {
-        const climb = data.item;
-        const title = climb.route.difficulty;
-        const sentIt = climb.sentIt;
-        const key = climb.key;
-    
-        return (
-            <TouchableHighlight 
-                onPress={this.editClimb.bind(this, climb.key)}
-                underlayColor={'#F5FCFF'}
-                activeOpacity={0.5}
-                style={key === this.state.climbSelected.key ? { backgroundColor: '#73C2FB'} : undefined }
-            >
-                <View style={TrainingSessionView.styles.climbRow}>
-                    <Text style={TrainingSessionView.styles.climbDifficulty}>
-                        {title}
-                    </Text>
-                    <Text style={TrainingSessionView.styles.climbSent}>
-                        {sentIt ? '✔️' : '❌'}
-                    </Text>
-                </View>
-            </TouchableHighlight>
-        );
     }
 
     static renderEmptyComponent() {
@@ -242,23 +241,6 @@ export default class TrainingSessionView extends Component {
                 padding: 10,
                 fontSize: 18,
                 height: 44,
-            },
-            climbRow: {
-                flexDirection: 'row',
-                paddingLeft: 50,
-                paddingRight: 50,
-                paddingTop: 5,
-                paddingBottom: 5,
-                borderColor: '#AAA',
-                borderRadius: 0,
-                borderBottomWidth: 0.5
-            },
-            climbDifficulty: {
-                fontSize: 20,
-                flexGrow: 2
-            },
-            climbSent: {
-                fontSize: 20
             }
         }));
     }
