@@ -167,12 +167,14 @@ export default class TrainingSessionView extends Component {
         const climb = data.item;
         const title = climb.route.difficulty;
         const sentIt = climb.sentIt;
+        const key = climb.key;
     
         return (
             <TouchableHighlight 
                 onPress={this.editClimb.bind(this, climb.key)}
-                underlayColor='#F5FCFF'
-                style={TrainingSessionView.styles.touchableClimbRow}
+                underlayColor={'#F5FCFF'}
+                activeOpacity={0.5}
+                style={key === this.state.climbSelected.key ? { backgroundColor: '#73C2FB'} : undefined }
             >
                 <View style={TrainingSessionView.styles.climbRow}>
                     <Text style={TrainingSessionView.styles.climbDifficulty}>
