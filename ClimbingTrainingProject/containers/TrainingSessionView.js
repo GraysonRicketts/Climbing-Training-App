@@ -171,6 +171,7 @@ export default class TrainingSessionView extends Component {
         return (
             <TouchableHighlight 
                 onPress={this.editClimb.bind(this, climb.key)}
+                underlayColor='#F5FCFF'
                 style={TrainingSessionView.styles.touchableClimbRow}
             >
                 <View style={TrainingSessionView.styles.climbRow}>
@@ -239,9 +240,6 @@ export default class TrainingSessionView extends Component {
                 padding: 10,
                 fontSize: 18,
                 height: 44,
-            },
-            touchableClimbRow: {
-                backgroundColor: '#F5FCFF'
             },
             climbRow: {
                 flexDirection: 'row',
