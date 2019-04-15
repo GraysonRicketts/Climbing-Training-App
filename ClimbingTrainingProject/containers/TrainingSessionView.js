@@ -45,7 +45,7 @@ export default class TrainingSessionView extends Component {
                 ></Button>
                 <LogClimbModal
                     style={TrainingSessionView.styles.addClimbView}
-                    visible={this.state.modalVisible}
+                    isVisible={this.state.modalVisible}
                     hideModal={this.hideClimbModal.bind(this)}
                     saveClimb={this.saveClimb.bind(this)}
                     climbSelected={this.state.climbSelected.difficulty}

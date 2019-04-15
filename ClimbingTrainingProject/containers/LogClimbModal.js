@@ -67,6 +67,7 @@ export default class LogClimbModal extends Component {
         this.state = {
             text: '',
             sentIt: props.sentIt ? props.sentIt : true,
+            climbKey: undefined,
             climbSelected: props.climbSelected ? props.climbSelected : BoulderingValues.V0,
             boulderGradeSelected: props.climbingType === ClimbingTypes.BOULDERING ? props.climbSelected : BoulderingValues.V0,
             yosemiteGradeSelected: props.climbingType === ClimbingTypes.YOSEMITE ? props.climbSelected : YosemiteValues['5.9'],
@@ -79,14 +80,17 @@ export default class LogClimbModal extends Component {
                     { key: 'third', title: 'French' }
                 ],
             },
-            climbKey: undefined
         }
+    }
+
+    hideModal() {
+        this.props.hideModal();
     }
 
     componentWillReceiveProps(props) {
         this.setState(prevState => ({
             climbKey: props.climbKey,
-            climbSelected: props.climbSelected,
+            climbSelected: props.climbSelected ? props.climbSelected : BoulderingValues.V0,
             boulderGradeSelected: props.climbingType === ClimbingTypes.BOULDERING ? props.climbSelected : prevState.boulderGradeSelected,
             yosemiteGradeSelected: props.climbingType === ClimbingTypes.YOSEMITE ? props.climbSelected : prevState.yosemiteGradeSelected,
             frenchGradeSelected: props.climbingType === ClimbingTypes.FRENCH ? props.climbSelected : prevState.frenchGradeSelected,
@@ -150,13 +154,32 @@ export default class LogClimbModal extends Component {
         this.props.hideModal();
     }
 
+    _getItemsForPicker(values) {
+        if (!this.state.text) { // Don't do costly loop if no search
+            return values;
+        }
+
+        let filteredValues = {};
+        for (const key in values) {
+            if (key.includes(this.state.text)) {
+                filteredValues[key] = key;
+            }
+        }
+
+        return filteredValues;
+    }
+
     render() {
         return (
             <Modal
                 style={styles.modal}
-                visible={this.props.visible}
+                isVisible={this.props.isVisible}
                 animationType={'slide'}
-                onRequestClose={this.props.hideModal}
+                onRequestClose={this.hideModal.bind(this)}
+                onBackdropPress={this.hideModal.bind(this)}
+                swipeDirection='down'
+                onSwipeComplete={() => this.hideModal() }
+                avoidKeyboard={true}
             >
                 <View style={styles.container} >
                     <View style={styles.sentItRow} >
@@ -171,7 +194,7 @@ export default class LogClimbModal extends Component {
 
                     <TextInput
                         style={styles.exerciseSearch}
-                        onChangeText={(text) => this.searchInputChanged(text).bind(this)}
+                        onChangeText={(text) => this.searchInputChanged(text)}
                         value={this.state.text}
                         numberOfLines={1}
                         placeholder={'🔍 Search'}
@@ -184,21 +207,21 @@ export default class LogClimbModal extends Component {
                             first: () => (
                                 <ClimbPicker
                                     climbSelected={this.state.climbSelected}
-                                    items={BoulderingValues}
+                                    items={this._getItemsForPicker(BoulderingValues)}
                                     valueChanged={this.climbSelectedChanged.bind(this)}
                                 />
                             ),
                             second: () => (
                                 <ClimbPicker
                                     climbSelected={this.state.climbSelected}
-                                    items={YosemiteValues}
+                                    items={this._getItemsForPicker(YosemiteValues)}
                                     valueChanged={this.climbSelectedChanged.bind(this)}
                                 />
                             ),
                             third: () => (
                                 <ClimbPicker
                                     climbSelected={this.state.climbSelected}
-                                    items={FrenchValues}
+                                    items={this._getItemsForPicker(FrenchValues)}
                                     valueChanged={this.climbSelectedChanged.bind(this)}
                                 />
                             )
@@ -213,7 +236,7 @@ export default class LogClimbModal extends Component {
                     <Button
                         onPress={this.saveClimb.bind(this)}
                         title={'Save'}
-                    ></Button>
+                    />
                 </View>
             </Modal>
         );
