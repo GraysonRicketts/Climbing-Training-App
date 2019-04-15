@@ -20,7 +20,11 @@ export default class TrainingSessionView extends Component {
             startTime: Date.now(),
             modalVisible: false,
             climbs: [],
-            climbSelected: {},
+            climbSelected: {
+                difficulty: undefined,
+                type: undefined,
+                key: undefined
+            },
         }
     }
 
@@ -112,7 +116,13 @@ export default class TrainingSessionView extends Component {
                 return climb;
             })
 
-            this.setState(({ climbs: updatedClimbs }));
+            this.setState(prevState => ({ 
+                climbs: updatedClimbs,
+                climbSelected: {
+                    ...prevState.climbSelected,
+                    key: undefined
+                }
+            }));
         }
         else { // Add new climb
             this.setState(prevState => ({
@@ -159,7 +169,10 @@ export default class TrainingSessionView extends Component {
         const sentIt = climb.sentIt;
     
         return (
-            <TouchableHighlight onPress={this.editClimb.bind(this, climb.key)}>
+            <TouchableHighlight 
+                onPress={this.editClimb.bind(this, climb.key)}
+                style={TrainingSessionView.styles.touchableClimbRow}
+            >
                 <View style={TrainingSessionView.styles.climbRow}>
                     <Text style={TrainingSessionView.styles.climbDifficulty}>
                         {title}
@@ -226,6 +239,9 @@ export default class TrainingSessionView extends Component {
                 padding: 10,
                 fontSize: 18,
                 height: 44,
+            },
+            touchableClimbRow: {
+                backgroundColor: '#F5FCFF'
             },
             climbRow: {
                 flexDirection: 'row',
