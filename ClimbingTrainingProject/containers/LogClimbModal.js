@@ -8,7 +8,7 @@
 import React, {Component} from 'react';
 import { Text, StyleSheet, Button, View, TextInput, Dimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
-import ClimbPicker from './ClimbPicker';
+import ClimbPicker from '../components/ClimbPicker';
 import Modal from 'react-native-modal';
 import ClimbingTypes from '../enums/ClimbingTypes';
 import { Switch } from 'react-native-gesture-handler';
@@ -59,8 +59,42 @@ const FrenchValues = {
     '8b': '8b',
 }
 
+const styles = StyleSheet.create({
+    modal: {
+        justifyContent: 'flex-end',
+        margin: 0,
+    },
+    container: {
+        borderColor: '#AAA',
+        borderTopWidth: 0.5,
+        borderRadius: 0,
+        backgroundColor: '#FFF',
+        height: 350,
+        paddingBottom: 30
+    },
+    exerciseSearch: {
+        height: 40,
+        paddingLeft: '5%',
+        paddingRight: '5%',
+        borderColor: '#BBB',
+        borderTopWidth: 0.5,
+        borderRadius: 0,
+        fontSize: 20,
+    },
+    sentItRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 3,
+        marginBottom: 3
+    },
+    sentItText: {
+        flexGrow: 2,
+        fontSize: 18
+    }
+  });
 
-export default class LogClimbModal extends Component {
+
+class LogClimbModal extends Component {
     constructor(props) {
         super(props);
         
@@ -81,92 +115,6 @@ export default class LogClimbModal extends Component {
                 ],
             },
         }
-    }
-
-    hideModal() {
-        this.props.hideModal();
-    }
-
-    componentWillReceiveProps(props) {
-        this.setState(prevState => ({
-            climbKey: props.climbKey,
-            climbSelected: props.climbSelected ? props.climbSelected : BoulderingValues.V0,
-            boulderGradeSelected: props.climbingType === ClimbingTypes.BOULDERING ? props.climbSelected : prevState.boulderGradeSelected,
-            yosemiteGradeSelected: props.climbingType === ClimbingTypes.YOSEMITE ? props.climbSelected : prevState.yosemiteGradeSelected,
-            frenchGradeSelected: props.climbingType === ClimbingTypes.FRENCH ? props.climbSelected : prevState.frenchGradeSelected,
-        }));
-    }
-
-    tabChanged(index) {
-        this.setState(prevState => ({
-            ...prevState,
-            navigationState: {
-                ...prevState.navigationState,
-                index
-            }
-         }));
-
-        let climbSelected;
-        if (index === ClimbingTypes.BOULDERING) {
-            climbSelected = this.state.boulderGradeSelected;
-        }
-        else if (index === ClimbingTypes.YOSEMITE) {
-            climbSelected = this.state.yosemiteGradeSelected;
-        }
-        else if (index === ClimbingTypes.FRENCH) {
-            climbSelected = this.state.frenchGradeSelected;
-        }
-        this.climbSelectedChanged(climbSelected);
-    }
-
-    climbSelectedChanged(value) {
-        this.setState(prevState => ({
-            ...prevState,
-            climbSelected: value,
-            boulderGradeSelected: prevState.navigationState.index === ClimbingTypes.BOULDERING 
-                ? value : prevState.boulderGradeSelected,
-            yosemiteGradeSelected: prevState.navigationState.index === ClimbingTypes.YOSEMITE 
-                ? value : prevState.yosemiteGradeSelected,
-            frenchGradeSelected: prevState.navigationState.index === ClimbingTypes.FRENCH
-                ? value : prevState.frenchGradeSelected,
-        }));
-    }
-
-    searchInputChanged(text) {
-        this.setState(prevState => ({
-            ...prevState,
-            text
-        }));
-    }
-
-    toggleSentSwitch(value) {
-        this.setState( { sentIt: value });
-    }
-
-    saveClimb() {
-        this.props.saveClimb(
-            this.state.climbSelected, 
-            this.state.navigationState.index, 
-            this.state.sentIt,
-            this.state.climbKey);
-
-        this.setState({climbKey: undefined});
-        this.props.hideModal();
-    }
-
-    _getItemsForPicker(values) {
-        if (!this.state.text) { // Don't do costly loop if no search
-            return values;
-        }
-
-        let filteredValues = {};
-        for (const key in values) {
-            if (key.includes(this.state.text)) {
-                filteredValues[key] = key;
-            }
-        }
-
-        return filteredValues;
     }
 
     render() {
@@ -241,38 +189,93 @@ export default class LogClimbModal extends Component {
             </Modal>
         );
       }
+
+      
+    componentWillReceiveProps(props) {
+        this.setState(prevState => ({
+            climbKey: props.climbKey,
+            climbSelected: props.climbSelected ? props.climbSelected : BoulderingValues.V0,
+            boulderGradeSelected: props.climbingType === ClimbingTypes.BOULDERING ? props.climbSelected : prevState.boulderGradeSelected,
+            yosemiteGradeSelected: props.climbingType === ClimbingTypes.YOSEMITE ? props.climbSelected : prevState.yosemiteGradeSelected,
+            frenchGradeSelected: props.climbingType === ClimbingTypes.FRENCH ? props.climbSelected : prevState.frenchGradeSelected,
+        }));
+    }
+        
+    hideModal() {
+        this.props.hideModal();
+    }
+
+    tabChanged(index) {
+        this.setState(prevState => ({
+            ...prevState,
+            navigationState: {
+                ...prevState.navigationState,
+                index
+            }
+         }));
+
+        let climbSelected;
+        if (index === ClimbingTypes.BOULDERING) {
+            climbSelected = this.state.boulderGradeSelected;
+        }
+        else if (index === ClimbingTypes.YOSEMITE) {
+            climbSelected = this.state.yosemiteGradeSelected;
+        }
+        else if (index === ClimbingTypes.FRENCH) {
+            climbSelected = this.state.frenchGradeSelected;
+        }
+        this.climbSelectedChanged(climbSelected);
+    }
+
+    climbSelectedChanged(value) {
+        this.setState(prevState => ({
+            ...prevState,
+            climbSelected: value,
+            boulderGradeSelected: prevState.navigationState.index === ClimbingTypes.BOULDERING 
+                ? value : prevState.boulderGradeSelected,
+            yosemiteGradeSelected: prevState.navigationState.index === ClimbingTypes.YOSEMITE 
+                ? value : prevState.yosemiteGradeSelected,
+            frenchGradeSelected: prevState.navigationState.index === ClimbingTypes.FRENCH
+                ? value : prevState.frenchGradeSelected,
+        }));
+    }
+
+    searchInputChanged(text) {
+        this.setState(prevState => ({
+            ...prevState,
+            text
+        }));
+    }
+
+    toggleSentSwitch(value) {
+        this.setState( { sentIt: value });
+    }
+
+    saveClimb() {
+        this.props.saveClimb(
+            this.state.climbSelected, 
+            this.state.navigationState.index, 
+            this.state.sentIt,
+            this.state.climbKey);
+
+        this.setState({climbKey: undefined});
+        this.props.hideModal();
+    }
+
+    _getItemsForPicker(values) {
+        if (!this.state.text) { // Don't do costly loop if no search
+            return values;
+        }
+
+        let filteredValues = {};
+        for (const key in values) {
+            if (key.includes(this.state.text)) {
+                filteredValues[key] = key;
+            }
+        }
+
+        return filteredValues;
+    }
 }
 
-const styles = StyleSheet.create({
-    modal: {
-        justifyContent: 'flex-end',
-        margin: 0,
-    },
-    container: {
-        borderColor: '#AAA',
-        borderTopWidth: 0.5,
-        borderRadius: 0,
-        backgroundColor: '#FFF',
-        height: 350,
-        paddingBottom: 30
-    },
-    exerciseSearch: {
-        height: 40,
-        paddingLeft: '5%',
-        paddingRight: '5%',
-        borderColor: '#BBB',
-        borderTopWidth: 0.5,
-        borderRadius: 0,
-        fontSize: 20,
-    },
-    sentItRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: 3,
-        marginBottom: 3
-    },
-    sentItText: {
-        flexGrow: 2,
-        fontSize: 18
-    }
-  });
+  export default LogClimbModal;

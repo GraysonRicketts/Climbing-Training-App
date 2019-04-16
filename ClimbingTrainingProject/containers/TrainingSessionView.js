@@ -12,7 +12,24 @@ import { FlatList } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
 import ClimbDataRow from './../components/ClimbDataRow';
 
-export default class TrainingSessionView extends Component {
+const styles = (StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        backgroundColor: '#F5FCFF',
+        paddingBottom: '5%'
+    },
+    header: {
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10,
+    },
+    climbList: {
+        flexGrow: 2
+    }
+}));
+
+class TrainingSessionView extends Component {
     constructor(props) {
         super(props);
         this._key = 0;
@@ -32,7 +49,7 @@ export default class TrainingSessionView extends Component {
 
     render() {
         return (
-            <View style={TrainingSessionView.styles.container}>
+            <View style={styles.container}>
                 <FlatList
                     data={this.state.climbs}
                     keyExtractor={(item) => item.key.toString()}
@@ -45,7 +62,7 @@ export default class TrainingSessionView extends Component {
                         />
                     )}
                     ListEmptyComponent={TrainingSessionView.renderEmptyComponent}
-                    style={TrainingSessionView.styles.sectionList}
+                    style={styles.sectionList}
                 />
 
                 <Button
@@ -53,7 +70,7 @@ export default class TrainingSessionView extends Component {
                     title={'Add'}
                 ></Button>
                 <LogClimbModal
-                    style={TrainingSessionView.styles.addClimbView}
+                    style={styles.addClimbView}
                     isVisible={this.state.modalVisible}
                     hideModal={this.hideClimbModal.bind(this)}
                     saveClimb={this.saveClimb.bind(this)}
@@ -211,37 +228,6 @@ export default class TrainingSessionView extends Component {
             headerRight: saveSessionButton
         }
     }
-
-    static get styles() {
-        return (StyleSheet.create({
-            container: {
-                flex: 1,
-                flexDirection: 'column',
-                backgroundColor: '#F5FCFF',
-                paddingBottom: '5%'
-            },
-            header: {
-                fontSize: 20,
-                textAlign: 'center',
-                margin: 10,
-            },
-            sectionHeader: {
-                paddingTop: 2,
-                paddingLeft: 10,
-                paddingRight: 10,
-                paddingBottom: 2,
-                fontSize: 14,
-                fontWeight: 'bold',
-                backgroundColor: 'rgba(247,247,247,1.0)',
-            },
-            sectionList: {
-                flexGrow: 2
-            },
-            item: {
-                padding: 10,
-                fontSize: 18,
-                height: 44,
-            }
-        }));
-    }
 }
+
+export default TrainingSessionView;
