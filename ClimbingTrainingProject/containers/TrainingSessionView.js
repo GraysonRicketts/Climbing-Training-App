@@ -11,6 +11,8 @@ import LogClimbModal from './LogClimbModal';
 import { FlatList } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
 import ClimbDataRow from './../components/ClimbDataRow';
+import NoClimbsComponent from './../components/NoClimbsComponent';
+import SessionHeaderButton from '../components/SessionHeaderButton';
 
 const styles = (StyleSheet.create({
     container: {
@@ -61,7 +63,7 @@ class TrainingSessionView extends Component {
                             onPress={this.editClimb.bind(this, data.item.key)}
                         />
                     )}
-                    ListEmptyComponent={TrainingSessionView.renderEmptyComponent}
+                    ListEmptyComponent={<NoClimbsComponent />}
                     style={styles.sectionList}
                 />
 
@@ -84,7 +86,8 @@ class TrainingSessionView extends Component {
 
     componentDidMount() {
         this.props.navigation.setParams({
-            saveSession: this.saveSession.bind(this)
+            saveSession: this.saveSession.bind(this),
+            cancelSession: this._goBack.bind(this)
         })
     }
 
@@ -184,13 +187,11 @@ class TrainingSessionView extends Component {
             }
         }
 
-        this.props.navigation.goBack();
+        this._goBack();
     }
-
-    updateSecondsSinceStarted() {
-        this.setState(prevState => ({
-            secondsSinceStarted: prevState.secondsSinceStarted + 1
-        }));
+    
+    _goBack() {
+        this.props.navigation.goBack();
     }
 
     _setModalVisible(visible) {
@@ -204,28 +205,21 @@ class TrainingSessionView extends Component {
         return this._key;
     }
 
-    static renderEmptyComponent() {
-        const instructions = 'Add a climb by clicking the button below';
-    
-        return (<Text>{instructions}</Text>);
-    }
-
-    static renderSaveSessionComponent(navigation) {
-        return (
-            <Button
-                title='Save workout'
-                onPress={navigation.getParam('saveSession')}
-            />
-        );
-    }
-
     static navigationOptions(navigationState) {
         const navigation = navigationState.navigation;
-        const saveSessionButton = TrainingSessionView.renderSaveSessionComponent(navigation);
         
         return {
-            headerLeft: <Text></Text>,
-            headerRight: saveSessionButton
+            headerLeft: <SessionHeaderButton
+                title={'Discard session'}
+                navigation={navigation}
+                navigationParam={'cancelSession'}
+                isCancel={true}
+            />,
+            headerRight: <SessionHeaderButton 
+                title={'Save session'}
+                navigation={navigation}
+                navigationParam={'saveSession'}
+            />
         }
     }
 }
