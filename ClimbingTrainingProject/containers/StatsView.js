@@ -8,7 +8,8 @@
 import React, {Component} from 'react';
 import {SectionList, StyleSheet, Text, View} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import ClimbDataRow from '../components/ClimbDataRow';
+import ClimbDataRow from './../components/ClimbDataRow';
+import ClimbingSessionHeader from './../components/ClimbingSessionHeader'
 
 const styles = StyleSheet.create({
   container: {
@@ -17,6 +18,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
+  sessionList: {
+    width: '100%',
+  },
+  sessionSeparator: {
+    backgroundColor: '#FDFDFD',
+    height: 25,
+    borderColor: '#AAA',
+    borderBottomWidth: 1,
+    borderRadius: 0
+  }
 });
 
 class StatsView extends Component {
@@ -48,9 +59,15 @@ class StatsView extends Component {
                   key={index}
                 />)}
               renderSectionHeader={({section: {title}}) => (
-                <Text style={{fontWeight: 'bold'}}>{title}</Text>
+                <ClimbingSessionHeader 
+                  isTitleInMilliseconds={true}
+                  title={title}
+                />
               )}
               sections={sessionsFormatedForSection}
+              style={styles.sessionList}
+              renderSectionFooter={() => <View style={styles.sessionSeparator}/>}
+              stickySectionHeadersEnabled={true}
             />
           </View>
         );
