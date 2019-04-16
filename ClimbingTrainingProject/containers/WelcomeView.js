@@ -6,73 +6,70 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Button, Text, View} from 'react-native';
+import { StyleSheet, Button, Text, View} from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  climberGuy: {
+    fontSize: 100
+  },
+  header: {
+    fontSize: 35,
+    textAlign: 'center',
+    color: '#444',
+    margin: 10,
+    marginBottom: 90
+  },
+  buttonSeparator: {
+    marginBottom: 40,
+  }
 });
 
-export default class WelcomeView extends Component {
-  constructor(props) {
-      super(props);
-  }
-
+class WelcomeView extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to a climbing training app!</Text>
+        <Text style={styles.climberGuy}>🧗‍♂️</Text>
+        <Text style={styles.header}>Log and view your climbs</Text>
 
         <Button
-          title='Log training session'
-          onPress={pushTrainingSessionView.bind(this, this.props.navigation)}
-        ></Button>
+          title='Log session'
+          onPress={this._pushTrainingSessionView.bind(this)}
+        />
 
+        <View style={styles.buttonSeparator} />
+
+        {/* TODO: add profile
+        
         <Button
           title='Profile'
-          onPress={pushProfileView.bind(this, this.props.navigation)}
-        ></Button>
+          onPress={this._pushProfileView.bind(this)}
+        /> */}
 
         <Button
-          title='Stats'
-          onPress={pushStatsView.bind(this, this.props.navigation)}
-        ></Button>
-
-        <Text style={styles.instructions}>{instructions}</Text>
+          title='Previous climbs'
+          onPress={this._pushStatsView.bind(this)}
+        />
       </View>
     );
   }
+  
+  _pushTrainingSessionView() {
+    this.props.navigation.push('TrainingSession');
+  }
+  
+  _pushProfileView() {
+    this.props.navigation.push('Profile');
+  } 
+  
+  _pushStatsView() {
+    this.props.navigation.push('Stats');
+  }
 }
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-      fontSize: 20,
-      textAlign: 'center',
-      margin: 10,
-    },
-    instructions: {
-      textAlign: 'center',
-      color: '#333333',
-      marginBottom: 5,
-    },
-  });
-
-function pushTrainingSessionView(navigation) {
-  navigation.push('TrainingSession');
-}
-
-function pushProfileView(navigation) {
-  navigation.push('Profile');
-} 
-
-function pushStatsView(navigation) {
-  navigation.push('Stats');
-}
+export default WelcomeView;
