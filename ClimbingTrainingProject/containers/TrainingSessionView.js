@@ -202,7 +202,10 @@ class TrainingSessionView extends Component {
 
         if (this.state.climbs.length > 0) {
             const sessionStringified = JSON.stringify(this.state.climbs);
-            const sessionKey = Date.now().toString();
+            let sessionKey = this.state.startTime.toString();
+            if (this.state.title) {
+                sessionKey += `^${this.state.title}`;
+            }
     
             try {
                 await AsyncStorage.setItem(sessionKey, sessionStringified);

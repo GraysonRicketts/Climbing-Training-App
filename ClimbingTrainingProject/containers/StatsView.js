@@ -46,7 +46,7 @@ class StatsView extends Component {
     render() {
       const sessionsFormatedForSection = this.state.climbingSessions.map((climb) => ({
         title: climb[0], 
-        data:climb[1]
+        data: climb[1]
       }))
 
         return (
@@ -59,8 +59,7 @@ class StatsView extends Component {
                   key={index}
                 />)}
               renderSectionHeader={({section: {title}}) => (
-                <ClimbingSessionHeader 
-                  isTitleInMilliseconds={true}
+                <ClimbingSessionHeader
                   title={title}
                 />
               )}
@@ -99,9 +98,9 @@ class StatsView extends Component {
     }
 
     _compareClimbDates(climb1, climb2) {
-      const climb1Num = parseInt(climb1[0]);
-      const climb2Num = parseInt(climb2[0]);
-      return climb2Num - climb1Num;
+      const climb1Date = parseInt(climb1[0].split('^')[0]);
+      const climb2Date = parseInt(climb2[0].split('^')[0]);
+      return climb2Date - climb1Date;
     }
 }
 
