@@ -14,6 +14,7 @@ import ClimbDataRow from './../components/ClimbDataRow';
 import NoClimbsComponent from './../components/NoClimbsComponent';
 import SessionHeaderButton from './../components/SessionHeaderButton';
 import formatDate_MMMM_DD_YYYY from './../helpers/DateFormatter';
+import ConfirmModal from '../components/ConfirmModal';
 
 const styles = (StyleSheet.create({
     container: {
@@ -50,14 +51,15 @@ class TrainingSessionView extends Component {
         this.state = {
             startTime: Date.now(),
             endTime: undefined,
-            modalVisible: false,
+            showLogClimbModal: false,
             climbs: [],
             climbSelected: {
                 difficulty: undefined,
                 type: undefined,
                 key: undefined
             },
-            title: formatDate_MMMM_DD_YYYY(Date.now())
+            title: formatDate_MMMM_DD_YYYY(Date.now()),
+            showCancelModal: false
         }
     }
 
@@ -70,6 +72,16 @@ class TrainingSessionView extends Component {
                     value={this.state.title}
                     numberOfLines={1}
                 />
+
+                <ConfirmModal 
+                    confirmDialog='Are you sure you want to discard this session? This action cannot be undone.'
+                    cancelText='Go back'
+                    confirmText='Discard this session'
+                    confirmAction={this._goBack.bind(this)}
+                    cancelAction={() => {this.setState({ showCancelModal: false})}}
+                    isVisible={this.state.showCancelModal}
+                />
+
                 <FlatList
                     data={this.state.climbs}
                     keyExtractor={(item) => item.key.toString()}
@@ -91,7 +103,7 @@ class TrainingSessionView extends Component {
                 ></Button>
                 <LogClimbModal
                     style={styles.addClimbView}
-                    isVisible={this.state.modalVisible}
+                    isVisible={this.state.showLogClimbModal}
                     hideModal={this.hideClimbModal.bind(this)}
                     saveClimb={this.saveClimb.bind(this)}
                     climbSelected={this.state.climbSelected.difficulty}
@@ -105,7 +117,7 @@ class TrainingSessionView extends Component {
     componentDidMount() {
         this.props.navigation.setParams({
             saveSession: this.saveSession.bind(this),
-            cancelSession: this._goBack.bind(this)
+            cancelSession: this.setState({ showCancelModal: true })
         })
     }
 
