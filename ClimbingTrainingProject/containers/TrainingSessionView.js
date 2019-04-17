@@ -6,13 +6,14 @@
  */
 
 import React, {Component} from 'react';
-import { StyleSheet, Button, Text, View} from 'react-native';
+import { StyleSheet, Button, TextInput, View} from 'react-native';
 import LogClimbModal from './LogClimbModal';
 import { FlatList } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
 import ClimbDataRow from './../components/ClimbDataRow';
 import NoClimbsComponent from './../components/NoClimbsComponent';
-import SessionHeaderButton from '../components/SessionHeaderButton';
+import SessionHeaderButton from './../components/SessionHeaderButton';
+import formatDate_MMMM_DD_YYYY from './../helpers/DateFormatter';
 
 const styles = (StyleSheet.create({
     container: {
@@ -28,6 +29,16 @@ const styles = (StyleSheet.create({
     },
     climbList: {
         flexGrow: 2
+    },
+    titleInput: {
+        height: 40,
+        paddingLeft: '5%',
+        paddingRight: '5%',
+        borderColor: '#BBB',
+        borderBottomWidth: 0.5,
+        borderRadius: 0,
+        fontSize: 20,
+        backgroundColor: '#FDFDFD'
     }
 }));
 
@@ -46,12 +57,19 @@ class TrainingSessionView extends Component {
                 type: undefined,
                 key: undefined
             },
+            title: formatDate_MMMM_DD_YYYY(Date.now())
         }
     }
 
     render() {
         return (
             <View style={styles.container}>
+                <TextInput
+                    style={styles.titleInput}
+                    onChangeText={(text) => this.titleInputChanged(text)}
+                    value={this.state.title}
+                    numberOfLines={1}
+                />
                 <FlatList
                     data={this.state.climbs}
                     keyExtractor={(item) => item.key.toString()}
@@ -89,6 +107,12 @@ class TrainingSessionView extends Component {
             saveSession: this.saveSession.bind(this),
             cancelSession: this._goBack.bind(this)
         })
+    }
+
+    titleInputChanged(text) {
+        this.setState({
+            title: text
+        });
     }
 
     showClimbModal() {
