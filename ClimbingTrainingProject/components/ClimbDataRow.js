@@ -1,23 +1,25 @@
 import React, {Component} from 'react';
 import { TouchableHighlight, View, Text, StyleSheet } from 'react-native';
 
+const ROW_FONT_SIZE = 30;
+
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         paddingLeft: 50,
         paddingRight: 50,
-        paddingTop: 5,
-        paddingBottom: 5,
+        paddingTop: 25,
+        paddingBottom: 25,
         borderColor: '#AAA',
         borderRadius: 0,
         borderBottomWidth: 0.5
     },
     difficultyText: {
-        fontSize: 20,
+        fontSize: ROW_FONT_SIZE,
         flexGrow: 2
     },
     sentText: {
-        fontSize: 20
+        fontSize: ROW_FONT_SIZE
     }
 });
 
