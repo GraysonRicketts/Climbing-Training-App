@@ -6,10 +6,9 @@
  */
 
 import React, {Component} from 'react';
-import { Alert, StyleSheet, TextInput, View} from 'react-native';
-import LogClimbModal from './LogClimbModal';
-import { FlatList } from 'react-native-gesture-handler';
+import { Alert, StyleSheet, TextInput, View, FlatList} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import LogClimbModal from './LogClimbModal';
 import ClimbDataRow from './../components/ClimbDataRow';
 import NoClimbsComponent from './../components/NoClimbsComponent';
 import SessionHeaderButton from './../components/SessionHeaderButton';
@@ -52,6 +51,9 @@ const styles = (StyleSheet.create({
 class TrainingSessionView extends Component {
     constructor(props) {
         super(props);
+
+        this._flatList = React.createRef();
+        
         this._key = 0;
 
         this.state = {
@@ -91,6 +93,7 @@ class TrainingSessionView extends Component {
                     )}
                     ListEmptyComponent={<NoClimbsComponent />}
                     style={styles.sectionList}
+                    ref={this._flatList}
                 />
 
                 <Button
@@ -188,47 +191,44 @@ class TrainingSessionView extends Component {
                 difficulty: climb
             },
             sentIt,
-        }
-
+        };
         
-        if (_key) { // Edit existing climb
-            let updatedClimbs = this.state.climbs.slice();
-            updatedClimbs = updatedClimbs.map((climb) => {
-                if (climb.key === _key) {
-                    return {
-                        ...climb,
-                        route: newClimb.route,
-                        sentIt: newClimb.sentIt
-                    }
-                }
-
-                return climb;
-            })
-
-            this.setState(prevState => ({ 
-                climbs: updatedClimbs,
-                climbSelected: {
-                    ...prevState.climbSelected,
-                    key: undefined
-                }
-            }));
+        if (_key) {
+            this._editClimb(_key, newClimb);
         }
         else { // Add new climb
-            this.setState(prevState => ({
-                climbs: [...prevState.climbs, newClimb]
-            }));
+            this._saveNewClimb(newClimb);
         }
-        // {
-        //     key: 1,
-        //     route: {
-        //         climbType: climbTypes.BOULDER,
-        //         name: 'The Godfather',
-        //         difficulty: 'V4',
-        //         location: {x: 21, y: 43}
-        //     },
-        //     attempts: 1,
-        //     climbed: true
-        // }
+
+        this._flatList.current.scrollToEnd();
+    }
+
+    _saveNewClimb(newClimb) {
+        this.setState(prevState => ({
+            climbs: [...prevState.climbs, newClimb]
+        }));
+    }
+
+    _editClimb(_key, newClimb) {
+        let updatedClimbs = this.state.climbs.slice();
+        updatedClimbs = updatedClimbs.map((climb) => {
+            if (climb.key === _key) {
+                return {
+                    ...climb,
+                    route: newClimb.route,
+                    sentIt: newClimb.sentIt
+                };
+            }
+            return climb;
+        });
+
+        this.setState(prevState => ({
+            climbs: updatedClimbs,
+            climbSelected: {
+                ...prevState.climbSelected,
+                key: undefined
+            }
+        }));
     }
 
     async saveSession() {
