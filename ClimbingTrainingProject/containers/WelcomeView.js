@@ -6,7 +6,8 @@
  */
 
 import React, {Component} from 'react';
-import { StyleSheet, Button, Text, View} from 'react-native';
+import { StyleSheet, Text, View} from 'react-native';
+import Button from './../components/Button';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,8 +25,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20
   },
-  buttonSeparator: {
-    height: 40,
+  navigationButton: {
+    backgroundColor: '#7ED7D7',
+    margin: 50,
+    padding: 20
   }
 });
 
@@ -36,20 +39,17 @@ class WelcomeView extends Component {
         <Button
           title='Log session'
           onPress={this._pushTrainingSessionView.bind(this)}
+          style={styles.navigationButton}
+          fontSize={30}
+          fontColor={'#020202'}
         />
-
-        <View style={styles.buttonSeparator} />
-
-        {/* TODO: add profile
-        
-        <Button
-          title='Profile'
-          onPress={this._pushProfileView.bind(this)}
-        /> */}
 
         <Button
           title='Previous climbs'
           onPress={this._pushStatsView.bind(this)}
+          style={styles.navigationButton}
+          fontSize={30}
+          fontColor={'#020202'}
         />
 
         <Text style={styles.explanatoryText}>* This app is currently under development. Expect frequent changes and possible loss of data.</Text>
@@ -71,7 +71,8 @@ class WelcomeView extends Component {
 
   static navigationOptions(navigationState) {
     return {
-      title: '‍‍🧗‍♀️ Welcome *'
+      title: '‍‍🧗‍♀️ Welcome *',
+      // TODO: Add profile + settings button in header
     }
   }
 }
