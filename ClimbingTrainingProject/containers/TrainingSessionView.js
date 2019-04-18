@@ -6,13 +6,14 @@
  */
 
 import React, {Component} from 'react';
-import { StyleSheet, Button, Text, View} from 'react-native';
+import { Alert, StyleSheet, Button, TextInput, View} from 'react-native';
 import LogClimbModal from './LogClimbModal';
 import { FlatList } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
 import ClimbDataRow from './../components/ClimbDataRow';
 import NoClimbsComponent from './../components/NoClimbsComponent';
-import SessionHeaderButton from '../components/SessionHeaderButton';
+import SessionHeaderButton from './../components/SessionHeaderButton';
+import formatDate_MMMM_DD_YYYY from './../helpers/DateFormatter';
 
 const styles = (StyleSheet.create({
     container: {
@@ -28,6 +29,16 @@ const styles = (StyleSheet.create({
     },
     climbList: {
         flexGrow: 2
+    },
+    titleInput: {
+        height: 40,
+        paddingLeft: '5%',
+        paddingRight: '5%',
+        borderColor: '#BBB',
+        borderBottomWidth: 0.5,
+        borderRadius: 0,
+        fontSize: 20,
+        backgroundColor: '#FDFDFD'
     }
 }));
 
@@ -39,19 +50,27 @@ class TrainingSessionView extends Component {
         this.state = {
             startTime: Date.now(),
             endTime: undefined,
-            modalVisible: false,
+            showLogClimbModal: false,
             climbs: [],
             climbSelected: {
                 difficulty: undefined,
                 type: undefined,
                 key: undefined
             },
+            title: formatDate_MMMM_DD_YYYY(Date.now()),
         }
     }
 
     render() {
         return (
             <View style={styles.container}>
+                <TextInput
+                    style={styles.titleInput}
+                    onChangeText={(text) => this.titleInputChanged(text)}
+                    value={this.state.title}
+                    numberOfLines={1}
+                />
+
                 <FlatList
                     data={this.state.climbs}
                     keyExtractor={(item) => item.key.toString()}
@@ -73,7 +92,7 @@ class TrainingSessionView extends Component {
                 ></Button>
                 <LogClimbModal
                     style={styles.addClimbView}
-                    isVisible={this.state.modalVisible}
+                    isVisible={this.state.showLogClimbModal}
                     hideModal={this.hideClimbModal.bind(this)}
                     saveClimb={this.saveClimb.bind(this)}
                     climbSelected={this.state.climbSelected.difficulty}
@@ -87,16 +106,46 @@ class TrainingSessionView extends Component {
     componentDidMount() {
         this.props.navigation.setParams({
             saveSession: this.saveSession.bind(this),
-            cancelSession: this._goBack.bind(this)
+            cancelSession: this._showConfirmCancelAlert.bind(this)
         })
     }
 
+    titleInputChanged(text) {
+        this.setState({
+            title: text
+        });
+    }
+
+    _showConfirmCancelAlert() {
+        if (this.state.climbs.length === 0) {
+            this.discardSession();
+            return;
+        }
+
+        Alert.alert(
+            'This action cannot be undone', // Title
+            'Are you sure you want to discard this session?', // Alert message
+            [ // Buttons
+                {
+                    text: 'Go Back',
+                    onPress: undefined,
+                    style: 'cancel'
+                },
+                {
+                    text: 'Discard',
+                    onPress: this.discardSession.bind(this),
+                    style: 'destructive'
+                },
+            ]
+        );
+    }
+
     showClimbModal() {
-        this._setModalVisible(true);
+        this._setLogClimbModalVisible(true);
     }
     
     hideClimbModal() {
-        this._setModalVisible(false);
+        this._setLogClimbModalVisible(false);
     }
 
     editClimb(climbKey) {
@@ -178,7 +227,10 @@ class TrainingSessionView extends Component {
 
         if (this.state.climbs.length > 0) {
             const sessionStringified = JSON.stringify(this.state.climbs);
-            const sessionKey = Date.now().toString();
+            let sessionKey = this.state.startTime.toString();
+            if (this.state.title) {
+                sessionKey += `^${this.state.title}`;
+            }
     
             try {
                 await AsyncStorage.setItem(sessionKey, sessionStringified);
@@ -189,14 +241,18 @@ class TrainingSessionView extends Component {
 
         this._goBack();
     }
+
+    discardSession() {
+        this._goBack();
+    }
     
     _goBack() {
         this.props.navigation.goBack();
     }
 
-    _setModalVisible(visible) {
+    _setLogClimbModalVisible(visible) {
         this.setState({
-            modalVisible: visible
+            showLogClimbModal: visible
         })
     }
 
