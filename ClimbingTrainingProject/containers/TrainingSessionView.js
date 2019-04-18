@@ -6,7 +6,7 @@
  */
 
 import React, {Component} from 'react';
-import { Alert, StyleSheet, Button, TextInput, View} from 'react-native';
+import { Alert, StyleSheet, TextInput, View} from 'react-native';
 import LogClimbModal from './LogClimbModal';
 import { FlatList } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -14,13 +14,13 @@ import ClimbDataRow from './../components/ClimbDataRow';
 import NoClimbsComponent from './../components/NoClimbsComponent';
 import SessionHeaderButton from './../components/SessionHeaderButton';
 import formatDate_MMMM_DD_YYYY from './../helpers/DateFormatter';
+import Button from './../components/Button';
 
 const styles = (StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
         backgroundColor: '#F5FCFF',
-        paddingBottom: '5%'
     },
     header: {
         fontSize: 20,
@@ -39,6 +39,13 @@ const styles = (StyleSheet.create({
         borderRadius: 0,
         fontSize: 20,
         backgroundColor: '#FDFDFD'
+    },
+    addButton: {
+        backgroundColor: '#0F992D',
+        width: '100%',
+        height: '15%',
+        paddingTop: 20,
+        paddingBottom: '4%'
     }
 }));
 
@@ -87,8 +94,12 @@ class TrainingSessionView extends Component {
                 />
 
                 <Button
+                    title={'Add climb'}
                     onPress={this.showClimbModal.bind(this, this.props.navigation)}
-                    title={'Add'}
+                    fontSize={26}
+                    fontColor={'#FEFEFE'}
+                    isEmphasized={true}
+                    style={styles.addButton}
                 ></Button>
                 <LogClimbModal
                     style={styles.addClimbView}

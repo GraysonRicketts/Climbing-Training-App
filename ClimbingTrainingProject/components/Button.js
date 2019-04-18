@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 
 class Button extends Component {
  render() {
-    const { title, onPress, fontSize, fontColor, style } = this.props;
+    const { title, onPress, fontSize, fontColor, isEmphasized, style } = this.props;
 
    return (
         <TouchableOpacity
@@ -27,7 +27,8 @@ class Button extends Component {
             <Text
                 style={{
                     fontSize,
-                    color: fontColor
+                    color: fontColor,
+                    fontWeight: isEmphasized ? 'bold' : 'normal'
                 }}
             >
                 {title}
