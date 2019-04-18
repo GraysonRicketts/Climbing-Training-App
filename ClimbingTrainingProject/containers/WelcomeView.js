@@ -11,22 +11,21 @@ import { StyleSheet, Button, Text, View} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   climberGuy: {
     fontSize: 100
   },
-  header: {
-    fontSize: 35,
+  explanatoryText: {
+    fontSize: 14,
     textAlign: 'center',
-    color: '#444',
-    margin: 10,
-    marginBottom: 90
+    color: '#222',
+    position: 'absolute',
+    bottom: 20
   },
   buttonSeparator: {
-    marginBottom: 40,
+    height: 40,
   }
 });
 
@@ -34,9 +33,6 @@ class WelcomeView extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.climberGuy}>🧗‍♂️</Text>
-        <Text style={styles.header}>Log and view your climbs</Text>
-
         <Button
           title='Log session'
           onPress={this._pushTrainingSessionView.bind(this)}
@@ -55,6 +51,8 @@ class WelcomeView extends Component {
           title='Previous climbs'
           onPress={this._pushStatsView.bind(this)}
         />
+
+        <Text style={styles.explanatoryText}>* This app is currently under development. Expect frequent changes and possible loss of data.</Text>
       </View>
     );
   }
@@ -69,6 +67,12 @@ class WelcomeView extends Component {
   
   _pushStatsView() {
     this.props.navigation.push('Stats');
+  }
+
+  static navigationOptions(navigationState) {
+    return {
+      title: '‍‍🧗‍♀️ Welcome *'
+    }
   }
 }
 
