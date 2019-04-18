@@ -38,7 +38,12 @@ class ClimbDataRow extends Component {
                 activeOpacity={0.5}
                 style={isSelected ? { backgroundColor: '#73C2FB'} : undefined }
             >
-                <View style={styles.container}>
+                <View 
+                    style={{
+                        ...styles.container,
+                        opacity: sentIt ? 1 : 0.25
+                    }}
+                >
                     <Text style={styles.difficultyText}>
                         {difficulty}
                     </Text>
