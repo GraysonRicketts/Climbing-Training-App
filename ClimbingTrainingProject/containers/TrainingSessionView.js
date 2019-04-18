@@ -43,7 +43,7 @@ const styles = (StyleSheet.create({
     addButton: {
         backgroundColor: '#0F992D',
         width: '100%',
-        height: '15%',
+        height: 100,
         paddingTop: 20,
         paddingBottom: '4%'
     }
@@ -100,7 +100,7 @@ class TrainingSessionView extends Component {
                     fontColor={'#FEFEFE'}
                     isEmphasized={true}
                     style={styles.addButton}
-                ></Button>
+                />
                 <LogClimbModal
                     style={styles.addClimbView}
                     isVisible={this.state.showLogClimbModal}

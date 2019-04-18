@@ -6,12 +6,13 @@
  */
 
 import React, {Component} from 'react';
-import { Text, StyleSheet, Button, View, TextInput, Dimensions } from 'react-native';
+import { Text, StyleSheet, View, TextInput, Dimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import ClimbPicker from '../components/ClimbPicker';
 import Modal from 'react-native-modal';
 import ClimbingTypes from '../enums/ClimbingTypes';
 import { Switch } from 'react-native-gesture-handler';
+import Button from './../components/Button';
 
 const BoulderingValues = {
     V0: 'V0',
@@ -69,8 +70,7 @@ const styles = StyleSheet.create({
         borderTopWidth: 0.5,
         borderRadius: 0,
         backgroundColor: '#FFF',
-        height: 350,
-        paddingBottom: 30
+        height: 400
     },
     exerciseSearch: {
         height: 40,
@@ -90,6 +90,14 @@ const styles = StyleSheet.create({
     sentItText: {
         flexGrow: 2,
         fontSize: 18
+    },
+    saveButton: {
+        backgroundColor: '#0F992D',
+        width: '100%',
+        height: 95,
+        marginTop: 10,
+        paddingTop: 20,
+        paddingBottom: 50
     }
   });
 
@@ -124,7 +132,7 @@ class LogClimbModal extends Component {
             <Modal
                 style={styles.modal}
                 isVisible={isVisible}
-                animationType={'slide'}
+                animationType={'none'}
                 onRequestClose={this.hideModal.bind(this)}
                 onBackdropPress={this.hideModal.bind(this)}
                 swipeDirection='down'
@@ -184,8 +192,12 @@ class LogClimbModal extends Component {
                     />
 
                     <Button
-                        onPress={this.saveClimb.bind(this)}
                         title={'Save'}
+                        onPress={this.saveClimb.bind(this)}
+                        fontSize={20}
+                        fontColor={'#FEFEFE'}
+                        isEmphasized={true}
+                        style={styles.saveButton}
                     />
                 </View>
             </Modal>
