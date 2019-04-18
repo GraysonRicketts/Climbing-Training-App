@@ -118,10 +118,12 @@ class LogClimbModal extends Component {
     }
 
     render() {
+        const { isVisible } = this.props;
+        
         return (
             <Modal
                 style={styles.modal}
-                isVisible={this.props.isVisible}
+                isVisible={isVisible}
                 animationType={'slide'}
                 onRequestClose={this.hideModal.bind(this)}
                 onBackdropPress={this.hideModal.bind(this)}

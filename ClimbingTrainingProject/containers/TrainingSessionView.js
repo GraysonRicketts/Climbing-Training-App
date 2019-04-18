@@ -6,7 +6,7 @@
  */
 
 import React, {Component} from 'react';
-import { StyleSheet, Button, TextInput, View} from 'react-native';
+import { Alert, StyleSheet, Button, TextInput, View} from 'react-native';
 import LogClimbModal from './LogClimbModal';
 import { FlatList } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -14,7 +14,6 @@ import ClimbDataRow from './../components/ClimbDataRow';
 import NoClimbsComponent from './../components/NoClimbsComponent';
 import SessionHeaderButton from './../components/SessionHeaderButton';
 import formatDate_MMMM_DD_YYYY from './../helpers/DateFormatter';
-import ConfirmModal from '../components/ConfirmModal';
 
 const styles = (StyleSheet.create({
     container: {
@@ -59,7 +58,6 @@ class TrainingSessionView extends Component {
                 key: undefined
             },
             title: formatDate_MMMM_DD_YYYY(Date.now()),
-            showCancelModal: false
         }
     }
 
@@ -71,15 +69,6 @@ class TrainingSessionView extends Component {
                     onChangeText={(text) => this.titleInputChanged(text)}
                     value={this.state.title}
                     numberOfLines={1}
-                />
-
-                <ConfirmModal 
-                    confirmDialog='Are you sure you want to discard this session? This action cannot be undone.'
-                    cancelText='Go back'
-                    confirmText='Discard this session'
-                    confirmAction={this._goBack.bind(this)}
-                    cancelAction={() => {this.setState({ showCancelModal: false})}}
-                    isVisible={this.state.showCancelModal}
                 />
 
                 <FlatList
@@ -117,7 +106,7 @@ class TrainingSessionView extends Component {
     componentDidMount() {
         this.props.navigation.setParams({
             saveSession: this.saveSession.bind(this),
-            cancelSession: this.setState({ showCancelModal: true })
+            cancelSession: this._showConfirmCancelAlert.bind(this)
         })
     }
 
@@ -127,12 +116,36 @@ class TrainingSessionView extends Component {
         });
     }
 
+    _showConfirmCancelAlert() {
+        if (this.state.climbs.length === 0) {
+            this.discardSession();
+            return;
+        }
+
+        Alert.alert(
+            'This action cannot be undone', // Title
+            'Are you sure you want to discard this session?', // Alert message
+            [ // Buttons
+                {
+                    text: 'Go Back',
+                    onPress: undefined,
+                    style: 'cancel'
+                },
+                {
+                    text: 'Discard',
+                    onPress: this.discardSession.bind(this),
+                    style: 'destructive'
+                },
+            ]
+        );
+    }
+
     showClimbModal() {
-        this._setModalVisible(true);
+        this._setLogClimbModalVisible(true);
     }
     
     hideClimbModal() {
-        this._setModalVisible(false);
+        this._setLogClimbModalVisible(false);
     }
 
     editClimb(climbKey) {
@@ -228,14 +241,18 @@ class TrainingSessionView extends Component {
 
         this._goBack();
     }
+
+    discardSession() {
+        this._goBack();
+    }
     
     _goBack() {
         this.props.navigation.goBack();
     }
 
-    _setModalVisible(visible) {
+    _setLogClimbModalVisible(visible) {
         this.setState({
-            modalVisible: visible
+            showLogClimbModal: visible
         })
     }
 
