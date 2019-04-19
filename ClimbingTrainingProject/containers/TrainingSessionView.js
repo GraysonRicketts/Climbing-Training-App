@@ -40,7 +40,7 @@ const styles = (StyleSheet.create({
         backgroundColor: '#FDFDFD'
     },
     addButton: {
-        backgroundColor: '#0F992D',
+        backgroundColor: '#64C373',
         width: '100%',
         height: 100,
         paddingTop: 20,
