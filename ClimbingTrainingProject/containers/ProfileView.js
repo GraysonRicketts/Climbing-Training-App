@@ -12,67 +12,89 @@ import Button from './../components/Button';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    justifyContent: 'center'
   },
   explanatoryText: {
     marginTop: 15,
-    fontSize: 18,
-    color: '#222'
+    fontSize: 14,
+    width: '100%',
+    textAlign: 'center',
+    color: '#222',
+    position: 'absolute',
+    bottom: 20
   },
-  navigationButton: {
-    backgroundColor: '#7ED7D7',
-    margin: 50,
-    padding: 20
-  }
+  linkButton: {
+    width: '100%',
+    borderWidth: 1,
+    borderColor: '#020202',
+    padding: 20,
+    marginBottom: -1,
+    alignItems: 'flex-start'
+  },
 });
 
 class ProfileView extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+      super(props);
+  }
+
+  // TODO: profile (screen)
+    // TODO: linked account / login info
+    // TODO: payment info
+  render() {
+    return (
+      <View style={styles.container}>
+        <Button
+          title='Settings'
+          onPress={this._pushSettingsView.bind(this)}
+          style={styles.linkButton}
+          fontSize={18}
+          fontColor={'#5396FC'}
+        />
+
+        <Button
+          title='Send a suggestion'
+          onPress={this._pushSuggestionView.bind(this)}
+          style={styles.linkButton}
+          fontSize={18}
+          fontColor={'#5396FC'}
+        />
+        
+        <Button
+          title='Report a bug'
+          onPress={this._pushReportBugView.bind(this)}
+          style={styles.linkButton}
+          fontSize={20}
+          fontColor={'#FE5042'}
+        />
+
+        <Text style={styles.explanatoryText}>
+          *Customizable profiles to come in future release
+        </Text>
+      </View>
+    );
+  }
+  
+  _pushReportBugView() {
+    this.props.navigation.push('ReportBug');
+  }
+
+  _pushSettingsView() {
+    this.props.navigation.push('Settings');
+  }
+
+  _pushSuggestionView() {
+    this.props.navigation.push('SendSuggestion');
+  }
+
+  static navigationOptions(navigationState) {
+    const { navigation } = navigationState;
+
+    return {
+      title: '‍‍Profile and Settings',
     }
-
-    // TODO: settings zone (screen)
-      // TODO: default grade
-      // TODO: hide grades
-      // TODO: what fields show up when adding climb
-        // TODO: tags
-        // TODO: sent it?
-        // TODO: onsite
-        // TODO: num attempts
-    // TODO: bug report (screen)
-    // TODO: suggestion field (screen)
-    // TODO: profile (screen)
-      // TODO: linked account / login info
-      // TODO: payment info
-    render() {
-        return (
-          <View style={styles.container}>
-            <Text style={styles.explanatoryText}>Customizable profiles to come in future release</Text>
-
-            <Button
-              title='App settings'
-              style={styles.navigationButton}
-              fontSize={30}
-              fontColor={'#020202'}
-            />
-
-            <Button
-              title='Report a bug'
-              style={styles.navigationButton}
-              fontSize={30}
-              fontColor={'#020202'}
-            />
-
-            <Button
-              title='Send a suggestion'
-              style={styles.navigationButton}
-              fontSize={30}
-              fontColor={'#020202'}
-            />
-          </View>
-        );
-      }
+  }
 }
 
 export default ProfileView;

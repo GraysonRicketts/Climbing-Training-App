@@ -4,14 +4,17 @@
  * @format
  * @flow
  */
-import React from 'react';
+
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import WelcomeView from './containers/WelcomeView';
 import ProfileView from './containers/ProfileView';
 import PreviousSessionsView from './containers/PreviousSessionsView';
 import StatsView from './containers/StatsView';
 import TrainingSessionView from './containers/TrainingSessionView';
-import Button from './components/Button';
+import ReportBugView from './containers/customization/ReportBugView';
+import SendSuggestionView from './containers/customization/SendSuggestionView';
+import SettingsView from './containers/customization/SettingsView';
+
 
 const MainStack = createStackNavigator(
   {
@@ -29,6 +32,15 @@ const MainStack = createStackNavigator(
     },
     Profile: {
       screen: ProfileView
+    },
+    ReportBug: {
+      screen: ReportBugView
+    },
+    SendSuggestion: {
+      screen: SendSuggestionView
+    },
+    Settings: {
+      screen: SettingsView
     }
   },
   {
