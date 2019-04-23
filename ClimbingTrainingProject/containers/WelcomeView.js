@@ -45,8 +45,16 @@ class WelcomeView extends Component {
         />
 
         <Button
-          title='Previous climbs'
-          onPress={this._pushStatsView.bind(this)}
+          title='Previous sessions'
+          onPress={this._pushPreviousSessionsView.bind(this)}
+          style={styles.navigationButton}
+          fontSize={30}
+          fontColor={'#020202'}
+        />
+
+        <Button
+          title='Statistics'
+          onPress={this._pushStatisticsView.bind(this)}
           style={styles.navigationButton}
           fontSize={30}
           fontColor={'#020202'}
@@ -65,13 +73,17 @@ class WelcomeView extends Component {
     this.props.navigation.push('Profile');
   } 
   
-  _pushStatsView() {
+  _pushPreviousSessionsView() {
+    this.props.navigation.push('PreviousSessions');
+  }
+
+  _pushStatisticsView() {
     this.props.navigation.push('Stats');
   }
 
   static navigationOptions(navigationState) {
     return {
-      title: '‍‍🧗‍♀️ Welcome *',
+      title: '‍‍🧗‍♀️ Welcome',
       // TODO: Add profile + settings button in header
     }
   }

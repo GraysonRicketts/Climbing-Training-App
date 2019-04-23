@@ -8,6 +8,7 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import WelcomeView from './containers/WelcomeView';
 import ProfileView from './containers/ProfileView';
+import PreviousSessionsView from './containers/PreviousSessionsView';
 import StatsView from './containers/StatsView';
 import TrainingSessionView from './containers/TrainingSessionView';
 
@@ -19,6 +20,9 @@ const MainStack = createStackNavigator(
     },
     TrainingSession: {
       screen: TrainingSessionView
+    },
+    PreviousSessions: {
+      screen: PreviousSessionsView
     },
     Stats: {
       screen: StatsView
