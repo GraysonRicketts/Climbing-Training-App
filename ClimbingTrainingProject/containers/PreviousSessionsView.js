@@ -10,6 +10,8 @@ import {SectionList, StyleSheet, Text, View} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import ClimbDataRow from '../components/ClimbDataRow';
 import ClimbingSessionHeader from '../components/ClimbingSessionHeader'
+import PreviousClimbCalendar from '../components/PreviousClimbCalendar';
+import { formatDate_YYYY_MM_DD } from './../helpers/DateFormatter';
 
 const styles = StyleSheet.create({
   container: {
@@ -49,28 +51,54 @@ class StatsView extends Component {
         data: climb[1]
       }))
 
-        return (
-          <View style={styles.container}>
-            <SectionList
-              renderItem={({item: climb, index}) => (
-                <ClimbDataRow 
-                  difficulty={climb.route.difficulty}
-                  sentIt={climb.sentIt}
-                  key={index}
-                />)}
-              renderSectionHeader={({section: {title}}) => (
-                <ClimbingSessionHeader
-                  title={title}
-                />
-              )}
-              sections={sessionsFormatedForSection}
-              style={styles.sessionList}
-              renderSectionFooter={() => <View style={styles.sessionSeparator}/>}
-              stickySectionHeadersEnabled={true}
-            />
-          </View>
-        );
+      const sessionDates = this._getSessionDates();
+
+      return (
+        <View style={styles.container}>
+          <PreviousClimbCalendar 
+            sessionDates={sessionDates}
+          />
+          <SectionList
+            renderItem={({item: climb, index}) => (
+              <ClimbDataRow 
+                difficulty={climb.route.difficulty}
+                sentIt={climb.sentIt}
+                key={index}
+              />)}
+            renderSectionHeader={({section: {title}}) => (
+              <ClimbingSessionHeader
+                title={title}
+              />
+            )}
+            sections={sessionsFormatedForSection}
+            style={styles.sessionList}
+            renderSectionFooter={() => <View style={styles.sessionSeparator}/>}
+            stickySectionHeadersEnabled={true}
+          />
+        </View>
+      );
+    }
+    
+    _getSessionDates() {
+      if (!this.state.climbingSessions) {
+        return null;
       }
+
+      let dates = [];
+      this.state.climbingSessions.forEach((session) => {
+        const sessionTitle = session[0];
+        
+        let dateInMS = sessionTitle.split('^')[0];
+        const date = formatDate_YYYY_MM_DD(dateInMS);
+        if (!date) {
+          return;
+        }
+        
+        dates.push(date)
+      });
+
+      return dates;
+    }
 
     async _getClimbingSessions() {
       try {

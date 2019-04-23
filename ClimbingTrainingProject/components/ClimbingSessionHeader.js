@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet} from 'react-native';
-import formatDate_MMMM_DD_YYYY from './../helpers/DateFormatter';
+import { formatDate_MMMM_DD_YYYY } from './../helpers/DateFormatter';
 
 
 const styles = (StyleSheet.create({
