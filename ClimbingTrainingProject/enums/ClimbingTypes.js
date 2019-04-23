@@ -1,5 +1,5 @@
 const TypesOfClimbing = {
-    BOULDERING: 0,
+    HUECO: 0,
     YOSEMITE: 1,
     FRENCH: 2
 }

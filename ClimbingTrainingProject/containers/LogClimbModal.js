@@ -10,55 +10,13 @@ import { Text, StyleSheet, View, TextInput, Dimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import ClimbPicker from '../components/ClimbPicker';
 import Modal from 'react-native-modal';
-import ClimbingTypes from '../enums/ClimbingTypes';
+import CLIMBING_TYPE from '../enums/ClimbingTypes';
 import { Switch } from 'react-native-gesture-handler';
 import Button from './../components/Button';
+import FRENCH_RATINGS from './../enums/FrenchRatings';
+import YOSEMITE_RATINGS from './../enums/YosemiteRatings';
+import HUECO_RATINGS from './../enums/HuecoRatings';
 
-const BoulderingValues = {
-    V0: 'V0',
-    V1: 'V1',
-    V2: 'V2',
-    V3: 'V3',
-    V4: 'V4',
-    V5: 'V5',
-    V6: 'V6',
-    V7: 'V7',
-    V8: 'V8',
-};
-
-const YosemiteValues = {
-    '5.9': '5.9',
-    '5.10a': '5.10a',
-    '5.10b': '5.10b',
-    '5.10c': '5.10c',
-    '5.11a': '5.11a',
-    '5.11b': '5.11b',
-    '5.11c': '5.11c',
-    '5.12a': '5.12a',
-    '5.12b': '5.12b',
-    '5.12c': '5.12c',
-};
-
-const FrenchValues = {
-    '4': '4',
-    '5': '5',
-    '5+': '5+',
-    '6a': '6a',
-    '6a+': '6a+',
-    '6b': '6b',
-    '6b+': '6b+',
-    '6c': '6c',
-    '6c+': '6c+',
-    '7a': '7a',
-    '7a+': '7a+',
-    '7b': '7b',
-    '7b+': '7b+',
-    '7c': '7c',
-    '7c+': '7c+',
-    '8a': '8a',
-    '8a+': '8a+',
-    '8b': '8b',
-}
 
 const styles = StyleSheet.create({
     modal: {
@@ -110,14 +68,14 @@ class LogClimbModal extends Component {
             text: '',
             sentIt: props.sentIt ? props.sentIt : true,
             climbKey: undefined,
-            climbSelected: props.climbSelected ? props.climbSelected : BoulderingValues.V0,
-            boulderGradeSelected: props.climbingType === ClimbingTypes.BOULDERING ? props.climbSelected : BoulderingValues.V0,
-            yosemiteGradeSelected: props.climbingType === ClimbingTypes.YOSEMITE ? props.climbSelected : YosemiteValues['5.9'],
-            frenchGradeSelected: props.climbingType === ClimbingTypes.FRENCH ? props.climbSelected : FrenchValues['4'],
+            climbSelected: props.climbSelected ? props.climbSelected : HUECO_RATINGS.V0,
+            boulderGradeSelected: props.climbingType === CLIMBING_TYPE.HUECO ? props.climbSelected : HUECO_RATINGS.V0,
+            yosemiteGradeSelected: props.climbingType === CLIMBING_TYPE.YOSEMITE ? props.climbSelected : YOSEMITE_RATINGS['5.9'],
+            frenchGradeSelected: props.climbingType === CLIMBING_TYPE.FRENCH ? props.climbSelected : FRENCH_RATINGS['4'],
             navigationState: {
-                index: props.climbingType ? props.climbingType : ClimbingTypes.BOULDERING,
+                index: props.climbingType ? props.climbingType : CLIMBING_TYPE.HUECO,
                 routes: [
-                    { key: 'first', title: 'Bouldering' },
+                    { key: 'first', title: 'Hueco' },
                     { key: 'second', title: 'Yosemite' },
                     { key: 'third', title: 'French' }
                 ],
@@ -165,21 +123,21 @@ class LogClimbModal extends Component {
                             first: () => (
                                 <ClimbPicker
                                     climbSelected={this.state.climbSelected}
-                                    items={this._getItemsForPicker(BoulderingValues)}
+                                    items={this._getItemsForPicker(HUECO_RATINGS)}
                                     valueChanged={this.climbSelectedChanged.bind(this)}
                                 />
                             ),
                             second: () => (
                                 <ClimbPicker
                                     climbSelected={this.state.climbSelected}
-                                    items={this._getItemsForPicker(YosemiteValues)}
+                                    items={this._getItemsForPicker(YOSEMITE_RATINGS)}
                                     valueChanged={this.climbSelectedChanged.bind(this)}
                                 />
                             ),
                             third: () => (
                                 <ClimbPicker
                                     climbSelected={this.state.climbSelected}
-                                    items={this._getItemsForPicker(FrenchValues)}
+                                    items={this._getItemsForPicker(FRENCH_RATINGS)}
                                     valueChanged={this.climbSelectedChanged.bind(this)}
                                 />
                             )
@@ -208,10 +166,10 @@ class LogClimbModal extends Component {
     componentWillReceiveProps(props) {
         this.setState(prevState => ({
             climbKey: props.climbKey,
-            climbSelected: props.climbSelected ? props.climbSelected : BoulderingValues.V0,
-            boulderGradeSelected: props.climbingType === ClimbingTypes.BOULDERING ? props.climbSelected : prevState.boulderGradeSelected,
-            yosemiteGradeSelected: props.climbingType === ClimbingTypes.YOSEMITE ? props.climbSelected : prevState.yosemiteGradeSelected,
-            frenchGradeSelected: props.climbingType === ClimbingTypes.FRENCH ? props.climbSelected : prevState.frenchGradeSelected,
+            climbSelected: props.climbSelected ? props.climbSelected : HUECO_RATINGS.V0,
+            boulderGradeSelected: props.climbingType === CLIMBING_TYPE.HUECO ? props.climbSelected : prevState.boulderGradeSelected,
+            yosemiteGradeSelected: props.climbingType === CLIMBING_TYPE.YOSEMITE ? props.climbSelected : prevState.yosemiteGradeSelected,
+            frenchGradeSelected: props.climbingType === CLIMBING_TYPE.FRENCH ? props.climbSelected : prevState.frenchGradeSelected,
         }));
     }
         
@@ -229,13 +187,13 @@ class LogClimbModal extends Component {
          }));
 
         let climbSelected;
-        if (index === ClimbingTypes.BOULDERING) {
+        if (index === CLIMBING_TYPE.HUECO) {
             climbSelected = this.state.boulderGradeSelected;
         }
-        else if (index === ClimbingTypes.YOSEMITE) {
+        else if (index === CLIMBING_TYPE.YOSEMITE) {
             climbSelected = this.state.yosemiteGradeSelected;
         }
-        else if (index === ClimbingTypes.FRENCH) {
+        else if (index === CLIMBING_TYPE.FRENCH) {
             climbSelected = this.state.frenchGradeSelected;
         }
         this.climbSelectedChanged(climbSelected);
@@ -245,11 +203,11 @@ class LogClimbModal extends Component {
         this.setState(prevState => ({
             ...prevState,
             climbSelected: value,
-            boulderGradeSelected: prevState.navigationState.index === ClimbingTypes.BOULDERING 
+            boulderGradeSelected: prevState.navigationState.index === CLIMBING_TYPE.HUECO 
                 ? value : prevState.boulderGradeSelected,
-            yosemiteGradeSelected: prevState.navigationState.index === ClimbingTypes.YOSEMITE 
+            yosemiteGradeSelected: prevState.navigationState.index === CLIMBING_TYPE.YOSEMITE 
                 ? value : prevState.yosemiteGradeSelected,
-            frenchGradeSelected: prevState.navigationState.index === ClimbingTypes.FRENCH
+            frenchGradeSelected: prevState.navigationState.index === CLIMBING_TYPE.FRENCH
                 ? value : prevState.frenchGradeSelected,
         }));
     }

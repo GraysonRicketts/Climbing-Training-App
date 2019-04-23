@@ -1,30 +1,52 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-} from 'react-native'
+    Text,
+    Dimensions
+} from 'react-native';
+import {
+    BarChart,
+} from 'react-native-chart-kit';
 
 const styles = StyleSheet.create({
-    header: {
-        fontSize: 25,
-        color: '#444'
+    container: {
+        paddingTop: 15,
+        paddingLeft: 20,
+        paddingBottom: 30
     },
-    statistic: {
-        alignItems: 'center',
-        padding: 10
+    header: {
+        fontSize: 23,
+        color: '#666'
     },
 });
 
 class Button extends Component {
- render() {
-    const { title, statistic } = this.props;
-   return (
-        <View>
-            <Text style={styles.header}>{title}</Text>
-            <Text style={style.statistic}>{statistic}</Text>
-        </View>
-    )
-  }
+    render() {
+        const { title, data } = this.props;
+        if (!data) {
+            return null;
+        }
+
+        const chartConfig = {
+            backgroundGradientFrom: '#1E2923',
+            backgroundGradientTo: '#08130D',
+            color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+        }
+        const screenWidth = Dimensions.get('window').width;
+
+        return (
+            <View>
+                <Text style={styles.header}>{title}</Text>
+                <BarChart 
+                    data={data}
+                    width={screenWidth}
+                    height={220}
+                    chartConfig={chartConfig}
+                />
+            </View>
+        )
+    }
 }
 
 

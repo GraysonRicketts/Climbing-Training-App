@@ -4,5 +4,9 @@
 			"path": "ClimbingTrainingProject"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"cSpell.words": [
+			"datasets"
+		]
+	}
 }

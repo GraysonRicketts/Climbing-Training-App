@@ -3,6 +3,7 @@ package com.climbingtrainingproject;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.SvgPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.swmansion.reanimated.ReanimatedPackage;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new SvgPackage(),
             new RNScreensPackage(),
             new AsyncStoragePackage(),
             new ReanimatedPackage(),
