@@ -44,7 +44,7 @@ class ReportBug extends Component {
           <View style={styles.container}>
 
             <Text style={styles.explanatoryText}>
-              *Report bug
+              *Report bug to come in future release
             </Text>
           </View>
         );

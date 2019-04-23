@@ -44,7 +44,7 @@ class SendSuggestion extends Component {
           <View style={styles.container}>
 
             <Text style={styles.explanatoryText}>
-              *Send suggestion
+              *Send suggestion to come in future release
             </Text>
           </View>
         );

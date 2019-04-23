@@ -50,7 +50,7 @@ class Settings extends Component {
         return (
           <View style={styles.container}>
             <Text style={styles.explanatoryText}>
-              *Settings
+              *Customization to come in future release
             </Text>
           </View>
         );
