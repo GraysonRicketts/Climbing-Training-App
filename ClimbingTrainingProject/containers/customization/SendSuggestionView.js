@@ -38,17 +38,23 @@ class SendSuggestion extends Component {
         super(props);
     }
 
-    // TODO: suggestion field (screen)
-    render() {
-        return (
-          <View style={styles.container}>
+  // TODO: suggestion field (screen)
+  render() {
+    return (
+      <View style={styles.container}>
 
-            <Text style={styles.explanatoryText}>
-              *Send suggestion to come in future release
-            </Text>
-          </View>
-        );
-      }
+        <Text style={styles.explanatoryText}>
+          *Send suggestion to come in future release
+        </Text>
+      </View>
+    );
+  }
+
+  static navigationOptions(navigationState) {
+    return {
+      title: '‍‍Suggestion',
+    }
+  }
 }
 
 export default SendSuggestion;

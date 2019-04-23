@@ -90,10 +90,8 @@ class ProfileView extends Component {
   }
 
   static navigationOptions(navigationState) {
-    const { navigation } = navigationState;
-
     return {
-      title: '‍‍Profile and Settings',
+      title: '‍‍Profile',
     }
   }
 }

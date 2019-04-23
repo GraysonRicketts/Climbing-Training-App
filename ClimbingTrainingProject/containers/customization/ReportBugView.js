@@ -34,21 +34,27 @@ const styles = StyleSheet.create({
 });
 
 class ReportBug extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+      super(props);
+  }
+
+  // TODO: bug report (screen)
+  render() {
+      return (
+        <View style={styles.container}>
+
+          <Text style={styles.explanatoryText}>
+            *Report bug to come in future release
+          </Text>
+        </View>
+      );
     }
 
-    // TODO: bug report (screen)
-    render() {
-        return (
-          <View style={styles.container}>
-
-            <Text style={styles.explanatoryText}>
-              *Report bug to come in future release
-            </Text>
-          </View>
-        );
-      }
+  static navigationOptions(navigationState) {
+    return {
+      title: '‍‍Report a Bug',
+    }
+  }
 }
 
 export default ReportBug;

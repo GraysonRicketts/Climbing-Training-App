@@ -46,15 +46,21 @@ class Settings extends Component {
         // TODO: sent it?
         // TODO: onsite
         // TODO: num attempts
-    render() {
-        return (
-          <View style={styles.container}>
-            <Text style={styles.explanatoryText}>
-              *Customization to come in future release
-            </Text>
-          </View>
-        );
-      }
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.explanatoryText}>
+          *Customization to come in future release
+        </Text>
+      </View>
+    );
+  }
+
+  static navigationOptions(navigationState) {
+    return {
+      title: '‍‍Settings',
+    }
+  }
 }
 
 export default Settings;
