@@ -29,15 +29,15 @@ class Button extends Component {
         }
 
         const chartConfig = {
-            backgroundGradientFrom: '#1E2923',
-            backgroundGradientTo: '#08130D',
-            color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+            backgroundGradientFrom: '#FaFAFA',
+            backgroundGradientTo: '#FaFAFA',
+            color: (_) => '#111',
         }
-        const screenWidth = Dimensions.get('window').width;
+        const screenWidth = Dimensions.get('window').width * 0.9;
 
         return (
-            <View>
-                <Text style={styles.header}>{title}</Text>
+            <View style={styles.container}>
+                {title ? <Text style={styles.header}>{title}</Text> : null }
                 <BarChart 
                     data={data}
                     width={screenWidth}

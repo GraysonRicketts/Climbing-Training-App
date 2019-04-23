@@ -6,7 +6,7 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Distribution from './../components/statistics/Distribution';
 import AverageNumber from './../components/statistics/AverageNumber';
@@ -42,10 +42,12 @@ class StatsView extends Component {
     render() {
       const avgNumPerSession = this._calculateAvgNumPerSession();
       const percentSent = this._calculatePercentSent();
-      const data = this._getBarChartData(CLIMB_TYPES.HUECO);
+      const huecoData = this._getBarChartData(CLIMB_TYPES.HUECO);
+      const yosemiteData = this._getBarChartData(CLIMB_TYPES.YOSEMITE);
+      const frenchData = this._getBarChartData(CLIMB_TYPES.FRENCH);
 
       return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
           <AverageNumber 
             title='Average number of climbs a session'
             statistic={avgNumPerSession}
@@ -58,9 +60,15 @@ class StatsView extends Component {
 
           <Distribution 
             title='Grades climbed'
-            data={data}
-            />
-        </View>
+            data={huecoData}
+          />
+          <Distribution 
+            data={yosemiteData}
+          />
+          <Distribution 
+            data={frenchData}
+          />
+        </ScrollView>
       );
     }
 
@@ -135,8 +143,10 @@ class StatsView extends Component {
       grades.forEach((grade) => {
         climbData[grade] = undefined
       });
-      
       climbData = this._getCountOfClimbsPerGrade(typeOfClimb, climbData);
+      if (!climbData) {
+        return undefined;
+      }
 
       let data = this._formatDataForGraph(climbData);
       return data;
@@ -165,9 +175,12 @@ class StatsView extends Component {
     for (let n = 0; n < climbingSessions.length; n++) {
       const session = climbingSessions[n][1];
       
-      session
-        .filter(climb => climb.route.climbType === typeOfClimb)
-        .forEach((climb) => {
+      session = session.filter(climb => climb.route.climbType === typeOfClimb);
+      if (!session) {
+        return undefined;
+      }
+
+      session.forEach((climb) => {
           const difficulty = climb.route.difficulty;
           if (climbData[difficulty]) {
             climbData[difficulty] += 1;
