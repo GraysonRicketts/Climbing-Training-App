@@ -82,9 +82,15 @@ class WelcomeView extends Component {
   }
 
   static navigationOptions(navigationState) {
+    const { navigation } = navigationState;
+
     return {
       title: '‍‍🧗‍♀️ Welcome',
-      // TODO: Add profile + settings button in header
+      headerRight: <Button 
+        title={'👤'}
+        onPress={() => navigation.navigate('Profile')}
+        fontSize={20}
+      />
     }
   }
 }
