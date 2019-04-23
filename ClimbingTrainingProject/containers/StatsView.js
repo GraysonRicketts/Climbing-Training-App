@@ -55,7 +55,8 @@ class StatsView extends Component {
 
           <AverageNumber 
             title='Percent of successful climbs'
-            statistic={`${percentSent} %`}
+            statistic={percentSent}
+            isPercentage={true}
           />
 
           <Distribution 

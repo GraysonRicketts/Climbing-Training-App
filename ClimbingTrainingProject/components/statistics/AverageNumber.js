@@ -27,11 +27,19 @@ const styles = StyleSheet.create({
 
 class AverageNumber extends Component {
  render() {
-    const { title, statistic } = this.props;
+    const { title, isPercentage } = this.props;
+    let statistic = this.props.statistic;
+
+    if (statistic) {
+        statistic = `${Number(statistic.toFixed(2))} ${isPercentage ? '%' : ''}`;
+    }
+
    return (
         <View style={styles.container}>
             <Text style={styles.header}>{title}</Text>
-            <Text style={styles.statistic}>{statistic}</Text>
+            <Text style={styles.statistic}>
+                {statistic ? statistic : 'No data'}
+            </Text>
         </View>
     )
   }
