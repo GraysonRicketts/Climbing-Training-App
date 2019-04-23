@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
   },
   linkButton: {
     width: '100%',
-    borderWidth: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
     borderColor: '#020202',
     padding: 20,
     marginBottom: -1,
