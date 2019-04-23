@@ -12,7 +12,7 @@ import LogClimbModal from './LogClimbModal';
 import ClimbDataRow from './../components/ClimbDataRow';
 import NoClimbsComponent from './../components/NoClimbsComponent';
 import SessionHeaderButton from './../components/SessionHeaderButton';
-import formatDate_MMMM_DD_YYYY from './../helpers/DateFormatter';
+import { formatDate_MMMM_DD_YYYY } from './../helpers/DateFormatter';
 import Button from './../components/Button';
 
 const styles = (StyleSheet.create({

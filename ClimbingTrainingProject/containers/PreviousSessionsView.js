@@ -37,7 +37,8 @@ class StatsView extends Component {
         super(props);
 
         this.state = {
-          climbingSessions: []
+          climbingSessions: [],
+          selectedDate: formatDate_YYYY_MM_DD(Date.parse(Date()))
         }
     }
 
@@ -46,10 +47,12 @@ class StatsView extends Component {
     }
 
     render() {
-      const sessionsFormatedForSection = this.state.climbingSessions.map((climb) => ({
-        title: climb[0], 
-        data: climb[1]
-      }))
+      const sessionsFormatedForSection = this.state.climbingSessions
+        .filter(this._climbIsSelected.bind(this))  
+        .map((climb) => ({
+          title: climb[0], 
+          data: climb[1]
+        }))
 
       const sessionDates = this._getSessionDates();
 
@@ -57,7 +60,10 @@ class StatsView extends Component {
         <View style={styles.container}>
           <PreviousClimbCalendar 
             sessionDates={sessionDates}
+            selectedDate={this.state.selectedDate}
+            onDayPress={this.onDayPress.bind(this)}
           />
+
           <SectionList
             renderItem={({item: climb, index}) => (
               <ClimbDataRow 
@@ -77,6 +83,13 @@ class StatsView extends Component {
           />
         </View>
       );
+    }
+
+    _climbIsSelected(climb) {
+      const climbDate = parseInt(climb[0].split('^')[0]);
+      const formattedClimbDate = formatDate_YYYY_MM_DD(climbDate);
+
+      return (formattedClimbDate === this.state.selectedDate);
     }
     
     _getSessionDates() {
@@ -98,6 +111,12 @@ class StatsView extends Component {
       });
 
       return dates;
+    }
+
+    onDayPress(day) {
+      this.setState({
+        selectedDate: day.dateString
+      })
     }
 
     async _getClimbingSessions() {

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  TouchableOpacity,
-  Text,
+  StyleSheet
 } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { formatDate_YYYY_MM_DD } from './../helpers/DateFormatter';
@@ -19,19 +17,19 @@ class PreviousClimbCalendar extends Component {
         }
     }
     render() {
-        const { sessionDates } = this.props;
+        const { sessionDates, selectedDate, onDayPress } = this.props;
         
         let markedDates = {};
         sessionDates.forEach((date) => {
             markedDates[date] = {
                 marked: true,
                 dotColor: 'teal',
-                selected: this.state.selected === date ? true : false
+                selected: selectedDate === date ? true : false
             }
         });
         
-        if (!markedDates[this.state.selected]) {
-            markedDates[this.state.selected] = {selected: true};
+        if (!markedDates[selectedDate]) {
+            markedDates[selectedDate] = {selected: true};
         }
         
         return (
@@ -41,7 +39,7 @@ class PreviousClimbCalendar extends Component {
                 markingType={'simple'}
                 minDate={undefined} // dates before minDate will be grayed out
                 maxDate={undefined} // dates after maxDate will be grayed out
-                onDayPress={this.onDayPress.bind(this)}
+                onDayPress={onDayPress}
                 onDayLongPress={undefined}
                 monthFormat={'MMMM yyyy'}
                 onMonthChange={undefined}
@@ -59,14 +57,6 @@ class PreviousClimbCalendar extends Component {
             />
         )
     }
-
-    onDayPress(day) {
-        this.setState({
-            selected: day.dateString
-        })
-    }
 }
-
-
 
 export default PreviousClimbCalendar;
