@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
   Text,
-} from 'react-native'
+} from 'react-native';
 
 const styles = StyleSheet.create({
     button: {
