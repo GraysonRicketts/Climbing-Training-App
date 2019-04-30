@@ -9,10 +9,9 @@ import React, {Component} from 'react';
 import { 
   StyleSheet, 
   View,
-  Linking
 } from 'react-native';
-import qs from 'qs';
 import SubmissionForm from '../../components/SubmissionForm';
+import { TEMPLATE_ID } from './../../helpers/EmailSender';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,18 +33,10 @@ class ReportBug extends Component {
     return (
       <View style={styles.container}>
         <SubmissionForm 
-          onButtonPress={this.sendEmail.bind(this)}
+          templateId={TEMPLATE_ID.bug}
         />
       </View>
     );
-  }
-
-  async sendEmail(subject, body) {
-    const to = 'grayson.ricketts@gmail.com';
-    let title = `Climbing training app bug: ${subject}`;
-
-    // TODO: use sendPulse or mailGun with Post instead of `mailto:`
-
   }
 
   static navigationOptions(navigationState) {

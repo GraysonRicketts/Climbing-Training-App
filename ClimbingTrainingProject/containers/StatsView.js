@@ -191,7 +191,7 @@ class StatsView extends Component {
   _getCountOfClimbsPerGrade(typeOfClimb, climbData) {
     const climbingSessions = this.state.climbingSessions;
     for (let n = 0; n < climbingSessions.length; n++) {
-      const session = climbingSessions[n][1];
+      let session = climbingSessions[n][1];
       
       session = session.filter(climb => climb.route.climbType === typeOfClimb);
       if (!session) {

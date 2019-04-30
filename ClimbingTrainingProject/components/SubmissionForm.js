@@ -6,6 +6,7 @@ import {
   TextInput
 } from 'react-native';
 import Button from './Button';
+import sendEmail from './../helpers/EmailSender';
 
 const styles = StyleSheet.create({
     label: {
@@ -37,7 +38,8 @@ class SubmissionForm extends Component {
 
         this.state = {
             subject: '',
-            body: ''
+            body: '',
+            from: ''
         }
     }
 
@@ -56,6 +58,13 @@ class SubmissionForm extends Component {
                     onChangeText={this.subjectTextChanged.bind(this)}
                 />
 
+                <Text style={styles.label}>From</Text>
+                <TextInput
+                    style={styles.textInput}
+                    value={this.state.from}
+                    onChangeText={this.fromTextChanged.bind(this)}
+                />
+
                 <Text style={styles.label}>Issue</Text>
                 <TextInput
                     style={{
@@ -69,7 +78,7 @@ class SubmissionForm extends Component {
 
                 <Button 
                     title={buttonTitle ? buttonTitle : 'Submit'}
-                    onPress={this._onButtonPress.bind(this)}
+                    onPress={this.submit.bind(this)}
                     fontSize={20}
                     fontColor={'#FDFDFD'}
                     isEmphasized={true}
@@ -79,19 +88,28 @@ class SubmissionForm extends Component {
         );
     }
 
-    _onButtonPress() {
-        const { onButtonPress } = this.props;
+    submit() {
         const {
+            templateId
+        } = this.props;
+        const { 
+            from,
             subject,
-            body
+            body 
         } = this.state;
 
-        onButtonPress(subject, body);
+        sendEmail(templateId, subject, from, body);
     }
 
     subjectTextChanged(subject) {
         this.setState({
             subject
+        });
+    }
+
+    subjectTextChanged(from) {
+        this.setState({
+            from
         });
     }
 
