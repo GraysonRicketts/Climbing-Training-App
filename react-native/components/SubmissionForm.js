@@ -98,6 +98,7 @@ class SubmissionForm extends Component {
             body 
         } = this.state;
 
+        // TODO: add validation letting user know they can add email in from
         sendEmail(templateId, subject, from, body);
     }
 
@@ -107,7 +108,7 @@ class SubmissionForm extends Component {
         });
     }
 
-    subjectTextChanged(from) {
+    fromTextChanged(from) {
         this.setState({
             from
         });
