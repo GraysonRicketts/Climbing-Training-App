@@ -6,7 +6,11 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { 
+  StyleSheet, 
+  ScrollView,
+  Text,
+} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Distribution from './../components/statistics/Distribution';
 import AverageNumber from './../components/statistics/AverageNumber';
@@ -19,7 +23,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF',
-  }
+  },
+  distributionHeader: {
+    fontSize: 23,
+    color: '#666'
+  },
 });
 
 class StatsView extends Component {
@@ -40,12 +48,16 @@ class StatsView extends Component {
     // TODO: types (e.g. slab, crimp, overhang)
     // TODO: personal tags
     render() {
+      const distributionTitle = 'Grades climbed';
       const avgNumPerSession = this._calculateAvgNumPerSession();
       const percentSent = this._calculatePercentSent();
+      
       const huecoData = this._getBarChartData(CLIMB_TYPES.HUECO);
       const yosemiteData = this._getBarChartData(CLIMB_TYPES.YOSEMITE);
       const frenchData = this._getBarChartData(CLIMB_TYPES.FRENCH);
+      const dataByGrade = [huecoData, yosemiteData, frenchData];
 
+      let distKeyId = 0;
       return (
         <ScrollView style={styles.container}>
           <AverageNumber 
@@ -59,16 +71,21 @@ class StatsView extends Component {
             isPercentage={true}
           />
 
-          <Distribution 
-            title='Grades climbed'
-            data={huecoData}
-          />
-          <Distribution 
-            data={yosemiteData}
-          />
-          <Distribution 
-            data={frenchData}
-          />
+          <Text style={styles.distributionHeader}>{distributionTitle}</Text>
+
+          {
+            dataByGrade.forEach((dataSet) => {
+              if (!dataSet || dataSet.length === 0) {
+                return null;
+              }
+
+              return (
+                <Distribution 
+                  data={dataSet}
+                  key={distKeyId++}
+                />);
+            })
+          }
         </ScrollView>
       );
     }

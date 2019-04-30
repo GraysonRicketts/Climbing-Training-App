@@ -8,8 +8,10 @@
 import React, {Component} from 'react';
 import { 
   StyleSheet, 
-  View, 
+  View,
+  Linking
 } from 'react-native';
+import qs from 'qs';
 import SubmissionForm from '../../components/SubmissionForm';
 
 const styles = StyleSheet.create({
@@ -27,15 +29,23 @@ class ReportBug extends Component {
       super(props);
   }
 
-  // TODO: bug report (screen)
+  // TODO: if no connection save bug until user connects again
   render() {
     return (
       <View style={styles.container}>
         <SubmissionForm 
-          onButtonPress={()=>{}}
+          onButtonPress={this.sendEmail.bind(this)}
         />
       </View>
     );
+  }
+
+  async sendEmail(subject, body) {
+    const to = 'grayson.ricketts@gmail.com';
+    let title = `Climbing training app bug: ${subject}`;
+
+    // TODO: use sendPulse or mailGun with Post instead of `mailto:`
+
   }
 
   static navigationOptions(navigationState) {

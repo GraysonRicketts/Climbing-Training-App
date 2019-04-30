@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 15
     },
-    subjectTextInput: {
+    bodyTextInput: {
         height: '30%'
     },
     submitButton: {
@@ -36,12 +36,12 @@ class SubmissionForm extends Component {
         super(props);
 
         this.state = {
-            title: '',
-            contact: '',
+            subject: '',
             body: ''
         }
     }
 
+    // TODO: add validation that doesn't let user send if all fields not filled out
     render() {
         const {
             buttonTitle,
@@ -49,26 +49,18 @@ class SubmissionForm extends Component {
 
         return (
             <View>
-                <Text style={styles.label}>Title</Text>
+                <Text style={styles.label}>Subject</Text>
                 <TextInput
                     style={styles.textInput}
-                    value={this.state.title}
-                    onChangeText={this.titleTextChanged.bind(this)}
-                />
-
-                <Text style={styles.label}>Contact (email)</Text>
-                <TextInput
-                    textContentType='emailAddress'
-                    style={styles.textInput}
-                    value={this.state.contact}
-                    onChangeText={this.contactTextChanged.bind(this)}
+                    value={this.state.subject}
+                    onChangeText={this.subjectTextChanged.bind(this)}
                 />
 
                 <Text style={styles.label}>Issue</Text>
                 <TextInput
                     style={{
                         ...styles.textInput,
-                        ...styles.subjectTextInput
+                        ...styles.bodyTextInput
                     }}
                     multiline={true}
                     value={this.state.body}
@@ -90,29 +82,22 @@ class SubmissionForm extends Component {
     _onButtonPress() {
         const { onButtonPress } = this.props;
         const {
-            title,
-            contact,
+            subject,
             body
         } = this.state;
 
-        onButtonPress(title, contact, body);
+        onButtonPress(subject, body);
     }
 
-    titleTextChanged(newTitle) {
+    subjectTextChanged(subject) {
         this.setState({
-            title: newTitle
+            subject
         });
     }
 
-    contactTextChanged(newContact) {
+    bodyTextChanged(body) {
         this.setState({
-            contact: newContact
-        });
-    }
-
-    bodyTextChanged(newBodyText) {
-        this.setState({
-            body: newBodyText
+            body
         });
     }
 }
