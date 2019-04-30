@@ -5,6 +5,7 @@
     "type": "git",
     "url": "https://github.com/GraysonRicketts/Climbing-Training-App"
   },
+  "license": "SEE LICENSE IN LICENSE",
   "version": "0.0.1",
   "private": true,
   "scripts": {
