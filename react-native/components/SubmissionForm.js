@@ -100,6 +100,8 @@ class SubmissionForm extends Component {
 
         // TODO: add validation letting user know they can add email in from
         sendEmail(templateId, subject, from, body);
+
+        this.props.goBack();
     }
 
     subjectTextChanged(subject) {

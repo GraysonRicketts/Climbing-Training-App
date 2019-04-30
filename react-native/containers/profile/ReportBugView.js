@@ -34,6 +34,7 @@ class ReportBug extends Component {
       <View style={styles.container}>
         <SubmissionForm 
           templateId={TEMPLATE_ID.bug}
+          goBack={this.props.navigation.goBack.bind(this)}
         />
       </View>
     );
