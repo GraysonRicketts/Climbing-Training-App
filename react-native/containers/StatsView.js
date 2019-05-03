@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import BarChart from './../components/statistics/BarChart';
-import AverageNumber from './../components/statistics/AverageNumber';
+import Statistic from '../components/statistics/Statistic';
 import CLIMB_TYPES from './../enums/ClimbingTypes';
 import FRENCH_RATINGS from './../enums/FrenchRatings';
 import YOSEMITE_RATINGS from './../enums/YosemiteRatings';
@@ -24,9 +24,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F5FCFF',
   },
-  distributionHeader: {
-    fontSize: 23,
-    color: '#666'
+  statistic: {
+    alignItems: 'center',
+    fontSize: 25,
+    fontWeight: 'bold',
+    paddingLeft: 30,
+    paddingTop: 10,
+    color: '#111'
   },
 });
 
@@ -48,7 +52,6 @@ class StatsView extends Component {
     // TODO: types (e.g. slab, crimp, overhang)
     // TODO: personal tags
     render() {
-      const distributionTitle = 'Grades climbed';
       const avgNumPerSession = this._calculateAvgNumPerSession();
       const percentSent = this._calculatePercentSent();
       const countsByGrade = this._getClimbCountsByGrade(); 
@@ -56,37 +59,43 @@ class StatsView extends Component {
 
       return (
         <ScrollView style={styles.container}>
-          <AverageNumber 
-            title='Average number of climbs a session'
-            statistic={avgNumPerSession}
-          />
+          <Statistic title='Average number of climbs a session'>
+            <Text style={styles.statistic}>
+                {avgNumPerSession ? avgNumPerSession : 'No data'}
+            </Text>
+          </Statistic>
 
-          <AverageNumber 
-            title='Percent of successful climbs'
-            statistic={percentSent}
-            isPercentage={true}
-          />
-
-          <Text style={styles.distributionHeader}>{distributionTitle}</Text>
-
+          <Statistic title='Percent of successful climbs'>
+            <Text style={styles.statistic}>
+                {percentSent ? percentSent : 'No data'}
+            </Text>
+          </Statistic>
           {
             countsByGrade ?
-            countsByGrade.forEach((climbs) => {
-              if (!climbs.type || !climbs.data || climbs.data.length === 0) {
-                return null;
-              }
-
-              return (
+            countsByGrade.map(climbs => 
+              <Statistic 
+                title={this._getClimbingTypeName(climbs.type)}
+                key={distKeyId++}
+              >
                 <BarChart 
                   data={climbs.data}
-                  type={climbs.type}
-                  key={distKeyId++}
-                />);
-            }) : null
+                />
+              </Statistic>) : null
           }
         </ScrollView>
       );
     }
+
+    _getClimbingTypeName(climbingType) {
+      switch(climbingType) {
+          case CLIMB_TYPES.HUECO:
+              return 'Hueco';
+          case CLIMB_TYPES.YOSEMITE:
+              return 'Yosemite';
+          case CLIMB_TYPES.FRENCH:
+              return 'French';
+      };
+  }
 
     async _getClimbingSessions() {
       try {
@@ -144,8 +153,9 @@ class StatsView extends Component {
         });
       }
 
-      const percentSent = Math.round((numSent / totalNum) * 10000) / 100;
-      return percentSent;
+      const percentSent = (numSent / totalNum) * 100;
+      const formattedPercentSent = `% ${percentSent.toFixed(2)}`
+      return formattedPercentSent;
     }
 
     _getClimbCountsByGrade() {
@@ -154,7 +164,7 @@ class StatsView extends Component {
       }
 
       let countByGrades = [];
-      Object.keys(CLIMB_TYPES).forEach((type) => {
+      Object.values(CLIMB_TYPES).forEach((type) => {
         const grades = this._getGradesForType(type);
 
         let climbData = {};
@@ -174,6 +184,7 @@ class StatsView extends Component {
 
     _getCountOfClimbsPerGrade(typeOfClimb, climbData) {
       const climbingSessions = this.state.climbingSessions;
+      let dataExists = false;
       for (let n = 0; n < climbingSessions.length; n++) {
         let session = climbingSessions[n][1];
         
@@ -188,11 +199,16 @@ class StatsView extends Component {
               climbData[difficulty] += 1;
             }
             else {
+              dataExists = true;
               climbData[difficulty] = 1;
             }
           });
       }
   
+      if (!dataExists) {
+        return null;
+      }
+
       return climbData;
     }
   
