@@ -5,7 +5,7 @@ import {
     Dimensions
 } from 'react-native';
 import {
-    BarChart,
+    BarChart as ChartKitBarChart,
 } from 'react-native-chart-kit';
 
 const styles = StyleSheet.create({
@@ -16,9 +16,10 @@ const styles = StyleSheet.create({
     },
 });
 
-class Button extends Component {
+class BarChart extends Component {
     render() {
         const { data } = this.props;
+        const formattedData = this._formatDataForGraph(data);
 
         const chartConfig = {
             backgroundGradientFrom: '#FaFAFA',
@@ -29,8 +30,8 @@ class Button extends Component {
 
         return (
             <View style={styles.container}>
-                <BarChart 
-                    data={data}
+                <ChartKitBarChart 
+                    data={formattedData}
                     width={screenWidth}
                     height={220}
                     chartConfig={chartConfig}
@@ -38,8 +39,26 @@ class Button extends Component {
             </View>
         )
     }
+
+    _formatDataForGraph(climbData) {
+        let data = {
+          labels: [],
+          datasets: [{
+            data: []
+          }]
+        };
+    
+        Object.keys(climbData).forEach((grade) => {
+          if (climbData[grade]) {
+            data.labels.push(grade);
+            data.datasets[0].data.push(climbData[grade]);
+          }
+        });
+    
+        return data;
+      }
 }
 
 
 
-export default Button;
+export default BarChart;

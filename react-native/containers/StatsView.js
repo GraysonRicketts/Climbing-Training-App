@@ -12,7 +12,7 @@ import {
   Text,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import Distribution from './../components/statistics/Distribution';
+import BarChart from './../components/statistics/BarChart';
 import AverageNumber from './../components/statistics/AverageNumber';
 import CLIMB_TYPES from './../enums/ClimbingTypes';
 import FRENCH_RATINGS from './../enums/FrenchRatings';
@@ -51,13 +51,9 @@ class StatsView extends Component {
       const distributionTitle = 'Grades climbed';
       const avgNumPerSession = this._calculateAvgNumPerSession();
       const percentSent = this._calculatePercentSent();
-      
-      const huecoData = this._getBarChartData(CLIMB_TYPES.HUECO);
-      const yosemiteData = this._getBarChartData(CLIMB_TYPES.YOSEMITE);
-      const frenchData = this._getBarChartData(CLIMB_TYPES.FRENCH);
-      const dataByGrade = [huecoData, yosemiteData, frenchData];
-
+      const countsByGrade = this._getClimbCountsByGrade(); 
       let distKeyId = 0;
+
       return (
         <ScrollView style={styles.container}>
           <AverageNumber 
@@ -74,17 +70,19 @@ class StatsView extends Component {
           <Text style={styles.distributionHeader}>{distributionTitle}</Text>
 
           {
-            dataByGrade.forEach((dataSet) => {
-              if (!dataSet || dataSet.length === 0) {
+            countsByGrade ?
+            countsByGrade.forEach((climbs) => {
+              if (!climbs.type || !climbs.data || climbs.data.length === 0) {
                 return null;
               }
 
               return (
-                <Distribution 
-                  data={dataSet}
+                <BarChart 
+                  data={climbs.data}
+                  type={climbs.type}
                   key={distKeyId++}
                 />);
-            })
+            }) : null
           }
         </ScrollView>
       );
@@ -150,81 +148,69 @@ class StatsView extends Component {
       return percentSent;
     }
 
-    _getBarChartData(typeOfClimb) {
+    _getClimbCountsByGrade() {
       if (!this.state.climbingSessions) {
         return undefined;
       }
 
-      let grades = this._getGrades(typeOfClimb, grades);
+      let countByGrades = [];
+      Object.keys(CLIMB_TYPES).forEach((type) => {
+        const grades = this._getGradesForType(type);
 
-      let climbData = {};
-      grades.forEach((grade) => {
-        climbData[grade] = undefined
-      });
-      climbData = this._getCountOfClimbsPerGrade(typeOfClimb, climbData);
-      if (!climbData) {
-        return undefined;
-      }
-
-      let data = this._formatDataForGraph(climbData);
-      return data;
-    }
-
-  _formatDataForGraph(climbData) {
-    let data = {
-      labels: [],
-      datasets: [{
-        data: []
-      }]
-    };
-
-    Object.keys(climbData).forEach((grade) => {
-      if (climbData[grade]) {
-        data.labels.push(grade);
-        data.datasets[0].data.push(climbData[grade]);
-      }
-    });
-
-    return data;
-  }
-
-  _getCountOfClimbsPerGrade(typeOfClimb, climbData) {
-    const climbingSessions = this.state.climbingSessions;
-    for (let n = 0; n < climbingSessions.length; n++) {
-      let session = climbingSessions[n][1];
-      
-      session = session.filter(climb => climb.route.climbType === typeOfClimb);
-      if (!session) {
-        return undefined;
-      }
-
-      session.forEach((climb) => {
-          const difficulty = climb.route.difficulty;
-          if (climbData[difficulty]) {
-            climbData[difficulty] += 1;
-          }
-          else {
-            climbData[difficulty] = 1;
-          }
+        let climbData = {};
+        grades.forEach((grade) => {
+          climbData[grade] = undefined
         });
+        climbData = this._getCountOfClimbsPerGrade(type, climbData);
+        if (!climbData) {
+          return undefined;
+        }
+
+        countByGrades.push({type, data: climbData});
+      });
+
+      return countByGrades;
     }
 
-    return climbData;
-  }
+    _getCountOfClimbsPerGrade(typeOfClimb, climbData) {
+      const climbingSessions = this.state.climbingSessions;
+      for (let n = 0; n < climbingSessions.length; n++) {
+        let session = climbingSessions[n][1];
+        
+        session = session.filter(climb => climb.route.climbType === typeOfClimb);
+        if (!session) {
+          return undefined;
+        }
+  
+        session.forEach((climb) => {
+            const difficulty = climb.route.difficulty;
+            if (climbData[difficulty]) {
+              climbData[difficulty] += 1;
+            }
+            else {
+              climbData[difficulty] = 1;
+            }
+          });
+      }
+  
+      return climbData;
+    }
+  
+    _getGradesForType(typeOfClimb) {
+      let grades = [];
 
-  _getGrades(typeOfClimb, grades) {
-    if (typeOfClimb === CLIMB_TYPES.HUECO) {
-      grades = Object.keys(HUECO_RATINGS);
+      if (typeOfClimb === CLIMB_TYPES.HUECO) {
+        grades = Object.keys(HUECO_RATINGS);
+      }
+      else if (typeOfClimb === CLIMB_TYPES.YOSEMITE) {
+        grades = Object.keys(YOSEMITE_RATINGS);
+      }
+      else if (typeOfClimb === CLIMB_TYPES.FRENCH) {
+        grades = Object.keys(FRENCH_RATINGS);
+      }
+  
+      return grades;
     }
-    else if (typeOfClimb === CLIMB_TYPES.YOSEMITE) {
-      grades = Object.keys(YOSEMITE_RATINGS);
-    }
-    else if (typeOfClimb === CLIMB_TYPES.FRENCH) {
-      grades = Object.keys(FRENCH_RATINGS);
-    }
-
-    return grades;
-  }
 }
 
   export default StatsView;
