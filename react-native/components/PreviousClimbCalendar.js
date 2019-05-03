@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet
-} from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { formatDate_YYYY_MM_DD } from './../helpers/DateFormatter';
-
-const styles = StyleSheet.create({
-});
 
 class PreviousClimbCalendar extends Component {
     constructor(props) {
