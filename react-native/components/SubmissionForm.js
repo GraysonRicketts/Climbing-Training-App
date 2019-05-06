@@ -44,6 +44,7 @@ class SubmissionForm extends Component {
     }
 
     // TODO: add validation that doesn't let user send if all fields not filled out
+    // TODO: pull "From" from user data
     render() {
         const {
             buttonTitle,
@@ -58,7 +59,7 @@ class SubmissionForm extends Component {
                     onChangeText={this.subjectTextChanged.bind(this)}
                 />
 
-                <Text style={styles.label}>From</Text>
+                <Text style={styles.label}>From (optional)</Text>
                 <TextInput
                     style={styles.textInput}
                     value={this.state.from}
