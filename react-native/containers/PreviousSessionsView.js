@@ -22,13 +22,7 @@ const styles = StyleSheet.create({
   },
   sessionList: {
     width: '100%',
-  },
-  sessionSeparator: {
-    backgroundColor: '#FDFDFD',
-    height: 25,
-    borderColor: '#AAA',
-    borderBottomWidth: 1,
-    borderRadius: 0
+    marginBottom: 25
   },
   noClimbText: {
     textAlign: 'center',
@@ -85,7 +79,6 @@ class StatsView extends Component {
               )}
               sections={sessionsFormatedForSection}
               style={styles.sessionList}
-              renderSectionFooter={() => <View style={styles.sessionSeparator}/>}
               stickySectionHeadersEnabled={true}
             />
             : 
