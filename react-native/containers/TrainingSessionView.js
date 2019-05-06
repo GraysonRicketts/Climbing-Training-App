@@ -93,6 +93,7 @@ class TrainingSessionView extends Component {
                     isEmphasized={true}
                     style={styles.addButton}
                 />
+                
                 <LogClimbModal
                     style={styles.addClimbView}
                     isVisible={this.state.showLogClimbModal}
