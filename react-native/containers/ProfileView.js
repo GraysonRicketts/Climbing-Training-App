@@ -35,6 +35,9 @@ const styles = StyleSheet.create({
   },
 });
 
+const normalFontColor = '#5396FC';
+const abnormalFontColor = '#FE5042';
+
 class ProfileView extends Component {
   constructor(props) {
       super(props);
@@ -51,7 +54,7 @@ class ProfileView extends Component {
           onPress={this._pushSettingsView.bind(this)}
           style={styles.linkButton}
           fontSize={18}
-          fontColor={'#5396FC'}
+          fontColor={normalFontColor}
         />
 
         <Button
@@ -59,7 +62,7 @@ class ProfileView extends Component {
           onPress={this._pushSuggestionView.bind(this)}
           style={styles.linkButton}
           fontSize={18}
-          fontColor={'#5396FC'}
+          fontColor={normalFontColor}
         />
         
         <Button
@@ -67,7 +70,15 @@ class ProfileView extends Component {
           onPress={this._pushReportBugView.bind(this)}
           style={styles.linkButton}
           fontSize={20}
-          fontColor={'#FE5042'}
+          fontColor={abnormalFontColor}
+        />
+
+        <Button
+          title='About'
+          onPress={this._pushAboutView.bind(this)}
+          style={styles.linkButton}
+          fontSize={18}
+          fontColor={normalFontColor}
         />
 
         <Text style={styles.explanatoryText}>
@@ -87,6 +98,10 @@ class ProfileView extends Component {
 
   _pushSuggestionView() {
     this.props.navigation.push('SendSuggestion');
+  }
+
+  _pushAboutView() {
+    this.props.navigation.push('About');
   }
 
   static navigationOptions(navigationState) {
