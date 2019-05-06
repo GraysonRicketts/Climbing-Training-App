@@ -12,16 +12,19 @@
 		00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302C01ABCB91800DB3ED1 /* libRCTImage.a */; };
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
-		00E356F31AD99517003FC87E /* ClimbingTrainingProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ClimbingTrainingProjectTests.m */; };
+		00E356F31AD99517003FC87E /* ClimbOnTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ClimbOnTests.m */; };
+		0F9156D204A74529ADC2447E /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3985B920B51845C988E22592 /* libRNSVG-tvOS.a */; };
 		11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		2697BBCD83804DADB06C0857 /* libRNScreens.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E6FF496F1664DFC90357C3F /* libRNScreens.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -33,20 +36,17 @@
 		2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E941DF850E9000B6D8A /* libRCTText-tvOS.a */; };
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
-		2DCD954D1E0B4F2C00145EB5 /* ClimbingTrainingProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ClimbingTrainingProjectTests.m */; };
+		2DCD954D1E0B4F2C00145EB5 /* ClimbOnTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ClimbOnTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
-		2F7BBC4F226941930079F58E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F7BBC4E226941930079F58E /* Launch Screen.storyboard */; };
-		62EA1E8022534FB29CABD0F9 /* libRNScreens.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85D86CEBD6F042DD9ED8DCD7 /* libRNScreens.a */; };
+		39BBA1E3EF314695BF285BF8 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61D94A4FEFEF42C29A573BB2 /* libRNSVG.a */; };
+		3A7CC63412E8485D86EFA83F /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B09F52387F8F4992A5FF40FC /* libRNCAsyncStorage.a */; };
+		58AD4A9713E64206A65B5E1F /* libRNReanimated.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A030EAF0A55F49AD9A283151 /* libRNReanimated.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		832A8F1D5A2B4DC3B43710D5 /* libRNReanimated.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 694CCB53333B4A8C9B99107A /* libRNReanimated.a */; };
-		8D18E0B90DA2495D80B8E2EA /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C05657F46BE34440A3A84D83 /* libRNSVG-tvOS.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		ADDD36AE18894AF689D9B40B /* libRNGestureHandler-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC85F3837DE84EF0991F29BA /* libRNGestureHandler-tvOS.a */; };
-		B62E9E123207437CA6890026 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA7C8B7DF8B47C88E0EFC80 /* libRNCAsyncStorage.a */; };
-		E8DBED85B6B6467B8304093D /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E38D487FDA4D43399BD55A04 /* libRNGestureHandler.a */; };
+		C91F2D61AF85499EAF8078C2 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 486739D6CD3541D0891A2063 /* libRNGestureHandler.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
-		FC43429DC08D400BA87AC327 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B5EE979F9A49348293B75C /* libRNSVG.a */; };
+		FD0D56BC74CB406E8431BA36 /* libRNGestureHandler-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29008961EC69481E90C44FF6 /* libRNGestureHandler-tvOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,7 +90,7 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = ClimbingTrainingProject;
+			remoteInfo = ClimbOn;
 		};
 		139105C01AF99BAD00B5F7CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -118,7 +118,7 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "ClimbingTrainingProject-tvOS";
+			remoteInfo = "ClimbOn-tvOS";
 		};
 		2D16E6711FA4F8DC00B85C8A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -183,82 +183,82 @@
 			remoteGlobalIDString = 3D383D621EBD27B9005632C8;
 			remoteInfo = "double-conversion-tvOS";
 		};
-		2F9A7C3F227288D300F643E2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BCB6BF3FC39D416D969A6011 /* RNSVG.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0CF68AC11AF0540F00FF9E5C;
-			remoteInfo = RNSVG;
-		};
-		2F9A7C41227288D300F643E2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BCB6BF3FC39D416D969A6011 /* RNSVG.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 94DDAC5C1F3D024300EED511;
-			remoteInfo = "RNSVG-tvOS";
-		};
-		2FC3A611226683AD00BF348D /* PBXContainerItemProxy */ = {
+		2F6994082280EDAB00940034 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = EDEBC6D6214B3E7000DD5AC8;
 			remoteInfo = jsi;
 		};
-		2FC3A613226683AD00BF348D /* PBXContainerItemProxy */ = {
+		2F69940A2280EDAB00940034 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = EDEBC73B214B45A300DD5AC8;
 			remoteInfo = jsiexecutor;
 		};
-		2FC3A615226683AD00BF348D /* PBXContainerItemProxy */ = {
+		2F69940C2280EDAB00940034 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = ED296FB6214C9A0900B7C4FE;
 			remoteInfo = "jsi-tvOS";
 		};
-		2FC3A617226683AD00BF348D /* PBXContainerItemProxy */ = {
+		2F69940E2280EDAB00940034 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = ED296FEE214C9CF800B7C4FE;
 			remoteInfo = "jsiexecutor-tvOS";
 		};
-		2FC3A622226683AF00BF348D /* PBXContainerItemProxy */ = {
+		2F69941B2280EDAC00940034 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 4BD72904CFA942D1B9F0A94D /* RNCAsyncStorage.xcodeproj */;
+			containerPortal = A303D3B6BDE34C869C484D6B /* RNCAsyncStorage.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNCAsyncStorage;
 		};
-		2FC3A626226683AF00BF348D /* PBXContainerItemProxy */ = {
+		2F69941F2280EDAC00940034 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2FAF7014855A495999A8EC97 /* RNGestureHandler.xcodeproj */;
+			containerPortal = 5426527E5F2646BCB2A11CB9 /* RNGestureHandler.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNGestureHandler;
 		};
-		2FC3A628226683AF00BF348D /* PBXContainerItemProxy */ = {
+		2F6994212280EDAC00940034 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2FAF7014855A495999A8EC97 /* RNGestureHandler.xcodeproj */;
+			containerPortal = 5426527E5F2646BCB2A11CB9 /* RNGestureHandler.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = B5C32A36220C603B000FFB8D;
 			remoteInfo = "RNGestureHandler-tvOS";
 		};
-		2FC3A62B226683AF00BF348D /* PBXContainerItemProxy */ = {
+		2F6994242280EDAC00940034 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BE037BC9549448CC8F754028 /* RNReanimated.xcodeproj */;
+			containerPortal = 765909CF1798402A9B956969 /* RNReanimated.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNReanimated;
 		};
-		2FC3A62E226683AF00BF348D /* PBXContainerItemProxy */ = {
+		2F6994272280EDAC00940034 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 309329717FB9400BB8F88ECB /* RNScreens.xcodeproj */;
+			containerPortal = 3DAF5F6391BF4C389772385A /* RNScreens.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNScreens;
+		};
+		2F69942B2280EDAC00940034 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CAFEF1D343F242C8A828EAAA /* RNSVG.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0CF68AC11AF0540F00FF9E5C;
+			remoteInfo = RNSVG;
+		};
+		2F69942D2280EDAC00940034 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CAFEF1D343F242C8A828EAAA /* RNSVG.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 94DDAC5C1F3D024300EED511;
+			remoteInfo = "RNSVG-tvOS";
 		};
 		3DAD3E831DF850E9000B6D8A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -381,40 +381,40 @@
 		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = "../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj"; sourceTree = "<group>"; };
 		00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTNetwork.xcodeproj; path = "../node_modules/react-native/Libraries/Network/RCTNetwork.xcodeproj"; sourceTree = "<group>"; };
 		00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTVibration.xcodeproj; path = "../node_modules/react-native/Libraries/Vibration/RCTVibration.xcodeproj"; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* ClimbingTrainingProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClimbingTrainingProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* ClimbOnTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClimbOnTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* ClimbingTrainingProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClimbingTrainingProjectTests.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* ClimbOnTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClimbOnTests.m; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* ClimbingTrainingProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClimbingTrainingProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ClimbingTrainingProject/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ClimbingTrainingProject/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ClimbingTrainingProject/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ClimbingTrainingProject/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ClimbingTrainingProject/main.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* ClimbOn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClimbOn.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ClimbOn/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ClimbOn/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ClimbOn/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ClimbOn/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ClimbOn/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-		1BA7C8B7DF8B47C88E0EFC80 /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCAsyncStorage.a; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* ClimbingTrainingProject-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ClimbingTrainingProject-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* ClimbingTrainingProject-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ClimbingTrainingProject-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		29008961EC69481E90C44FF6 /* libRNGestureHandler-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNGestureHandler-tvOS.a"; sourceTree = "<group>"; };
+		2D02E47B1E0B4A5D006451C7 /* ClimbOn-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ClimbOn-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* ClimbOn-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ClimbOn-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		2F7BBC4E226941930079F58E /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		2FAF7014855A495999A8EC97 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
-		309329717FB9400BB8F88ECB /* RNScreens.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNScreens.xcodeproj; path = "../node_modules/react-native-screens/ios/RNScreens.xcodeproj"; sourceTree = "<group>"; };
-		4BD72904CFA942D1B9F0A94D /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = "../node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; };
+		3985B920B51845C988E22592 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; };
+		3DAF5F6391BF4C389772385A /* RNScreens.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNScreens.xcodeproj; path = "../node_modules/react-native-screens/ios/RNScreens.xcodeproj"; sourceTree = "<group>"; };
+		486739D6CD3541D0891A2063 /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
+		5426527E5F2646BCB2A11CB9 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
-		694CCB53333B4A8C9B99107A /* libRNReanimated.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNReanimated.a; sourceTree = "<group>"; };
+		61D94A4FEFEF42C29A573BB2 /* libRNSVG.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSVG.a; sourceTree = "<group>"; };
+		6E6FF496F1664DFC90357C3F /* libRNScreens.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNScreens.a; sourceTree = "<group>"; };
+		765909CF1798402A9B956969 /* RNReanimated.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNReanimated.xcodeproj; path = "../node_modules/react-native-reanimated/ios/RNReanimated.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		85D86CEBD6F042DD9ED8DCD7 /* libRNScreens.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNScreens.a; sourceTree = "<group>"; };
+		A030EAF0A55F49AD9A283151 /* libRNReanimated.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNReanimated.a; sourceTree = "<group>"; };
+		A303D3B6BDE34C869C484D6B /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = "../node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		BCB6BF3FC39D416D969A6011 /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
-		BE037BC9549448CC8F754028 /* RNReanimated.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNReanimated.xcodeproj; path = "../node_modules/react-native-reanimated/ios/RNReanimated.xcodeproj"; sourceTree = "<group>"; };
-		C05657F46BE34440A3A84D83 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; };
-		C6B5EE979F9A49348293B75C /* libRNSVG.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSVG.a; sourceTree = "<group>"; };
-		E38D487FDA4D43399BD55A04 /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
+		B09F52387F8F4992A5FF40FC /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCAsyncStorage.a; sourceTree = "<group>"; };
+		CAFEF1D343F242C8A828EAAA /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		FC85F3837DE84EF0991F29BA /* libRNGestureHandler-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNGestureHandler-tvOS.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -443,11 +443,11 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				E8DBED85B6B6467B8304093D /* libRNGestureHandler.a in Frameworks */,
-				832A8F1D5A2B4DC3B43710D5 /* libRNReanimated.a in Frameworks */,
-				B62E9E123207437CA6890026 /* libRNCAsyncStorage.a in Frameworks */,
-				62EA1E8022534FB29CABD0F9 /* libRNScreens.a in Frameworks */,
-				FC43429DC08D400BA87AC327 /* libRNSVG.a in Frameworks */,
+				3A7CC63412E8485D86EFA83F /* libRNCAsyncStorage.a in Frameworks */,
+				C91F2D61AF85499EAF8078C2 /* libRNGestureHandler.a in Frameworks */,
+				58AD4A9713E64206A65B5E1F /* libRNReanimated.a in Frameworks */,
+				2697BBCD83804DADB06C0857 /* libRNScreens.a in Frameworks */,
+				39BBA1E3EF314695BF285BF8 /* libRNSVG.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,8 +464,8 @@
 				2D02E4C61E0B4AEC006451C7 /* libRCTSettings-tvOS.a in Frameworks */,
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
-				ADDD36AE18894AF689D9B40B /* libRNGestureHandler-tvOS.a in Frameworks */,
-				8D18E0B90DA2495D80B8E2EA /* libRNSVG-tvOS.a in Frameworks */,
+				FD0D56BC74CB406E8431BA36 /* libRNGestureHandler-tvOS.a in Frameworks */,
+				0F9156D204A74529ADC2447E /* libRNSVG-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,13 +522,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		00E356EF1AD99517003FC87E /* ClimbingTrainingProjectTests */ = {
+		00E356EF1AD99517003FC87E /* ClimbOnTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* ClimbingTrainingProjectTests.m */,
+				00E356F21AD99517003FC87E /* ClimbOnTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = ClimbingTrainingProjectTests;
+			path = ClimbOnTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -559,7 +559,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* ClimbingTrainingProject */ = {
+		13B07FAE1A68108700A75B9A /* ClimbOn */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -567,10 +567,10 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				2F7BBC4E226941930079F58E /* Launch Screen.storyboard */,
 			);
-			name = ClimbingTrainingProject;
+			name = ClimbOn;
 			sourceTree = "<group>";
 		};
 		146834001AC3E56700842450 /* Products */ = {
@@ -588,10 +588,10 @@
 				2DF0FFE52056DD460020B375 /* libthird-party.a */,
 				2DF0FFE72056DD460020B375 /* libdouble-conversion.a */,
 				2DF0FFE92056DD460020B375 /* libdouble-conversion.a */,
-				2FC3A612226683AD00BF348D /* libjsi.a */,
-				2FC3A614226683AD00BF348D /* libjsiexecutor.a */,
-				2FC3A616226683AD00BF348D /* libjsi-tvOS.a */,
-				2FC3A618226683AD00BF348D /* libjsiexecutor-tvOS.a */,
+				2F6994092280EDAB00940034 /* libjsi.a */,
+				2F69940B2280EDAB00940034 /* libjsiexecutor.a */,
+				2F69940D2280EDAB00940034 /* libjsi-tvOS.a */,
+				2F69940F2280EDAB00940034 /* libjsiexecutor-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -606,58 +606,58 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		2F9A7C3B227288D300F643E2 /* Products */ = {
+		2F6993E02280EDAA00940034 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				2F9A7C40227288D300F643E2 /* libRNSVG.a */,
-				2F9A7C42227288D300F643E2 /* libRNSVG-tvOS.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		2FC3A5E9226683AA00BF348D /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				E38D487FDA4D43399BD55A04 /* libRNGestureHandler.a */,
-				694CCB53333B4A8C9B99107A /* libRNReanimated.a */,
-				1BA7C8B7DF8B47C88E0EFC80 /* libRNCAsyncStorage.a */,
-				85D86CEBD6F042DD9ED8DCD7 /* libRNScreens.a */,
-				FC85F3837DE84EF0991F29BA /* libRNGestureHandler-tvOS.a */,
-				C6B5EE979F9A49348293B75C /* libRNSVG.a */,
-				C05657F46BE34440A3A84D83 /* libRNSVG-tvOS.a */,
+				B09F52387F8F4992A5FF40FC /* libRNCAsyncStorage.a */,
+				486739D6CD3541D0891A2063 /* libRNGestureHandler.a */,
+				A030EAF0A55F49AD9A283151 /* libRNReanimated.a */,
+				6E6FF496F1664DFC90357C3F /* libRNScreens.a */,
+				61D94A4FEFEF42C29A573BB2 /* libRNSVG.a */,
+				29008961EC69481E90C44FF6 /* libRNGestureHandler-tvOS.a */,
+				3985B920B51845C988E22592 /* libRNSVG-tvOS.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-		2FC3A619226683AD00BF348D /* Products */ = {
+		2F6994102280EDAB00940034 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2FC3A627226683AF00BF348D /* libRNGestureHandler.a */,
-				2FC3A629226683AF00BF348D /* libRNGestureHandler-tvOS.a */,
+				2F69942C2280EDAC00940034 /* libRNSVG.a */,
+				2F69942E2280EDAC00940034 /* libRNSVG-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2FC3A61B226683AD00BF348D /* Products */ = {
+		2F6994122280EDAB00940034 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2FC3A62C226683AF00BF348D /* libRNReanimated.a */,
+				2F6994282280EDAC00940034 /* libRNScreens.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2FC3A61D226683AD00BF348D /* Products */ = {
+		2F6994142280EDAB00940034 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2FC3A623226683AF00BF348D /* libRNCAsyncStorage.a */,
+				2F6994252280EDAC00940034 /* libRNReanimated.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2FC3A61F226683AD00BF348D /* Products */ = {
+		2F6994162280EDAB00940034 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2FC3A62F226683AF00BF348D /* libRNScreens.a */,
+				2F69941C2280EDAC00940034 /* libRNCAsyncStorage.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2F6994182280EDAB00940034 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2F6994202280EDAC00940034 /* libRNGestureHandler.a */,
+				2F6994222280EDAC00940034 /* libRNGestureHandler-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -695,11 +695,11 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				2FAF7014855A495999A8EC97 /* RNGestureHandler.xcodeproj */,
-				BE037BC9549448CC8F754028 /* RNReanimated.xcodeproj */,
-				4BD72904CFA942D1B9F0A94D /* RNCAsyncStorage.xcodeproj */,
-				309329717FB9400BB8F88ECB /* RNScreens.xcodeproj */,
-				BCB6BF3FC39D416D969A6011 /* RNSVG.xcodeproj */,
+				A303D3B6BDE34C869C484D6B /* RNCAsyncStorage.xcodeproj */,
+				5426527E5F2646BCB2A11CB9 /* RNGestureHandler.xcodeproj */,
+				765909CF1798402A9B956969 /* RNReanimated.xcodeproj */,
+				3DAF5F6391BF4C389772385A /* RNScreens.xcodeproj */,
+				CAFEF1D343F242C8A828EAAA /* RNSVG.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -716,12 +716,12 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* ClimbingTrainingProject */,
+				13B07FAE1A68108700A75B9A /* ClimbOn */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* ClimbingTrainingProjectTests */,
+				00E356EF1AD99517003FC87E /* ClimbOnTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				2FC3A5E9226683AA00BF348D /* Recovered References */,
+				2F6993E02280EDAA00940034 /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -731,10 +731,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* ClimbingTrainingProject.app */,
-				00E356EE1AD99517003FC87E /* ClimbingTrainingProjectTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* ClimbingTrainingProject-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* ClimbingTrainingProject-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* ClimbOn.app */,
+				00E356EE1AD99517003FC87E /* ClimbOnTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* ClimbOn-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* ClimbOn-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -751,9 +751,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* ClimbingTrainingProjectTests */ = {
+		00E356ED1AD99517003FC87E /* ClimbOnTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ClimbingTrainingProjectTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ClimbOnTests" */;
 			buildPhases = (
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
@@ -764,14 +764,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = ClimbingTrainingProjectTests;
-			productName = ClimbingTrainingProjectTests;
-			productReference = 00E356EE1AD99517003FC87E /* ClimbingTrainingProjectTests.xctest */;
+			name = ClimbOnTests;
+			productName = ClimbOnTests;
+			productReference = 00E356EE1AD99517003FC87E /* ClimbOnTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* ClimbingTrainingProject */ = {
+		13B07F861A680F5B00A75B9A /* ClimbOn */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ClimbingTrainingProject" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ClimbOn" */;
 			buildPhases = (
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
@@ -782,14 +782,14 @@
 			);
 			dependencies = (
 			);
-			name = ClimbingTrainingProject;
+			name = ClimbOn;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* ClimbingTrainingProject.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* ClimbOn.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* ClimbingTrainingProject-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* ClimbOn-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ClimbingTrainingProject-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ClimbOn-tvOS" */;
 			buildPhases = (
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -800,14 +800,14 @@
 			);
 			dependencies = (
 			);
-			name = "ClimbingTrainingProject-tvOS";
-			productName = "ClimbingTrainingProject-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* ClimbingTrainingProject-tvOS.app */;
+			name = "ClimbOn-tvOS";
+			productName = "ClimbOn-tvOS";
+			productReference = 2D02E47B1E0B4A5D006451C7 /* ClimbOn-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* ClimbingTrainingProject-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* ClimbOn-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ClimbingTrainingProject-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ClimbOn-tvOSTests" */;
 			buildPhases = (
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
@@ -818,9 +818,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "ClimbingTrainingProject-tvOSTests";
-			productName = "ClimbingTrainingProject-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* ClimbingTrainingProject-tvOSTests.xctest */;
+			name = "ClimbOn-tvOSTests";
+			productName = "ClimbOn-tvOSTests";
+			productReference = 2D02E4901E0B4A5D006451C7 /* ClimbOn-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -851,7 +851,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "ClimbingTrainingProject" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "ClimbOn" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -913,32 +913,32 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
-					ProductGroup = 2FC3A61D226683AD00BF348D /* Products */;
-					ProjectRef = 4BD72904CFA942D1B9F0A94D /* RNCAsyncStorage.xcodeproj */;
+					ProductGroup = 2F6994162280EDAB00940034 /* Products */;
+					ProjectRef = A303D3B6BDE34C869C484D6B /* RNCAsyncStorage.xcodeproj */;
 				},
 				{
-					ProductGroup = 2FC3A619226683AD00BF348D /* Products */;
-					ProjectRef = 2FAF7014855A495999A8EC97 /* RNGestureHandler.xcodeproj */;
+					ProductGroup = 2F6994182280EDAB00940034 /* Products */;
+					ProjectRef = 5426527E5F2646BCB2A11CB9 /* RNGestureHandler.xcodeproj */;
 				},
 				{
-					ProductGroup = 2FC3A61B226683AD00BF348D /* Products */;
-					ProjectRef = BE037BC9549448CC8F754028 /* RNReanimated.xcodeproj */;
+					ProductGroup = 2F6994142280EDAB00940034 /* Products */;
+					ProjectRef = 765909CF1798402A9B956969 /* RNReanimated.xcodeproj */;
 				},
 				{
-					ProductGroup = 2FC3A61F226683AD00BF348D /* Products */;
-					ProjectRef = 309329717FB9400BB8F88ECB /* RNScreens.xcodeproj */;
+					ProductGroup = 2F6994122280EDAB00940034 /* Products */;
+					ProjectRef = 3DAF5F6391BF4C389772385A /* RNScreens.xcodeproj */;
 				},
 				{
-					ProductGroup = 2F9A7C3B227288D300F643E2 /* Products */;
-					ProjectRef = BCB6BF3FC39D416D969A6011 /* RNSVG.xcodeproj */;
+					ProductGroup = 2F6994102280EDAB00940034 /* Products */;
+					ProjectRef = CAFEF1D343F242C8A828EAAA /* RNSVG.xcodeproj */;
 				},
 			);
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* ClimbingTrainingProject */,
-				00E356ED1AD99517003FC87E /* ClimbingTrainingProjectTests */,
-				2D02E47A1E0B4A5D006451C7 /* ClimbingTrainingProject-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* ClimbingTrainingProject-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* ClimbOn */,
+				00E356ED1AD99517003FC87E /* ClimbOnTests */,
+				2D02E47A1E0B4A5D006451C7 /* ClimbOn-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* ClimbOn-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1063,81 +1063,81 @@
 			remoteRef = 2DF0FFE82056DD460020B375 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2F9A7C40227288D300F643E2 /* libRNSVG.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNSVG.a;
-			remoteRef = 2F9A7C3F227288D300F643E2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2F9A7C42227288D300F643E2 /* libRNSVG-tvOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libRNSVG-tvOS.a";
-			remoteRef = 2F9A7C41227288D300F643E2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2FC3A612226683AD00BF348D /* libjsi.a */ = {
+		2F6994092280EDAB00940034 /* libjsi.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libjsi.a;
-			remoteRef = 2FC3A611226683AD00BF348D /* PBXContainerItemProxy */;
+			remoteRef = 2F6994082280EDAB00940034 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2FC3A614226683AD00BF348D /* libjsiexecutor.a */ = {
+		2F69940B2280EDAB00940034 /* libjsiexecutor.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libjsiexecutor.a;
-			remoteRef = 2FC3A613226683AD00BF348D /* PBXContainerItemProxy */;
+			remoteRef = 2F69940A2280EDAB00940034 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2FC3A616226683AD00BF348D /* libjsi-tvOS.a */ = {
+		2F69940D2280EDAB00940034 /* libjsi-tvOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libjsi-tvOS.a";
-			remoteRef = 2FC3A615226683AD00BF348D /* PBXContainerItemProxy */;
+			remoteRef = 2F69940C2280EDAB00940034 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2FC3A618226683AD00BF348D /* libjsiexecutor-tvOS.a */ = {
+		2F69940F2280EDAB00940034 /* libjsiexecutor-tvOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libjsiexecutor-tvOS.a";
-			remoteRef = 2FC3A617226683AD00BF348D /* PBXContainerItemProxy */;
+			remoteRef = 2F69940E2280EDAB00940034 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2FC3A623226683AF00BF348D /* libRNCAsyncStorage.a */ = {
+		2F69941C2280EDAC00940034 /* libRNCAsyncStorage.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRNCAsyncStorage.a;
-			remoteRef = 2FC3A622226683AF00BF348D /* PBXContainerItemProxy */;
+			remoteRef = 2F69941B2280EDAC00940034 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2FC3A627226683AF00BF348D /* libRNGestureHandler.a */ = {
+		2F6994202280EDAC00940034 /* libRNGestureHandler.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRNGestureHandler.a;
-			remoteRef = 2FC3A626226683AF00BF348D /* PBXContainerItemProxy */;
+			remoteRef = 2F69941F2280EDAC00940034 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2FC3A629226683AF00BF348D /* libRNGestureHandler-tvOS.a */ = {
+		2F6994222280EDAC00940034 /* libRNGestureHandler-tvOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libRNGestureHandler-tvOS.a";
-			remoteRef = 2FC3A628226683AF00BF348D /* PBXContainerItemProxy */;
+			remoteRef = 2F6994212280EDAC00940034 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2FC3A62C226683AF00BF348D /* libRNReanimated.a */ = {
+		2F6994252280EDAC00940034 /* libRNReanimated.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRNReanimated.a;
-			remoteRef = 2FC3A62B226683AF00BF348D /* PBXContainerItemProxy */;
+			remoteRef = 2F6994242280EDAC00940034 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2FC3A62F226683AF00BF348D /* libRNScreens.a */ = {
+		2F6994282280EDAC00940034 /* libRNScreens.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRNScreens.a;
-			remoteRef = 2FC3A62E226683AF00BF348D /* PBXContainerItemProxy */;
+			remoteRef = 2F6994272280EDAC00940034 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2F69942C2280EDAC00940034 /* libRNSVG.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSVG.a;
+			remoteRef = 2F69942B2280EDAC00940034 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2F69942E2280EDAC00940034 /* libRNSVG-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNSVG-tvOS.a";
+			remoteRef = 2F69942D2280EDAC00940034 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		3DAD3E841DF850E9000B6D8A /* libRCTImage-tvOS.a */ = {
@@ -1266,8 +1266,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F7BBC4F226941930079F58E /* Launch Screen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1324,7 +1324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* ClimbingTrainingProjectTests.m in Sources */,
+				00E356F31AD99517003FC87E /* ClimbOnTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1350,7 +1350,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* ClimbingTrainingProjectTests.m in Sources */,
+				2DCD954D1E0B4F2C00145EB5 /* ClimbOnTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1359,15 +1359,27 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* ClimbingTrainingProject */;
+			target = 13B07F861A680F5B00A75B9A /* ClimbOn */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* ClimbingTrainingProject-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* ClimbOn-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				13B07FB21A68108700A75B9A /* Base */,
+			);
+			name = LaunchScreen.xib;
+			path = ClimbOn;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
@@ -1381,13 +1393,13 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-reanimated/ios/**",
-					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-screens/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
-				INFOPLIST_FILE = ClimbingTrainingProjectTests/Info.plist;
+				INFOPLIST_FILE = ClimbOnTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1406,7 +1418,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClimbingTrainingProject.app/ClimbingTrainingProject";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClimbOn.app/ClimbOn";
 			};
 			name = Debug;
 		};
@@ -1418,13 +1430,13 @@
 				DEVELOPMENT_TEAM = N23N9ZRM3M;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-reanimated/ios/**",
-					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-screens/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
-				INFOPLIST_FILE = ClimbingTrainingProjectTests/Info.plist;
+				INFOPLIST_FILE = ClimbOnTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1443,7 +1455,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClimbingTrainingProject.app/ClimbingTrainingProject";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClimbOn.app/ClimbOn";
 			};
 			name = Release;
 		};
@@ -1456,13 +1468,13 @@
 				DEVELOPMENT_TEAM = N23N9ZRM3M;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-reanimated/ios/**",
-					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-screens/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
-				INFOPLIST_FILE = ClimbingTrainingProject/Info.plist;
+				INFOPLIST_FILE = ClimbOn/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1470,7 +1482,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = ClimbingTrainingProject;
+				PRODUCT_NAME = ClimbOn;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1483,13 +1495,13 @@
 				DEVELOPMENT_TEAM = N23N9ZRM3M;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-reanimated/ios/**",
-					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-screens/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
-				INFOPLIST_FILE = ClimbingTrainingProject/Info.plist;
+				INFOPLIST_FILE = ClimbOn/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1497,7 +1509,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = ClimbingTrainingProject;
+				PRODUCT_NAME = ClimbOn;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1516,13 +1528,13 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-reanimated/ios/**",
-					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-screens/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
-				INFOPLIST_FILE = "ClimbingTrainingProject-tvOS/Info.plist";
+				INFOPLIST_FILE = "ClimbOn-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1538,7 +1550,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ClimbingTrainingProject-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ClimbOn-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -1560,13 +1572,13 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-reanimated/ios/**",
-					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-screens/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
-				INFOPLIST_FILE = "ClimbingTrainingProject-tvOS/Info.plist";
+				INFOPLIST_FILE = "ClimbOn-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1582,7 +1594,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ClimbingTrainingProject-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ClimbOn-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -1603,13 +1615,13 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-reanimated/ios/**",
-					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-screens/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
-				INFOPLIST_FILE = "ClimbingTrainingProject-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "ClimbOn-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1625,10 +1637,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ClimbingTrainingProject-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ClimbOn-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClimbingTrainingProject-tvOS.app/ClimbingTrainingProject-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClimbOn-tvOS.app/ClimbOn-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
@@ -1646,13 +1658,13 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-reanimated/ios/**",
-					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-screens/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
-				INFOPLIST_FILE = "ClimbingTrainingProject-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "ClimbOn-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1668,10 +1680,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ClimbingTrainingProject-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ClimbOn-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClimbingTrainingProject-tvOS.app/ClimbingTrainingProject-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClimbOn-tvOS.app/ClimbOn-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -1778,7 +1790,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ClimbingTrainingProjectTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ClimbOnTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -1787,7 +1799,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ClimbingTrainingProject" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ClimbOn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1796,7 +1808,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ClimbingTrainingProject-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ClimbOn-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -1805,7 +1817,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ClimbingTrainingProject-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ClimbOn-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -1814,7 +1826,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "ClimbingTrainingProject" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "ClimbOn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
