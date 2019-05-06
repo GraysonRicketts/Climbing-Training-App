@@ -6,14 +6,14 @@
  */
 
 import React, {Component} from 'react';
-import { Alert, StyleSheet, TextInput, View, FlatList} from 'react-native';
+import { Alert, StyleSheet, TextInput, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import LogClimbModal from './LogClimbModal';
-import ClimbDataRow from './../components/ClimbDataRow';
-import NoClimbsComponent from './../components/NoClimbsComponent';
+
 import SessionHeaderButton from './../components/SessionHeaderButton';
 import { formatDate_MMMM_DD_YYYY } from './../helpers/DateFormatter';
 import Button from './../components/Button';
+import ClimbList from './../components/ClimbList';
 
 const styles = (StyleSheet.create({
     container: {
@@ -79,21 +79,10 @@ class TrainingSessionView extends Component {
                     value={this.state.title}
                     numberOfLines={1}
                 />
-
-                <FlatList
+                <ClimbList 
                     data={this.state.climbs}
-                    keyExtractor={(item) => item.key.toString()}
-                    renderItem={(data) => (
-                        <ClimbDataRow 
-                            difficulty={data.item.route.difficulty}
-                            sentIt={data.item.sentIt}
-                            isSelected={data.item.key === this.state.climbSelected.key}
-                            onPress={this.editClimb.bind(this, data.item.key)}
-                        />
-                    )}
-                    ListEmptyComponent={<NoClimbsComponent />}
-                    style={styles.sectionList}
-                    ref={this._flatList}
+                    selectedKey={this.state.climbSelected.key}
+                    onRowPress={this.editClimb.bind(this)}
                 />
 
                 <Button
@@ -104,6 +93,7 @@ class TrainingSessionView extends Component {
                     isEmphasized={true}
                     style={styles.addButton}
                 />
+                
                 <LogClimbModal
                     style={styles.addClimbView}
                     isVisible={this.state.showLogClimbModal}
@@ -199,14 +189,14 @@ class TrainingSessionView extends Component {
         else { // Add new climb
             this._saveNewClimb(newClimb);
         }
-
-        this._flatList.current.scrollToEnd();
     }
 
     _saveNewClimb(newClimb) {
-        this.setState(prevState => ({
-            climbs: [...prevState.climbs, newClimb]
-        }));
+        this.setState(
+            prevState => ({
+                climbs: [...prevState.climbs, newClimb]
+            })
+        )
     }
 
     _editClimb(_key, newClimb) {

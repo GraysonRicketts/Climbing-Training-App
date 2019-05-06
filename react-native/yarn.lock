@@ -5433,7 +5433,7 @@ react-native-calendars@^1.46.0:
     prop-types "^15.5.10"
     xdate "^0.8.0"
 
-react-native-chart-kit@^2.5.0:
+react-native-chart-kit@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/react-native-chart-kit/-/react-native-chart-kit-2.6.0.tgz#4dbd579ac5033b57d20684e4b7621f29c0a664f4"
   integrity sha512-5ZmRj4bZYod47239DFN34rVqNXKyCyTAy7ho0waOOTtnVsC1/VmCG6qrLBQ1PE3U9xxtSzq8MiS5vfJ3Nc3TPg==

@@ -22,13 +22,13 @@ const styles = StyleSheet.create({
   },
   sessionList: {
     width: '100%',
+    marginBottom: 25
   },
-  sessionSeparator: {
-    backgroundColor: '#FDFDFD',
-    height: 25,
-    borderColor: '#AAA',
-    borderBottomWidth: 1,
-    borderRadius: 0
+  noClimbText: {
+    textAlign: 'center',
+    fontSize: 22,
+    marginTop: 15,
+    flexGrow: 2
   }
 });
 
@@ -64,23 +64,29 @@ class StatsView extends Component {
             onDayPress={this.onDayPress.bind(this)}
           />
 
-          <SectionList
-            renderItem={({item: climb, index}) => (
-              <ClimbDataRow 
-                difficulty={climb.route.difficulty}
-                sentIt={climb.sentIt}
-                key={index}
-              />)}
-            renderSectionHeader={({section: {title}}) => (
-              <ClimbingSessionHeader
-                title={title}
-              />
-            )}
-            sections={sessionsFormatedForSection}
-            style={styles.sessionList}
-            renderSectionFooter={() => <View style={styles.sessionSeparator}/>}
-            stickySectionHeadersEnabled={true}
-          />
+          { sessionsFormatedForSection.length ? 
+            <SectionList
+              renderItem={({item: climb, index}) => (
+                <ClimbDataRow 
+                  difficulty={climb.route.difficulty}
+                  sentIt={climb.sentIt}
+                  key={index}
+                />)}
+              renderSectionHeader={({section: {title}}) => (
+                <ClimbingSessionHeader
+                  title={title}
+                />
+              )}
+              sections={sessionsFormatedForSection}
+              style={styles.sessionList}
+              stickySectionHeadersEnabled={true}
+            />
+            : 
+            <Text style={styles.noClimbText}>
+              No climbs logged
+            </Text>
+          }
+          
         </View>
       );
     }

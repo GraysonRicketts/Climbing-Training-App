@@ -6,7 +6,12 @@
  */
 
 import React, {Component} from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import { 
+  StyleSheet,
+  Text,
+  View,
+  Image
+} from 'react-native';
 import Button from './../components/Button';
 
 const styles = StyleSheet.create({
@@ -26,39 +31,62 @@ const styles = StyleSheet.create({
     bottom: 20
   },
   navigationButton: {
-    backgroundColor: '#7ED7D7',
-    margin: 50,
-    padding: 20
+    backgroundColor: '#AEE5E5',
+    margin: 25,
+    borderRadius: 45,
+    width: '80%'
+  },
+  buttonIcon: {
+    width: 50,
+    height: 50
   }
 });
 
 class WelcomeView extends Component {
   render() {
+    const navigationFontSize = 20;
+    const navigationFontColor = '#171717';
+
     return (
       <View style={styles.container}>
         <Button
           title='Log session'
           onPress={this._pushTrainingSessionView.bind(this)}
-          style={styles.navigationButton}
-          fontSize={30}
-          fontColor={'#020202'}
-        />
+          style={{ ...styles.navigationButton, backgroundColor: '#6FF18B' }}
+          fontSize={navigationFontSize}
+          fontColor={navigationFontColor}
+        >
+          <Image 
+            source={require('./../assets/img/save.png')}
+            style={{ ...styles.buttonIcon, tintColor: navigationFontColor }}  
+          />
+        </Button>
 
         <Button
           title='Previous sessions'
           onPress={this._pushPreviousSessionsView.bind(this)}
           style={styles.navigationButton}
-          fontSize={30}
-          fontColor={'#020202'}
-        />
+          fontSize={navigationFontSize}
+          fontColor={navigationFontColor}
+        >
+          <Image 
+            source={require('./../assets/img/calendar.png')}
+            style={styles.buttonIcon}  
+          />
+        </Button>
 
         <Button
           title='Statistics'
           onPress={this._pushStatisticsView.bind(this)}
           style={styles.navigationButton}
-          fontSize={30}
-          fontColor={'#020202'}
-        />
+          fontSize={navigationFontSize}
+          fontColor={navigationFontColor}
+        >
+          <Image 
+            source={require('./../assets/img/line-chart.png')}
+            style={styles.buttonIcon}  
+          />
+        </Button>
 
         <Text style={styles.explanatoryText}>* This app is currently under development. Expect frequent changes and possible loss of data.</Text>
       </View>

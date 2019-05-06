@@ -50,12 +50,14 @@ export function formatDate_YYYY_MM_DD(dateInMilliseconds) {
     const year = date.getFullYear();
     const month = MONTH_NUM_STRING[date.getMonth()];
     const day = date.getDate();
-
     if (!year || !month || !day) {
         return null;
     }
+
+    // Add '0' if less than 10
+    const formattedDay = day < 10 ? `0${day}` : day;
     
-    const formattedDate = `${year}-${month}-${day}`;
+    const formattedDate = `${year}-${month}-${formattedDay}`;
     return formattedDate;
 }
 
