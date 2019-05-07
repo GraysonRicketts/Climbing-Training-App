@@ -166,7 +166,7 @@ class LogClimbModal extends Component {
     componentWillReceiveProps(props) {
         this.setState(prevState => ({
             climbKey: props.climbKey,
-            climbSelected: props.climbSelected ? props.climbSelected : HUECO_RATINGS.V0,
+            climbSelected: props.climbSelected ? props.climbSelected : prevState.climbSelected,
             boulderGradeSelected: props.climbingType === CLIMBING_TYPE.HUECO ? props.climbSelected : prevState.boulderGradeSelected,
             yosemiteGradeSelected: props.climbingType === CLIMBING_TYPE.YOSEMITE ? props.climbSelected : prevState.yosemiteGradeSelected,
             frenchGradeSelected: props.climbingType === CLIMBING_TYPE.FRENCH ? props.climbSelected : prevState.frenchGradeSelected,

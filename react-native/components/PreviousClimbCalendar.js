@@ -1,12 +1,17 @@
-import React, { Component } from 'react';
+import React, { 
+    Component
+} from 'react';
 import {
-  StyleSheet
+    StyleSheet
 } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { formatDate_YYYY_MM_DD } from './../helpers/DateFormatter';
 
 const styles = StyleSheet.create({
-});
+    calendar: {
+        width: '100%'
+    }
+  });
 
 class PreviousClimbCalendar extends Component {
     constructor(props) {
@@ -35,6 +40,7 @@ class PreviousClimbCalendar extends Component {
         return (
             <Calendar 
                 current={Date()}
+                style={styles.calendar}
                 markedDates={markedDates}
                 markingType={'simple'}
                 minDate={undefined} // dates before minDate will be grayed out

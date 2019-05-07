@@ -14,6 +14,7 @@ import TrainingSessionView from './containers/TrainingSessionView';
 import ReportBugView from './containers/profile/ReportBugView';
 import SendSuggestionView from './containers/profile/SendSuggestionView';
 import SettingsView from './containers/profile/SettingsView';
+import AboutView from './containers/profile/AboutView';
 
 
 const MainStack = createStackNavigator(
@@ -41,6 +42,9 @@ const MainStack = createStackNavigator(
     },
     Settings: {
       screen: SettingsView
+    },
+    About: {
+      screen: AboutView
     }
   },
   {
