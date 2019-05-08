@@ -1,22 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Component } from 'react';
 import {
     Dimensions
 } from 'react-native';
-import {
-    BarChart as ChartKitBarChart,
-} from 'react-native-chart-kit';
-import CLIMBING_TYPES from './../../enums/ClimbingTypes';
+const ChartKitBarChart = require('react-native-chart-kit').BarChart;
 
-class BarChart extends Component {
+interface ChartKitData {
+  labels: string[],
+  datasets: [{
+    data: number[]
+  }]
+}
+
+interface IBarChartProps {
+  data: any
+}
+
+class BarChart extends Component<IBarChartProps> {
     render() {
         const { data } = this.props;
         const formattedData = this._formatDataForGraph(data);
 
         const chartConfig = {
-            background: '#F5FCFF', // Opaque
+            background: '#F5FCFF', // TODO: use project defined color
             backgroundGradientFrom: '#F5FCFF',
             backgroundGradientTo: '#F5FCFF',
-            color: (_) => '#111'
+            color: '#111'
         }
         const screenWidth = Dimensions.get('window').width * 0.9;
 
@@ -31,8 +40,8 @@ class BarChart extends Component {
         )
     }
 
-    _formatDataForGraph(climbData) {
-        let data = {
+    _formatDataForGraph(climbData: any) {
+        let data: ChartKitData = {
           labels: [],
           datasets: [{
             data: []

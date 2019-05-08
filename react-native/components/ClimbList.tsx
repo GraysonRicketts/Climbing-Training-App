@@ -1,12 +1,19 @@
-import React, { Component } from 'react';
-import {
-    FlatList
-} from 'react-native';
-import ClimbDataRow from './../components/ClimbDataRow';
-import NoClimbsComponent from './../components/NoClimbsComponent';
+import React from 'react';
+import { Component } from 'react';
+import { FlatList } from 'react-native';
+import ClimbDataRow from './ClimbDataRow';
+import NoClimbsComponent from './NoClimbsComponent';
 
-class ClimbList extends Component {
-    constructor(props) {
+interface IClimbListProps {
+    data: any // TODO: typecheck
+    selectedKey: any // TODO: typecheck
+    onRowPress: Function
+}
+
+class ClimbList extends Component<IClimbListProps> {
+    readonly _flatList: React.RefObject<FlatList<any>>; // TODO: typecheck
+
+    constructor(props: IClimbListProps) {
         super(props);
 
         this._flatList = React.createRef();
@@ -38,6 +45,10 @@ class ClimbList extends Component {
     }
 
     scrollToEnd() {
+        if (!this._flatList.current) {
+            return;
+        }
+        
         this._flatList.current.scrollToEnd();
     }
 }
