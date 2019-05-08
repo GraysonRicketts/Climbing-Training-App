@@ -1,30 +1,42 @@
-import React, { Component } from 'react';
-import { Text, StyleSheet} from 'react-native';
-import { formatDate_MMMM_DD_YYYY } from './../helpers/DateFormatter';
+import React from 'react';
+import { Component } from 'react';
+import { 
+    Text,
+    StyleSheet 
+} from 'react-native';
+import { formatDate_MMMM_DD_YYYY } from '../helpers/DateFormatter';
 
 
-const styles = (StyleSheet.create({
+const styles = StyleSheet.create({
     text: {
         fontSize: 16,
         fontWeight: '400',
         color: '#666',
         backgroundColor: '#F5FCFF'
     }
-}));
+});
 
-class ClimbingSessionHeader extends Component {
-    constructor(props) {
+interface IClimbingSessionHeaderProps {
+    title: string
+}
+
+interface IClimbingSessionHeaderState {
+    title: string
+}
+
+class ClimbingSessionHeader extends Component<IClimbingSessionHeaderState, IClimbingSessionHeaderProps> {
+    constructor(props: IClimbingSessionHeaderProps) {
         super(props);
 
-        let { title } = this.props;
-        title = this._formatTitle(title);
+        const { title } = this.props;
+        const formattedTitle = this._formatTitle(title);
 
         this.state = {
-            title
+            title: formattedTitle
         };
     }
 
-    _formatTitle(title) {
+    _formatTitle(title: string) {
         // Separate date from user entered title
         const titleParts = title.split('^');
 
@@ -43,7 +55,11 @@ class ClimbingSessionHeader extends Component {
         return formattedTitle;
     }
 
-    _hasCustomSessionTitle(titleParts, date) {
+    _hasCustomSessionTitle(titleParts: string[], date: string) {
+        if (!date) {
+            return false;
+        }
+
         return (titleParts.length > 1 && titleParts[1] !== date);
     }
 

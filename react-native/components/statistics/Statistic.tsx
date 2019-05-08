@@ -13,13 +13,20 @@ const styles = StyleSheet.create({
     },
     header: {
         fontSize: 23,
-        color: '#666'
+        color: '#666' // TODO: use project defined color
     },
 });
 
-class Statistic extends Component {
+interface IStatisticProps {
+    title: string
+}
+
+class Statistic extends Component<IStatisticProps> {
  render() {
-    const { children, title } = this.props;
+    const { 
+        children, 
+        title
+    } = this.props;
 
    return (
         <View style={styles.container}>

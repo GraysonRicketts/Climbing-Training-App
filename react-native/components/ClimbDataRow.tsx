@@ -1,5 +1,11 @@
-import React, {Component} from 'react';
-import { TouchableHighlight, View, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import { Component } from 'react';
+import { 
+    TouchableHighlight,
+    View,
+    Text,
+    StyleSheet 
+} from 'react-native';
 
 const ROW_FONT_SIZE = 30;
 
@@ -23,20 +29,28 @@ const styles = StyleSheet.create({
     }
 });
 
-class ClimbDataRow extends Component {
-    constructor(props) {
-        super(props);
-    }
+interface IClimbDataRowProps {
+    difficulty: string
+    sentIt: boolean
+    isSelected: boolean
+    onPress: Function
+}
 
+class ClimbDataRow extends Component<IClimbDataRowProps> {
     render() {
-        const  { difficulty, sentIt, isSelected, onPress } = this.props;
+        const  { 
+            difficulty,
+            sentIt, 
+            isSelected,
+            onPress 
+        } = this.props;
     
         return (
             <TouchableHighlight 
-                onPress={onPress}
-                underlayColor={'#F5FCFF'}
+                onPress={(_) => onPress()}
+                underlayColor={'#F5FCFF'} // TODO: use project defined color
                 activeOpacity={0.5}
-                style={isSelected ? { backgroundColor: '#73C2FB'} : undefined }
+                style={isSelected ? { backgroundColor: '#73C2FB'} : undefined } // TODO: use project defined color
             >
                 <View 
                     style={{

@@ -6,19 +6,19 @@ import {
   TextInput
 } from 'react-native';
 import Button from './Button';
-import sendEmail from './../helpers/EmailSender';
+import sendEmail from '../helpers/EmailSender';
 
 const styles = StyleSheet.create({
     label: {
         marginTop: 15,
         fontSize: 20,
-        color: '#373737',
+        color: '#373737',// TODO: Use project defined color
     },
     textInput: {
         fontSize: 22,
-        backgroundColor: '#FDFDFD',
+        backgroundColor: '#FDFDFD',// TODO: Use project defined color
         borderWidth: 0.5,
-        borderColor: '#AAA',
+        borderColor: '#AAA',// TODO: Use project defined color
         marginTop: 5,
         marginBottom: 15
     },
@@ -26,14 +26,26 @@ const styles = StyleSheet.create({
         height: '30%'
     },
     submitButton: {
-        backgroundColor: '#0F992D',
+        backgroundColor: '#0F992D',// TODO: Use project defined color
         marginTop: 25,
         padding: 20,
     }
 });
 
-class SubmissionForm extends Component {
-    constructor(props) {
+interface ISubmissionFormProps {
+    buttonTitle: string
+    goBack: Function
+    templateId: string
+}
+
+interface ISubmissionFormState {
+    subject: string
+    body: string
+    from: string
+}
+
+class SubmissionForm extends Component<ISubmissionFormProps, ISubmissionFormState> {
+    constructor(props: ISubmissionFormProps) {
         super(props);
 
         this.state = {
@@ -56,14 +68,14 @@ class SubmissionForm extends Component {
                 <TextInput
                     style={styles.textInput}
                     value={this.state.subject}
-                    onChangeText={this.subjectTextChanged.bind(this)}
+                    onChangeText={this._onSubjectTextChanged.bind(this)}
                 />
 
                 <Text style={styles.label}>From (optional)</Text>
                 <TextInput
                     style={styles.textInput}
                     value={this.state.from}
-                    onChangeText={this.fromTextChanged.bind(this)}
+                    onChangeText={this._onFromTextChanged.bind(this)}
                 />
 
                 <Text style={styles.label}>Issue</Text>
@@ -74,7 +86,7 @@ class SubmissionForm extends Component {
                     }}
                     multiline={true}
                     value={this.state.body}
-                    onChangeText={this.bodyTextChanged.bind(this)}
+                    onChangeText={this._onBodyTextChanged.bind(this)}
                 />
 
                 <Button 
@@ -105,19 +117,19 @@ class SubmissionForm extends Component {
         this.props.goBack();
     }
 
-    subjectTextChanged(subject) {
+    _onSubjectTextChanged(subject: string) {
         this.setState({
             subject
         });
     }
 
-    fromTextChanged(from) {
+    _onFromTextChanged(from: string) {
         this.setState({
             from
         });
     }
 
-    bodyTextChanged(body) {
+    _onBodyTextChanged(body: string) {
         this.setState({
             body
         });

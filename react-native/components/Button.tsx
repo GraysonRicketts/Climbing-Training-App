@@ -3,6 +3,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
+  ViewStyle
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -12,7 +13,16 @@ const styles = StyleSheet.create({
   },
 });
 
-class Button extends Component {
+interface IButtonProps {
+  title: string,
+  onPress: Function,
+  fontSize: number
+  fontColor: string,
+  isEmphasized: boolean,
+  style: ViewStyle
+}
+
+class Button extends Component<IButtonProps> {
  render() {
     const { 
       title,
@@ -27,7 +37,7 @@ class Button extends Component {
    return (
         <TouchableOpacity
             style={{ ...styles.button, ...style }}
-            onPress={onPress}
+            onPress={(_) => onPress()}
         >
           {children}
           <Text
