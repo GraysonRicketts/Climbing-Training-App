@@ -1,17 +1,11 @@
-/**
- * TODO
- * 
- * @format
- * @flow
- */
-
-import React, {Component} from 'react';
+import React from 'react';
+import { Component } from 'react';
 import { 
-  StyleSheet, 
+  StyleSheet,
   View,
 } from 'react-native';
 import SubmissionForm from '../../components/SubmissionForm';
-import { TEMPLATE_ID } from './../../helpers/EmailSender';
+import { TEMPLATE_ID } from '../../util/EmailSender';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,23 +17,25 @@ const styles = StyleSheet.create({
   }
 });
 
-class SendSuggestion extends Component {
-    constructor(props) {
-        super(props);
-    }
+interface ISendSuggestionProps {
+  navigation: any
+}
 
+class SendSuggestion extends Component<ISendSuggestionProps> {
   render() {
+    const { navigation } = this.props;
+
     return (
       <View style={styles.container}>
         <SubmissionForm 
           templateId={TEMPLATE_ID.suggestion}
-          goBack={this.props.navigation.goBack.bind(this)}
+          goBack={navigation.goBack.bind(this)}
         />
       </View>
     );
   }
 
-  static navigationOptions(navigationState) {
+  static navigationOptions() {
     return {
       title: '‍‍Suggestion',
     }

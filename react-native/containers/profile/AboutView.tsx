@@ -1,11 +1,5 @@
-/**
- * TODO
- * 
- * @format
- * @flow
- */
-
-import React, {Component} from 'react';
+import React from 'react';
+import { Component } from 'react';
 import { 
   StyleSheet, 
   View,
@@ -62,10 +56,6 @@ const iconBlurb = (props) => {
 }
 
 class AboutView extends Component {
-  constructor(props) {
-      super(props);
-  }
-
   render() {
     return (
       <View style={styles.container}>
@@ -90,7 +80,7 @@ class AboutView extends Component {
     );
   }
 
-  static navigationOptions(navigationState) {
+  static navigationOptions() {
     return {
       title: '‍‍About',
     }
