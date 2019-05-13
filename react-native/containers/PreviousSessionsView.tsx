@@ -1,17 +1,16 @@
-/**
- * TODO
- * 
- * @format
- * @flow
- */
-
-import React, {Component} from 'react';
-import {SectionList, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import { Component } from 'react';
+import {
+  SectionList, 
+  StyleSheet, 
+  Text, 
+  View
+} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import ClimbDataRow from '../components/ClimbDataRow';
 import ClimbingSessionHeader from '../components/ClimbingSessionHeader'
 import PreviousClimbCalendar from '../components/PreviousClimbCalendar';
-import { formatDate_YYYY_MM_DD } from './../helpers/DateFormatter';
+import { formatDate_YYYY_MM_DD } from '../util/DateFormatter';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,8 +31,13 @@ const styles = StyleSheet.create({
   }
 });
 
-class StatsView extends Component {
-    constructor(props) {
+interface IPreviousSessionsState {
+  state: any[]
+  selectedDate: string
+}
+
+class PreviousSessions extends Component<null, IPreviousSessionsState> {
+    constructor(props: any) {
         super(props);
 
         this.state = {
@@ -47,12 +51,14 @@ class StatsView extends Component {
     }
 
     render() {
-      const sessionsFormatedForSection = this.state.climbingSessions
+      const { climbingSessions } = this.state;
+
+      const sessionsFormatedForSection = climbingSessions
         .filter(this._climbIsSelected.bind(this))  
         .map((climb) => ({
           title: climb[0], 
           data: climb[1]
-        }))
+        }));
 
       const sessionDates = this._getSessionDates();
 
@@ -150,11 +156,11 @@ class StatsView extends Component {
       }
     }
 
-    _compareClimbDates(climb1, climb2) {
-      const climb1Date = parseInt(climb1[0].split('^')[0]);
-      const climb2Date = parseInt(climb2[0].split('^')[0]);
-      return climb2Date - climb1Date;
+    _compareClimbDates(climbDateA: string, climbDateB: string): number {
+      const parsedClimbDateA = parseInt(climbDateA[0].split('^')[0]);
+      const parsedClimbDateB = parseInt(climbDateB[0].split('^')[0]);
+      return parsedClimbDateB - parsedClimbDateA;
     }
 }
 
-  export default StatsView;
+  export default PreviousSessions;

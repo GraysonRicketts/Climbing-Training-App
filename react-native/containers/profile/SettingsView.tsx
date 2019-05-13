@@ -1,12 +1,10 @@
-/**
- * TODO
- * 
- * @format
- * @flow
- */
-
-import React, {Component} from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import { Component } from 'react';
+import { 
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,10 +32,6 @@ const styles = StyleSheet.create({
 });
 
 class Settings extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     // TODO: settings zone (screen)
       // TODO: default grade
       // TODO: hide grades
@@ -56,7 +50,7 @@ class Settings extends Component {
     );
   }
 
-  static navigationOptions(navigationState) {
+  static navigationOptions() {
     return {
       title: '‍‍Settings',
     }

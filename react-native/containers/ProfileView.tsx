@@ -1,18 +1,12 @@
-/**
- * TODO
- * 
- * @format
- * @flow
- */
-
-import React, {Component} from 'react';
+import React from 'react';
+import { Component } from 'react';
 import { StyleSheet, Text, View} from 'react-native';
-import Button from './../components/Button';
+import Button from '../components/Button';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF',// TODO: use project defined color
     justifyContent: 'center'
   },
   explanatoryText: {
@@ -20,7 +14,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     width: '100%',
     textAlign: 'center',
-    color: '#222',
+    color: '#222', // TODO: use project defined color
     position: 'absolute',
     bottom: 20
   },
@@ -28,21 +22,21 @@ const styles = StyleSheet.create({
     width: '100%',
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderColor: '#020202',
+    borderColor: '#020202',// TODO: use project defined color
     padding: 20,
     marginBottom: -1,
     alignItems: 'flex-start'
   },
 });
 
-const normalFontColor = '#5396FC';
-const abnormalFontColor = '#FE5042';
+const normalFontColor = '#5396FC';// TODO: use project defined color
+const abnormalFontColor = '#FE5042';// TODO: use project defined color
 
-class ProfileView extends Component {
-  constructor(props) {
-      super(props);
-  }
+interface IProfileViewProps {
+  navigation: any
+}
 
+class ProfileView extends Component<IProfileViewProps> {
   // TODO: profile (screen)
     // TODO: linked account / login info
     // TODO: payment info
@@ -104,7 +98,7 @@ class ProfileView extends Component {
     this.props.navigation.push('About');
   }
 
-  static navigationOptions(navigationState) {
+  static navigationOptions() {
     return {
       title: '‍‍Profile',
     }

@@ -1,11 +1,5 @@
-/**
- * View the user sees when first opening app
- * 
- * @format
- * @flow
- */
-
-import React, {Component} from 'react';
+import React from 'react';
+import { Component } from 'react';
 import { 
   StyleSheet,
   Text,
@@ -42,7 +36,11 @@ const styles = StyleSheet.create({
   }
 });
 
-class WelcomeView extends Component {
+interface IWelcomeViewProps {
+  navigation: any // TODO: typecheck
+}
+
+class WelcomeView extends Component<IWelcomeViewProps> {
   render() {
     const navigationFontSize = 20;
     const navigationFontColor = '#171717';
@@ -93,23 +91,23 @@ class WelcomeView extends Component {
     );
   }
   
-  _pushTrainingSessionView() {
+  _pushTrainingSessionView(): void {
     this.props.navigation.push('TrainingSession');
   }
   
-  _pushProfileView() {
+  _pushProfileView(): void {
     this.props.navigation.push('Profile');
   } 
   
-  _pushPreviousSessionsView() {
+  _pushPreviousSessionsView(): void {
     this.props.navigation.push('PreviousSessions');
   }
 
-  _pushStatisticsView() {
+  _pushStatisticsView(): void {
     this.props.navigation.push('Stats');
   }
 
-  static navigationOptions(navigationState) {
+  static navigationOptions(navigationState: any): any { // TODO: typecheck
     const { navigation } = navigationState;
 
     return {
