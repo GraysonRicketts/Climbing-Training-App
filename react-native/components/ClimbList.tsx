@@ -3,10 +3,11 @@ import { Component } from 'react';
 import { FlatList } from 'react-native';
 import ClimbDataRow from './ClimbDataRow';
 import NoClimbsComponent from './NoClimbsComponent';
+import { Climb } from '../util/Climbs';
 
 interface IClimbListProps {
     data: any // TODO: typecheck
-    selectedKey: any // TODO: typecheck
+    selectedKey?: number
     onRowPress: Function
 }
 

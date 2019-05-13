@@ -5,7 +5,7 @@ interface ISaveSessionButtonProps {
     title: string
     navigation: any
     navigationParam: any
-    isCancel: boolean
+    isCancel?: boolean
 }
 
 const SaveSessionButton = (props: ISaveSessionButtonProps) => {

@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         paddingRight: 50,
         paddingTop: 25,
         paddingBottom: 25,
-        borderColor: '#AAA',
+        borderColor: '#AAA', // TODO: use project defined color
         borderRadius: 0,
         borderBottomWidth: 0.5
     },

@@ -17,9 +17,9 @@ interface IButtonProps {
   title: string,
   onPress: Function,
   fontSize: number
-  fontColor: string,
-  isEmphasized: boolean,
-  style: ViewStyle
+  fontColor?: string,
+  style?: ViewStyle
+  isEmphasized?: boolean,
 }
 
 class Button extends Component<IButtonProps> {
