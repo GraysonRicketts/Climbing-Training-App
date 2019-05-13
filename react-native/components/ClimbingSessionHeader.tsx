@@ -4,15 +4,15 @@ import {
     Text,
     StyleSheet 
 } from 'react-native';
-import { formatDate_MMMM_DD_YYYY } from '../helpers/DateFormatter';
+import { formatDate_MMMM_DD_YYYY } from '../util/DateFormatter';
 
 
 const styles = StyleSheet.create({
     text: {
         fontSize: 16,
         fontWeight: '400',
-        color: '#666',
-        backgroundColor: '#F5FCFF'
+        color: '#666', // TODO: Use project defined color
+        backgroundColor: '#F5FCFF' // TODO: Use project defined color
     }
 });
 

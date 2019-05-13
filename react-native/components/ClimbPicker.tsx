@@ -4,7 +4,7 @@ import { Picker } from 'react-native';
 
 interface IClimbPickerProps {
     climbSelected: any // TODO: typecheck
-    onValuedChanged: Function
+    onValuedChange: Function
     items: any // TODO: typecheck
 }
 
@@ -12,7 +12,7 @@ export default class ClimbPicker extends Component<IClimbPickerProps> {
     render() {
         const {
             climbSelected,
-            onValuedChanged,
+            onValuedChange,
             items
         } = this.props;
 
@@ -20,7 +20,7 @@ export default class ClimbPicker extends Component<IClimbPickerProps> {
             <Picker
                 style={{ flexGrow: 1}}
                 selectedValue={climbSelected}
-                onValueChange={() => onValuedChanged()}
+                onValueChange={() => onValuedChange()}
             >
                 {Object.keys(items).map((itemKey) => {
                     return (

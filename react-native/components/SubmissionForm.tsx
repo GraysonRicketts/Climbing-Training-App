@@ -6,7 +6,7 @@ import {
   TextInput
 } from 'react-native';
 import Button from './Button';
-import sendEmail from '../helpers/EmailSender';
+import sendEmail from '../util/EmailSender';
 
 const styles = StyleSheet.create({
     label: {
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 });
 
 interface ISubmissionFormProps {
-    buttonTitle: string
+    buttonTitle?: string
     goBack: Function
     templateId: string
 }
