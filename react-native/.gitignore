@@ -54,3 +54,7 @@ buck-out/
 
 # Bundle artifact
 *.jsbundle
+
+# VSCode files
+.vscode/.react/index.bundle
+.vscode/.react/index.map
