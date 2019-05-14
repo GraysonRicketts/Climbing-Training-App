@@ -119,14 +119,14 @@ class LogClimbModal extends Component<ILogClimbModalProps, ILogClimbModalState> 
             searchText,
             sentIt,
             navigationState,
-            routeSelected: climbSelected
+            routeSelected
         } = this.state;
         
         return (
             <Modal
                 style={styles.modal}
                 isVisible={isVisible}
-                onBackdropPress={() => this.hideModal.bind(this)}
+                onBackdropPress={() => this.hideModal() }
                 swipeDirection='down'
                 onSwipeComplete={() => this.hideModal() }
                 avoidKeyboard={true}
@@ -156,23 +156,26 @@ class LogClimbModal extends Component<ILogClimbModalProps, ILogClimbModalState> 
                         renderScene={SceneMap({
                             first: () => (
                                 <ClimbPicker
-                                    climbSelected={climbSelected}
-                                    items={this._getItemsForPicker(HUECO_RATINGS)}
+                                    routeSelected={routeSelected}
+                                    items={this._getValuesForPicker(HUECO_RATINGS)}
                                     onValuedChange={this._onClimbSelectedChange.bind(this)}
+                                    type={CLIMBING_TYPE.HUECO}
                                 />
                             ),
                             second: () => (
                                 <ClimbPicker
-                                    climbSelected={climbSelected}
-                                    items={this._getItemsForPicker(YOSEMITE_RATINGS)}
+                                    routeSelected={routeSelected}
+                                    items={this._getValuesForPicker(YOSEMITE_RATINGS)}
                                     onValuedChange={this._onClimbSelectedChange.bind(this)}
+                                    type={CLIMBING_TYPE.HUECO}
                                 />
                             ),
                             third: () => (
                                 <ClimbPicker
-                                    climbSelected={climbSelected}
-                                    items={this._getItemsForPicker(FRENCH_RATINGS)}
+                                    routeSelected={routeSelected}
+                                    items={this._getValuesForPicker(FRENCH_RATINGS)}
                                     onValuedChange={this._onClimbSelectedChange.bind(this)}
+                                    type={CLIMBING_TYPE.HUECO}
                                 />
                             )
                         })}
@@ -194,7 +197,7 @@ class LogClimbModal extends Component<ILogClimbModalProps, ILogClimbModalState> 
                 </View>
             </Modal>
         );
-      }
+    }
 
       
     componentWillReceiveProps(props: ILogClimbModalProps) {
@@ -269,7 +272,7 @@ class LogClimbModal extends Component<ILogClimbModalProps, ILogClimbModalState> 
         this.setState({ sentIt: didSendRoute });
     }
 
-    _getItemsForPicker(values: IClimbDifficultyRatings): IClimbDifficultyRatings {
+    _getValuesForPicker(values: IClimbDifficultyRatings): IClimbDifficultyRatings {
         const { 
             searchText
         } = this.state;
