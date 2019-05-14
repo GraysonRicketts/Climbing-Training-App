@@ -25,7 +25,7 @@ class BarChart extends Component<IBarChartProps> {
             background: '#F5FCFF', // TODO: use project defined color
             backgroundGradientFrom: '#F5FCFF',
             backgroundGradientTo: '#F5FCFF',
-            color: '#111'
+            color: () => '#111'
         }
         const screenWidth = Dimensions.get('window').width * 0.9;
 
@@ -40,7 +40,7 @@ class BarChart extends Component<IBarChartProps> {
         )
     }
 
-    _formatDataForGraph(climbData: any) {
+    _formatDataForGraph(climbData: any): ChartKitData {
         let data: ChartKitData = {
           labels: [],
           datasets: [{
@@ -48,19 +48,12 @@ class BarChart extends Component<IBarChartProps> {
           }]
         };
     
-        let dataExists = false;
         Object.keys(climbData).forEach((grade) => {
           if (climbData[grade]) {
-            dataExists = true;
-
             data.labels.push(grade);
             data.datasets[0].data.push(climbData[grade]);
           }
         });
-
-        if (!dataExists) {
-            return null;
-        }
     
         return data;
       }
