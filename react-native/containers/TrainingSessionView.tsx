@@ -61,6 +61,7 @@ interface ITrainingSessionViewState {
     climbs: Climb[]
     climbSelected?: Climb
     title: string
+    isEditingRoute: boolean
 }
 
 class TrainingSessionView extends Component<ITrainingSessionViewProps, ITrainingSessionViewState> {
@@ -78,12 +79,14 @@ class TrainingSessionView extends Component<ITrainingSessionViewProps, ITraining
             climbs: [],
             climbSelected: undefined,
             title: formatDate_MMMM_DD_YYYY(Date.now()),
+            isEditingRoute: false
         }
     }
 
     render() {
         const {
-            climbSelected
+            climbSelected,
+            isEditingRoute
         } = this.state;
 
         return (
@@ -94,10 +97,11 @@ class TrainingSessionView extends Component<ITrainingSessionViewProps, ITraining
                     value={this.state.title}
                     numberOfLines={1}
                 />
+                
                 <ClimbList 
                     data={this.state.climbs}
-                    selectedKey={climbSelected ? climbSelected.key : undefined}
-                    onRowPress={this.editClimb.bind(this)}
+                    selectedKey={(climbSelected && isEditingRoute) ? climbSelected.key : undefined}
+                    onRowPress={this.onPreviousClimbPressed.bind(this)}
                 />
 
                 <Button
@@ -114,6 +118,8 @@ class TrainingSessionView extends Component<ITrainingSessionViewProps, ITraining
                     hideModal={this.hideClimbModal.bind(this)}
                     saveClimb={this.saveClimb.bind(this)}
                     routeSelected={climbSelected ? climbSelected.route : undefined}
+                    isEditingRoute={isEditingRoute}
+                    climbKey={climbSelected ? climbSelected.key : undefined}
                 />
             </View>
         );
@@ -164,7 +170,7 @@ class TrainingSessionView extends Component<ITrainingSessionViewProps, ITraining
         this._setLogClimbModalVisible(false);
     }
 
-    editClimb(climbKey: number): void {
+    onPreviousClimbPressed(climbKey: number): void {
         const climb = this.state.climbs.find(climb => climb.key === climbKey);
         if (!climb) {
             console.error('Tried to edit a climb but no climb was found');
@@ -173,14 +179,15 @@ class TrainingSessionView extends Component<ITrainingSessionViewProps, ITraining
 
         this.setState((prevState) => ({
             ...prevState,
+            isEditingRoute: true,
             climbSelected: {
                 key: climb.key,
                 route: climb.route,
                 completed: climb.completed
             }
-        }))
-
-        this.showClimbModal();
+        }), () => {
+            this.showClimbModal();
+        });
     }
 
     saveClimb(route: Route, sentIt: boolean, _key?: number): void {
@@ -194,6 +201,9 @@ class TrainingSessionView extends Component<ITrainingSessionViewProps, ITraining
         };
         
         if (_key) {
+            this.setState({
+                isEditingRoute: false
+            });
             this._editClimb(_key, newClimb);
         }
         else { // Add new climb
