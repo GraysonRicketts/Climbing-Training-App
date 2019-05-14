@@ -36,7 +36,7 @@ interface IProfileViewProps {
   navigation: any
 }
 
-class ProfileView extends Component<IProfileViewProps> {
+class CustomizationView extends Component<IProfileViewProps> {
   // TODO: profile (screen)
     // TODO: linked account / login info
     // TODO: payment info
@@ -105,4 +105,4 @@ class ProfileView extends Component<IProfileViewProps> {
   }
 }
 
-export default ProfileView;
+export default CustomizationView;
