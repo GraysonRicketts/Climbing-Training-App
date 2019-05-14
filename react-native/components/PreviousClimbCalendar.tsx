@@ -4,7 +4,8 @@ import { StyleSheet } from 'react-native';
 import { formatDate_YYYY_MM_DD } from '../util/DateFormatter';
 import { 
     Calendar,
-    DotMarking
+    DotMarking,
+    DateObject
 } from 'react-native-calendars';
 
 const styles = StyleSheet.create({
@@ -14,8 +15,8 @@ const styles = StyleSheet.create({
 });
 
 interface IPreviousClimbCalendarProps {
-    sessionDates: string[] // TODO: typecheck
-    selectedDate: string // TODO: typecheck
+    sessionDates: string[] 
+    selectedDate: string
     onDayPress: Function 
 }
 
@@ -55,7 +56,7 @@ class PreviousClimbCalendar extends Component<IPreviousClimbCalendarProps> {
                 style={styles.calendar}
                 markedDates={markedDates}
                 markingType={'simple'}
-                onDayPress={() => onDayPress()}
+                onDayPress={(date: DateObject) => onDayPress(date)}
                 monthFormat={'MMMM yyyy'}
                 hideArrows={false}
                 hideExtraDays={false}

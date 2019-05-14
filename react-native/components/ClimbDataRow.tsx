@@ -32,9 +32,9 @@ const styles = StyleSheet.create({
 interface IClimbDataRowProps {
     difficulty: string
     sentIt: boolean
-    isSelected: boolean
-    onPress: Function
-    climbKey: number | undefined
+    onPress?: Function
+    isSelected?: boolean
+    climbKey?: number
 }
 
 class ClimbDataRow extends Component<IClimbDataRowProps> {
@@ -49,7 +49,7 @@ class ClimbDataRow extends Component<IClimbDataRowProps> {
     
         return (
             <TouchableHighlight 
-                onPress={(_) => onPress(climbKey)}
+                onPress={onPress ? (_) => onPress(climbKey) : () => {} }
                 underlayColor={'#F5FCFF'} // TODO: use project defined color
                 activeOpacity={0.5}
                 style={isSelected ? { backgroundColor: '#73C2FB'} : undefined } // TODO: use project defined color
