@@ -5,18 +5,17 @@ import {
   ScrollView,
   Text,
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 import BarChart from '../components/statistics/BarChart';
 import Statistic from '../components/statistics/Statistic';
 import CLIMB_TYPES from '../enums/ClimbingTypes';
 import FRENCH_RATINGS from '../enums/FrenchRatings';
 import YOSEMITE_RATINGS from '../enums/YosemiteRatings';
 import HUECO_RATINGS from '../enums/HuecoRatings';
-import { 
-  AsyncSessionStorage, 
+import {
   ClimbingSession,
   Climb
 } from './../util/Climbs';
+import { getClimbingSessionsFromPhone } from './../util/PersistentStore';
 
 const styles = StyleSheet.create({
   container: {
@@ -54,7 +53,13 @@ class StatsView extends Component<null, IStatsViewState> {
   }
 
   componentWillMount() {
-    this._getClimbingSessions();
+    getClimbingSessionsFromPhone()
+      .then((climbingSessions) => {
+        this.setState({
+          climbingSessions
+        });
+      }
+    );
   }
 
   // TODO: # of onsites
@@ -130,66 +135,6 @@ class StatsView extends Component<null, IStatsViewState> {
         case CLIMB_TYPES.FRENCH:
           return 'French';
     };
-  }
-
-  async _getClimbingSessions() {
-    let rawClimbingSessions;
-    try {
-      rawClimbingSessions = await this._getRawSessionData();
-    }
-    catch(error) {
-      console.error(`Failed to get raw session data:  ${error}`);
-      return;
-    }
-
-    const climbingSessions = this._parseRawSessionData(rawClimbingSessions);
-
-    this.setState({
-      climbingSessions
-    });
-  }
-
-  /**
-   * Turn the raw string data into strongly-typed state data
-   * @param sessions 
-   */
-  _parseRawSessionData(sessions: AsyncSessionStorage | null): ClimbingSession[] {
-    if (!sessions) {
-      return [];
-    }
-
-    let formattedSessions: ClimbingSession[] = [];
-    sessions.forEach((sessionDataArray) => {
-      const date = parseInt(sessionDataArray[0]);
-
-      let climbData: Climb[] = [];
-      if (sessionDataArray[1]) {
-        climbData = JSON.parse(sessionDataArray[1]);
-      }
-
-      formattedSessions.push({
-        startTime: date,
-        climbs: climbData
-      })
-    });
-
-    return formattedSessions;
-  }
-
-  /**
-   * Get the raw string data saved to the device
-   */
-  async _getRawSessionData(): Promise<AsyncSessionStorage | null> {
-    const sessionKeys = await AsyncStorage.getAllKeys();
-
-    // No sessions saved. Valid outcome for a new user going to the 
-    // stats page for the first time.
-    if (!sessionKeys) {
-      return null;
-    }
-
-    const rawClimbingSessions = await AsyncStorage.multiGet(sessionKeys);
-    return rawClimbingSessions;
   }
 
   _getTotalNumberOfClimbs(): number {

@@ -6,7 +6,6 @@ import {
     TextInput,
     View
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 import LogClimbModal from './LogClimbModal';
 import SessionHeaderButton from '../components/SessionHeaderButton';
 import { formatDate_MMMM_DD_YYYY } from './../util/DateFormatter';
@@ -16,6 +15,7 @@ import {
     Climb,
     Route
 } from '../util/Climbs';
+import { saveSessionToPhone } from './../util/PersistentStore';
 
 const styles = (StyleSheet.create({
     container: {
@@ -238,22 +238,18 @@ class TrainingSessionView extends Component<ITrainingSessionViewProps, ITraining
     }
 
     async saveSession() {
+        const { 
+            climbs,
+            title,
+            startTime
+        } = this.state;
+
         this.setState({
             endTime: Date.now()
         })
 
-        if (this.state.climbs.length > 0) {
-            const sessionStringified = JSON.stringify(this.state.climbs);
-            let sessionKey = this.state.startTime.toString();
-            if (this.state.title) {
-                sessionKey += `^${this.state.title}`;
-            }
-    
-            try {
-                await AsyncStorage.setItem(sessionKey, sessionStringified);
-            } catch(error) {
-                console.error(error);
-            }
+        if (climbs.length > 0) {
+            saveSessionToPhone(climbs, startTime, title);
         }
 
         this._goBack();
