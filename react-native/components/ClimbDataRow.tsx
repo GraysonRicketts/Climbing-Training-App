@@ -34,6 +34,7 @@ interface IClimbDataRowProps {
     sentIt: boolean
     isSelected: boolean
     onPress: Function
+    climbKey: number | undefined
 }
 
 class ClimbDataRow extends Component<IClimbDataRowProps> {
@@ -42,12 +43,13 @@ class ClimbDataRow extends Component<IClimbDataRowProps> {
             difficulty,
             sentIt, 
             isSelected,
-            onPress 
+            onPress,
+            climbKey
         } = this.props;
     
         return (
             <TouchableHighlight 
-                onPress={(_) => onPress()}
+                onPress={(_) => onPress(climbKey)}
                 underlayColor={'#F5FCFF'} // TODO: use project defined color
                 activeOpacity={0.5}
                 style={isSelected ? { backgroundColor: '#73C2FB'} : undefined } // TODO: use project defined color

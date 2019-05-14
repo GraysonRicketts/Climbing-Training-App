@@ -6,13 +6,13 @@ import NoClimbsComponent from './NoClimbsComponent';
 import { Climb } from '../util/Climbs';
 
 interface IClimbListProps {
-    data: any // TODO: typecheck
+    data: Climb[]
     selectedKey?: number
     onRowPress: Function
 }
 
 class ClimbList extends Component<IClimbListProps> {
-    readonly _flatList: React.RefObject<FlatList<any>>; // TODO: typecheck
+    readonly _flatList: React.RefObject<FlatList<Climb>>;
 
     constructor(props: IClimbListProps) {
         super(props);
@@ -33,9 +33,10 @@ class ClimbList extends Component<IClimbListProps> {
                 renderItem={(data) => (
                     <ClimbDataRow 
                         difficulty={data.item.route.difficulty}
-                        sentIt={data.item.sentIt}
+                        sentIt={data.item.completed}
                         isSelected={data.item.key === selectedKey}
-                        onPress={onRowPress.bind(data.item.key)}
+                        onPress={onRowPress}
+                        climbKey={data.item.key}
                     />
                 )}
                 ListEmptyComponent={<NoClimbsComponent />}
