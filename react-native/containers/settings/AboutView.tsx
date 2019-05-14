@@ -27,7 +27,13 @@ const aboutMeBlurb = 'Hey! This app is developed by a climber in their free time
 const shoutOuts = 'Shout-out to the fantastic folks at Purdue Climbing Club, Boulders in Madison, WI, and Brooklyn Boulders in Chicago for awesome gyms and community!';
 const contributions = 'Parts of this app were made possible by free contributions from others.';
 
-const iconBlurb = (props) => {
+interface IIconBlurb {
+  text: string
+  url: string
+  creator: string
+}
+
+const IconBlurb = (props: IIconBlurb) => {
     return (
         <Text style={styles.list}>
             {props.text}
@@ -65,13 +71,13 @@ class AboutView extends Component {
 
         <Text style={styles.paragraph}>{contributions}</Text>
             
-        {iconBlurb({
+        {IconBlurb({
             text: '* app logo, diskette icon, and the calendar icon were made by ',
             url: 'https://www.flaticon.com/authors/smashicons',
             creator: 'Smashicons'
         })}
 
-        {iconBlurb({
+        {IconBlurb({
             text: '* the line chart icon was made by ',
             url: 'https://www.freepik.com',
             creator: 'Freepik'
