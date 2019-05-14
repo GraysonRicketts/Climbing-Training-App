@@ -7,14 +7,14 @@ import {
   createAppContainer
 } from 'react-navigation';
 import WelcomeView from './containers/WelcomeView';
-import ProfileView from './containers/ProfileView';
+import CustomizationView from './containers/CustomizationView';
 import PreviousSessionsView from './containers/PreviousSessionsView';
 import StatsView from './containers/StatsView';
 import TrainingSessionView from './containers/TrainingSessionView';
-import ReportBugView from './containers/profile/ReportBugView';
-import SendSuggestionView from './containers/profile/SendSuggestionView';
-import SettingsView from './containers/profile/SettingsView';
-import AboutView from './containers/profile/AboutView';
+import ReportBugView from './containers/settings/ReportBugView';
+import SendSuggestionView from './containers/settings/SendSuggestionView';
+import SettingsView from './containers/settings/SettingsView';
+import AboutView from './containers/settings/AboutView';
 
 
 const MainStack = createStackNavigator(
@@ -32,7 +32,7 @@ const MainStack = createStackNavigator(
       screen: StatsView
     },
     Profile: {
-      screen: ProfileView
+      screen: CustomizationView
     },
     ReportBug: {
       screen: ReportBugView
