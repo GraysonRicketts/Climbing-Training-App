@@ -33,7 +33,10 @@ const styles = StyleSheet.create({
 });
 
 type CountForDifficulty = { [difficulty : string] : number };
-type HistogramTypeData = { type: CLIMB_TYPES, data: CountForDifficulty };
+type HistogramTypeData = { 
+  type: CLIMB_TYPES, 
+  data: CountForDifficulty | null
+};
 
 interface IStatsViewState {
   climbingSessions: ClimbingSession[]
@@ -85,9 +88,9 @@ class StatsView extends Component<null, IStatsViewState> {
               {percentSent ? percentSent : 'No data'}
           </Text>
         </Statistic>
-        {
-          typeHistogramData ?
-          typeHistogramData.map(climbs => 
+        {typeHistogramData
+          .filter(climbs => climbs.data)
+          .map(climbs => 
             <Statistic 
               title={this._getClimbingTypeName(climbs.type)}
               key={distKeyId++}
@@ -95,7 +98,8 @@ class StatsView extends Component<null, IStatsViewState> {
               <BarChart 
                 data={climbs.data}
               />
-            </Statistic>) : null
+            </Statistic>
+          )
         }
       </ScrollView>
     );
@@ -185,17 +189,23 @@ class StatsView extends Component<null, IStatsViewState> {
   _getTypeHistogramData(): HistogramTypeData[]  {
     let countsByTypeOfClimb: HistogramTypeData[] = [];
     
-    Object.values(CLIMB_TYPES).forEach((type) => {
-      const countsForType = this._getCountOfClimbsForType(type);
-      countsByTypeOfClimb.push({type, data: countsForType});
-    });
+    Object.values(CLIMB_TYPES)
+      .filter(value => typeof value === "number")
+      .forEach((type: number) => {
+        const countsForType = this._getCountOfClimbsForType(type);
+        countsByTypeOfClimb.push({type, data: countsForType});
+      });
 
     return countsByTypeOfClimb;
   }
 
-  _getCountOfClimbsForType(typeOfClimb: CLIMB_TYPES): CountForDifficulty  {
+  _getCountOfClimbsForType(typeOfClimb: CLIMB_TYPES): CountForDifficulty | null  {
     let counts: CountForDifficulty = {};
+    
     const climbsForType = this._filterClimbsForType(typeOfClimb);
+    if (climbsForType.length === 0) {
+      return null;
+    }
 
     climbsForType.forEach((climb) => {
       const difficulty = climb.route.difficulty;
