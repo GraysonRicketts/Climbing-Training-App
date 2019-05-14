@@ -68,9 +68,11 @@ const styles = StyleSheet.create({
 
 interface ILogClimbModalProps {
     isVisible: boolean
-    routeSelected?: Route
     saveClimb: Function
     hideModal: Function
+    isEditingRoute: boolean
+    routeSelected?: Route
+    climbKey?: number
 }
 
 type NavigationStateKey = {
@@ -208,10 +210,19 @@ class LogClimbModal extends Component<ILogClimbModalProps, ILogClimbModalState> 
     }
 
     saveClimb() {
-        this.props.saveClimb(
-            this.state.routeSelected,
-            this.state.navigationState.index,
-            this.state.sentIt
+        const { 
+            saveClimb,
+            climbKey
+        } = this.props;
+        const { 
+            routeSelected,
+            sentIt
+        } = this.state;
+
+        saveClimb(
+            routeSelected,
+            sentIt,
+            climbKey
         );
 
         this.hideModal();
