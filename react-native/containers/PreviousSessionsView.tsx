@@ -6,11 +6,14 @@ import {
   Text, 
   View
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 import ClimbDataRow from '../components/ClimbDataRow';
 import ClimbingSessionHeader from '../components/ClimbingSessionHeader'
 import PreviousClimbCalendar from '../components/PreviousClimbCalendar';
 import { formatDate_YYYY_MM_DD } from '../util/DateFormatter';
+import { DateObject } from 'react-native-calendars';
+import { getClimbingSessionsFromPhone } from './../util/PersistentStore';
+import { ClimbingSession } from '../util/Climbs';
+import { formatDate_MMMM_DD_YYYY } from '../util/DateFormatter';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,7 +35,7 @@ const styles = StyleSheet.create({
 });
 
 interface IPreviousSessionsState {
-  state: any[]
+  climbingSessions: ClimbingSession[]
   selectedDate: string
 }
 
@@ -47,18 +50,34 @@ class PreviousSessions extends Component<null, IPreviousSessionsState> {
     }
 
     componentWillMount() {
-      this._getClimbingSessions();
+      getClimbingSessionsFromPhone()
+        .then((climbingSessions) => {
+          // Sort in chronologically descending order
+          const sortedSessions = climbingSessions.sort(
+            (sessionA, sessionB) => sessionB.startTime - sessionA.startTime
+          );
+
+
+          this.setState({
+            climbingSessions: sortedSessions ? sortedSessions : []
+          });
+        }
+      );
     }
 
     render() {
       const { climbingSessions } = this.state;
 
-      const sessionsFormatedForSection = climbingSessions
-        .filter(this._climbIsSelected.bind(this))  
-        .map((climb) => ({
-          title: climb[0], 
-          data: climb[1]
-        }));
+      const sessionsFormatedForSectionList = climbingSessions
+        .filter(this._dateIsSelected.bind(this))  
+        .map((session) => {
+          let title = this._formatSectionTitle(session.startTime, session.title);
+          
+          return ({
+            title: title, 
+            data: session.climbs
+          });
+        });
 
       const sessionDates = this._getSessionDates();
 
@@ -70,20 +89,20 @@ class PreviousSessions extends Component<null, IPreviousSessionsState> {
             onDayPress={this.onDayPress.bind(this)}
           />
 
-          { sessionsFormatedForSection.length ? 
+          { sessionsFormatedForSectionList.length ? 
             <SectionList
-              renderItem={({item: climb, index}) => (
+              renderItem={({ item: climb }) => (
                 <ClimbDataRow 
                   difficulty={climb.route.difficulty}
-                  sentIt={climb.sentIt}
-                  key={index}
+                  sentIt={climb.completed}
+                  key={climb.key}
                 />)}
-              renderSectionHeader={({section: {title}}) => (
+              renderSectionHeader={({section: { title } }) => (
                 <ClimbingSessionHeader
                   title={title}
                 />
               )}
-              sections={sessionsFormatedForSection}
+              sections={sessionsFormatedForSectionList}
               style={styles.sessionList}
               stickySectionHeadersEnabled={true}
             />
@@ -97,24 +116,30 @@ class PreviousSessions extends Component<null, IPreviousSessionsState> {
       );
     }
 
-    _climbIsSelected(climb) {
-      const climbDate = parseInt(climb[0].split('^')[0]);
-      const formattedClimbDate = formatDate_YYYY_MM_DD(climbDate);
+    _formatSectionTitle(date: number, title?: string): string {
+      // Turn ms from epoch into human readable format
+      const formattedDate = formatDate_MMMM_DD_YYYY(date);
+  
+      let formattedTitle = formattedDate;
+      if (title) {
+          formattedTitle = `${formattedDate} : ${title}`;
+      }
+  
+      return formattedTitle;
+  }
+
+    _dateIsSelected(session: ClimbingSession) {
+      const formattedClimbDate = formatDate_YYYY_MM_DD(session.startTime);
 
       return (formattedClimbDate === this.state.selectedDate);
     }
     
-    _getSessionDates() {
-      if (!this.state.climbingSessions) {
-        return null;
-      }
+    _getSessionDates(): string[] {
+      const { climbingSessions } = this.state;
+      let dates: string[] = [];
 
-      let dates = [];
-      this.state.climbingSessions.forEach((session) => {
-        const sessionTitle = session[0];
-        
-        let dateInMS = sessionTitle.split('^')[0];
-        const date = formatDate_YYYY_MM_DD(dateInMS);
+      climbingSessions.forEach((session) => {
+        const date = formatDate_YYYY_MM_DD(session.startTime);
         if (!date) {
           return;
         }
@@ -125,41 +150,10 @@ class PreviousSessions extends Component<null, IPreviousSessionsState> {
       return dates;
     }
 
-    onDayPress(day) {
+    onDayPress(day: DateObject) {
       this.setState({
         selectedDate: day.dateString
       })
-    }
-
-    async _getClimbingSessions() {
-      try {
-        let sessionKeys = await AsyncStorage.getAllKeys();
-        if (!sessionKeys) {
-          return undefined;
-        }
-
-        let climbingSessions = await AsyncStorage.multiGet(sessionKeys);
-        for (let sessionIdx = 0; sessionIdx < climbingSessions.length; sessionIdx++) {
-          let sessionInfo = climbingSessions[sessionIdx][1]
-          climbingSessions[sessionIdx][1] = JSON.parse(sessionInfo); // Turn string back into climbs object
-        }
-
-        // Sort so newest climbs first
-        climbingSessions = climbingSessions.sort(this._compareClimbDates);
-
-        this.setState({
-          climbingSessions
-        })
-      }
-      catch(error) {
-        console.error(error);
-      }
-    }
-
-    _compareClimbDates(climbDateA: string, climbDateB: string): number {
-      const parsedClimbDateA = parseInt(climbDateA[0].split('^')[0]);
-      const parsedClimbDateB = parseInt(climbDateB[0].split('^')[0]);
-      return parsedClimbDateB - parsedClimbDateA;
     }
 }
 
