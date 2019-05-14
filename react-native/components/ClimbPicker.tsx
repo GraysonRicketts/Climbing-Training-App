@@ -1,26 +1,31 @@
 import React from 'react';
 import { Component } from 'react';
 import { Picker } from 'react-native';
+import CLIMBING_TYPE from '../enums/ClimbingTypes';
+import { Route } from '../util/Climbs';
+import { IClimbDifficultyRatings } from './../enums/Ratings';
 
 interface IClimbPickerProps {
-    climbSelected: any // TODO: typecheck
+    routeSelected: Route
     onValuedChange: Function
-    items: any // TODO: typecheck
+    items: IClimbDifficultyRatings
+    type: CLIMBING_TYPE
 }
 
 export default class ClimbPicker extends Component<IClimbPickerProps> {
     render() {
         const {
-            climbSelected,
+            routeSelected,
             onValuedChange,
-            items
+            items,
+            type
         } = this.props;
 
         return (
             <Picker
                 style={{ flexGrow: 1}}
-                selectedValue={climbSelected}
-                onValueChange={() => onValuedChange()}
+                selectedValue={routeSelected.difficulty}
+                onValueChange={(difficulty: string) => onValuedChange(difficulty, type)}
             >
                 {Object.keys(items).map((itemKey) => {
                     return (
