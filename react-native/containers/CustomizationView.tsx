@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF',// TODO: use project defined color
-    justifyContent: 'center'
   },
   explanatoryText: {
     marginTop: 15,
