@@ -113,7 +113,7 @@ class WelcomeView extends Component<IWelcomeViewProps> {
     return {
       title: '‍‍🧗‍♀️ Welcome',
       headerRight: <Button 
-        title={'👤'}
+        title={'⚙️'}
         onPress={() => navigation.navigate('Profile')}
         fontSize={20}
       />
