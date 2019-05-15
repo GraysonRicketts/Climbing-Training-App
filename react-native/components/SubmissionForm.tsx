@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput
+    Platform,
+    StyleSheet,
+    Text,
+    TextInput,
+    KeyboardAvoidingView,
+    View
 } from 'react-native';
 import Button from './Button';
 import sendEmail from '../util/EmailSender';
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
     label: {
         marginTop: 15,
         fontSize: 20,
@@ -63,41 +68,46 @@ class SubmissionForm extends Component<ISubmissionFormProps, ISubmissionFormStat
         } = this.props;
 
         return (
-            <View>
-                <Text style={styles.label}>Subject</Text>
-                <TextInput
-                    style={styles.textInput}
-                    value={this.state.subject}
-                    onChangeText={this._onSubjectTextChanged.bind(this)}
-                />
+            <KeyboardAvoidingView 
+                behavior={Platform.OS === "ios" ? "padding" : undefined}
+                style={styles.container}
+            >
+                <View style={{ justifyContent: 'flex-end' }}>
+                    <Text style={styles.label}>Subject</Text>
+                    <TextInput
+                        style={styles.textInput}
+                        value={this.state.subject}
+                        onChangeText={this._onSubjectTextChanged.bind(this)}
+                    />
 
-                <Text style={styles.label}>From (optional)</Text>
-                <TextInput
-                    style={styles.textInput}
-                    value={this.state.from}
-                    onChangeText={this._onFromTextChanged.bind(this)}
-                />
+                    <Text style={styles.label}>From (optional)</Text>
+                    <TextInput
+                        style={styles.textInput}
+                        value={this.state.from}
+                        onChangeText={this._onFromTextChanged.bind(this)}
+                    />
 
-                <Text style={styles.label}>Issue</Text>
-                <TextInput
-                    style={{
-                        ...styles.textInput,
-                        ...styles.bodyTextInput
-                    }}
-                    multiline={true}
-                    value={this.state.body}
-                    onChangeText={this._onBodyTextChanged.bind(this)}
-                />
+                    <Text style={styles.label}>Issue</Text>
+                    <TextInput
+                        style={{
+                            ...styles.textInput,
+                            ...styles.bodyTextInput
+                        }}
+                        multiline={true}
+                        value={this.state.body}
+                        onChangeText={this._onBodyTextChanged.bind(this)}
+                    />
 
-                <Button 
-                    title={buttonTitle ? buttonTitle : 'Submit'}
-                    onPress={this.submit.bind(this)}
-                    fontSize={20}
-                    fontColor={'#FDFDFD'}
-                    isEmphasized={true}
-                    style={styles.submitButton}
-                />
-            </View>
+                    <Button 
+                        title={buttonTitle ? buttonTitle : 'Submit'}
+                        onPress={this.submit.bind(this)}
+                        fontSize={20}
+                        fontColor={'#FDFDFD'}
+                        isEmphasized={true}
+                        style={styles.submitButton}
+                    />
+                </View>
+            </KeyboardAvoidingView>
         );
     }
 
