@@ -1,9 +1,10 @@
 import React from 'react';
-import { 
+import {
     StyleSheet,
-    View, 
-    Text 
+    View,
+    Text,
 } from 'react-native';
+import AppColors from '../enums/Colors';
 
 const styles = StyleSheet.create({
     container: {
@@ -15,14 +16,14 @@ const styles = StyleSheet.create({
     },
     instructionText: {
         textAlign: 'center',
-        color: '#222', // TODO: use project defined color
+        color: AppColors.black,
         fontSize: 25,
-        width: '66%'
+        width: '66%',
     },
     downArrow: {
         paddingTop: '10%',
-        fontSize: 45
-    }
+        fontSize: 45,
+    },
 });
 
 const NoClimbsComponent = () => {
@@ -34,6 +35,6 @@ const NoClimbsComponent = () => {
             <Text style={styles.downArrow}>⬇️</Text>
         </View>
     );
-}
+};
 
 export default NoClimbsComponent;

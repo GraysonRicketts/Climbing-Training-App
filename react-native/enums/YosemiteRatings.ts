@@ -1,7 +1,9 @@
-import { IClimbDifficultyRatings } from "./Ratings";
+import ClimbDifficultyRatings from './Ratings';
 
-const YosemiteRatings: IClimbDifficultyRatings = {
-    '5.9': '5.9',
+const YosemiteRatings: ClimbDifficultyRatings = {
+    5.7: '5.7',
+    5.8: '5.8',
+    5.9: '5.9',
     '5.10a': '5.10a',
     '5.10b': '5.10b',
     '5.10c': '5.10c',

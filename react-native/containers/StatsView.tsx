@@ -13,7 +13,8 @@ import YOSEMITE_RATINGS from '../enums/YosemiteRatings';
 import HUECO_RATINGS from '../enums/HuecoRatings';
 import {
   ClimbingSession,
-  Climb
+  Climb,
+  ClimbCountsForDifficulty
 } from './../util/Climbs';
 import { getClimbingSessionsFromPhone } from './../util/PersistentStore';
 
@@ -32,10 +33,9 @@ const styles = StyleSheet.create({
   },
 });
 
-type CountForDifficulty = { [difficulty : string] : number };
 type HistogramTypeData = { 
   type: CLIMB_TYPES, 
-  data: CountForDifficulty | null
+  data: ClimbCountsForDifficulty | null
 };
 
 interface IStatsViewState {
@@ -190,7 +190,7 @@ class StatsView extends Component<null, IStatsViewState> {
     let countsByTypeOfClimb: HistogramTypeData[] = [];
     
     Object.values(CLIMB_TYPES)
-      .filter(value => typeof value === "number")
+      .filter(value => typeof value === 'number')
       .forEach((type: number) => {
         const countsForType = this._getCountOfClimbsForType(type);
         countsByTypeOfClimb.push({type, data: countsForType});
@@ -199,8 +199,8 @@ class StatsView extends Component<null, IStatsViewState> {
     return countsByTypeOfClimb;
   }
 
-  _getCountOfClimbsForType(typeOfClimb: CLIMB_TYPES): CountForDifficulty | null  {
-    let counts: CountForDifficulty = {};
+  _getCountOfClimbsForType(typeOfClimb: CLIMB_TYPES): ClimbCountsForDifficutly | null  {
+    let counts: ClimbCountsForDifficutly = {};
     
     const climbsForType = this._filterClimbsForType(typeOfClimb);
     if (climbsForType.length === 0) {

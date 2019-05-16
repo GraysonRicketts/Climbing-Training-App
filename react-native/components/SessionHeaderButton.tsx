@@ -1,28 +1,30 @@
 import React from 'react';
 import { Button } from 'react-native';
+import AppColors from '../enums/Colors';
+import { NavigationScreenProp } from 'react-navigation';
 
-interface ISaveSessionButtonProps {
-    title: string
-    navigation: any
-    navigationParam: any
-    isCancel?: boolean
+interface SaveSessionButtonProps {
+    title: string;
+    navigation: NavigationScreenProp;
+    navigationParam: any;
+    isCancel?: boolean;
 }
 
-const SaveSessionButton = (props: ISaveSessionButtonProps) => {
-    const { 
-        title, 
-        navigation, 
-        navigationParam, 
-        isCancel 
+const SaveSessionButton = (props: SaveSessionButtonProps) => {
+    const {
+        title,
+        navigation,
+        navigationParam,
+        isCancel,
     } = props;
 
     return (
         <Button
-            title={title}
+            color={isCancel ? AppColors.errorRed : undefined}
             onPress={navigation.getParam(navigationParam)}
-            color={isCancel ? '#FF4C4C' : undefined } // TODO: Use project defined color
+            title={title}
         />
     );
-}
+};
 
 export default SaveSessionButton;

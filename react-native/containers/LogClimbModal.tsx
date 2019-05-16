@@ -21,7 +21,7 @@ import FRENCH_RATINGS from '../enums/FrenchRatings';
 import YOSEMITE_RATINGS from '../enums/YosemiteRatings';
 import HUECO_RATINGS from '../enums/HuecoRatings';
 import FrenchRatings from '../enums/FrenchRatings';
-import { IClimbDifficultyRatings } from '../enums/Ratings';
+import ClimbDifficultyRatings from '../enums/Ratings';
 import { Route } from '../util/Climbs';
 
 
@@ -102,7 +102,7 @@ class LogClimbModal extends Component<ILogClimbModalProps, ILogClimbModalState> 
                 type: CLIMBING_TYPE.HUECO,
             },
             boulderGradeSelected: HUECO_RATINGS.V0,
-            yosemiteGradeSelected: YOSEMITE_RATINGS["5.10a"],
+            yosemiteGradeSelected: YOSEMITE_RATINGS['5.10a'],
             frenchGradeSelected: FrenchRatings[4],
             navigationState: {
                 index: CLIMBING_TYPE.HUECO,
@@ -283,7 +283,7 @@ class LogClimbModal extends Component<ILogClimbModalProps, ILogClimbModalState> 
         this.setState({ sentIt: didSendRoute });
     }
 
-    _getValuesForPicker(values: IClimbDifficultyRatings): IClimbDifficultyRatings {
+    _getValuesForPicker(values: ClimbDifficultyRatings): ClimbDifficultyRatings {
         const { 
             searchText
         } = this.state;
@@ -292,7 +292,7 @@ class LogClimbModal extends Component<ILogClimbModalProps, ILogClimbModalState> 
             return values;
         }
 
-        let filteredValues: IClimbDifficultyRatings = {};
+        let filteredValues: ClimbDifficultyRatings = {};
         for (const key in values) {
             if (key.includes(searchText)) {
                 filteredValues[key] = key;

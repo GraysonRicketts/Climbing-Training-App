@@ -1,11 +1,12 @@
 import React from 'react';
-import { Component } from 'react';
-import { 
+
+import {
     TouchableHighlight,
     View,
     Text,
-    StyleSheet 
+    StyleSheet,
 } from 'react-native';
+import AppColors from '../enums/Colors';
 
 const ROW_FONT_SIZE = 30;
 
@@ -16,60 +17,59 @@ const styles = StyleSheet.create({
         paddingRight: 50,
         paddingTop: 25,
         paddingBottom: 25,
-        borderColor: '#AAA', // TODO: use project defined color
+        borderColor: AppColors.gray,
         borderRadius: 0,
-        borderBottomWidth: 0.5
+        borderBottomWidth: 0.5,
     },
     difficultyText: {
         fontSize: ROW_FONT_SIZE,
-        flexGrow: 2
+        flexGrow: 2,
     },
     sentText: {
-        fontSize: ROW_FONT_SIZE
-    }
+        fontSize: ROW_FONT_SIZE,
+    },
 });
 
-interface IClimbDataRowProps {
-    difficulty: string
-    sentIt: boolean
-    onPress?: Function
-    isSelected?: boolean
-    climbKey?: number
+interface ClimbDataRowProps {
+    difficulty: string;
+    sentIt: boolean;
+    onPress?: Function;
+    isSelected?: boolean;
+    climbKey?: number;
 }
 
-class ClimbDataRow extends Component<IClimbDataRowProps> {
-    render() {
-        const  { 
-            difficulty,
-            sentIt, 
-            isSelected,
-            onPress,
-            climbKey
-        } = this.props;
-    
-        return (
-            <TouchableHighlight 
-                onPress={onPress ? (_) => onPress(climbKey) : () => {} }
-                underlayColor={'#F5FCFF'} // TODO: use project defined color
-                activeOpacity={0.5}
-                style={isSelected ? { backgroundColor: '#73C2FB'} : undefined } // TODO: use project defined color
+const ClimbDataRow = (props: ClimbDataRowProps) => {
+    const {
+        difficulty,
+        sentIt,
+        isSelected,
+        onPress,
+        climbKey,
+    } = props;
+
+    return (
+        <TouchableHighlight
+            activeOpacity={0.5}
+            onPress={onPress ? _ => onPress(climbKey, _) : () => {}}
+            style={isSelected ? { backgroundColor: AppColors.highlightBlue } : undefined}
+            underlayColor={AppColors.white}
+        >
+            <View
+            // eslint-disable-next-line react-native/no-inline-styles
+                style={{
+                    ...styles.container,
+                    opacity: sentIt ? 1 : 0.25,
+                }}
             >
-                <View 
-                    style={{
-                        ...styles.container,
-                        opacity: sentIt ? 1 : 0.25
-                    }}
-                >
-                    <Text style={styles.difficultyText}>
-                        {difficulty}
-                    </Text>
-                    <Text style={styles.sentText}>
-                        {sentIt ? '✔️' : '❌'}
-                    </Text>
-                </View>
-            </TouchableHighlight>
-        );
-    }
-}
+                <Text style={styles.difficultyText}>
+                    {difficulty}
+                </Text>
+                <Text style={styles.sentText}>
+                    {sentIt ? '✔️' : '❌'}
+                </Text>
+            </View>
+        </TouchableHighlight>
+    );
+};
 
 export default ClimbDataRow;

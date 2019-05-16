@@ -1,0 +1,105 @@
+parser: '@typescript-eslint/parser'
+
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 2018
+  sourceType: module
+
+settings:
+  import/resolver:
+    node:
+      extensions:
+        - '.js'
+        - '.jsx'
+        - '.ts'
+        - '.tsx'
+        - '.d.ts'
+  react/jsx-filename-extension:
+    extensions:
+      - .tsx
+    
+
+env:
+  browser: true
+  es6: true
+  react-native/react-native: true
+
+extends: 
+  - airbnb
+  - plugin:@typescript-eslint/recommended
+
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+
+plugins:
+  - react
+  - react-native
+  - jsdoc
+  - '@typescript-eslint'
+
+rules:
+  # ESLint
+  import/order: 'error'
+  max-len:
+    - 'error'
+    - 120 # Number of characters allowed on a single line
+  jsx-quotes:
+    - 'error'
+    - 'prefer-single'
+
+  # React-native
+  react-native/no-unused-styles: 'error'
+  react-native/split-platform-components: 'error'
+  react-native/no-inline-styles: 'error'
+  react-native/no-color-literals: 'error'
+  react-native/no-raw-text: 'error'
+
+  # React
+  react/jsx-sort-props:
+    - 'error'
+    - noSortAlphabetically: false
+  react/jsx-indent: 'off'
+  react/jsx-indent-props: 'off'
+  react/jsx-filename-extension: 
+    - 'error'
+    - extensions:
+      - .tsx
+  jsx-a11y/accessible-emoji: 'off'
+
+  # JSDoc
+  jsdoc/check-alignment: 'error'
+  jsdoc/check-examples: 'error'
+  jsdoc/check-indentation: 'error'
+  jsdoc/check-param-names: 'error'
+  jsdoc/check-syntax: 'error'
+  jsdoc/check-tag-names: 'error'
+  jsdoc/check-types: 'error'
+  jsdoc/newline-after-description: 'error'
+  jsdoc/no-undefined-types: 'error'
+  jsdoc/require-description: 'error'
+  jsdoc/require-description-complete-sentence: 'error'
+  jsdoc/require-example: 'off'
+  jsdoc/require-hyphen-before-param-description: 'error'
+  jsdoc/require-param: 'error'
+  jsdoc/require-param-description: 'error'
+  jsdoc/require-param-name: 'error'
+  jsdoc/require-param-type: 'off'
+  jsdoc/require-returns: 'off'
+  jsdoc/require-returns-check: 'error'
+  jsdoc/require-returns-description: 'error'
+  jsdoc/require-returns-type: 'off'
+  jsdoc/valid-types: 'error'
+
+  # TypeScript
+  '@typescript-eslint/explicit-function-return-type': 'off'
+  '@typescript-eslint/no-unused-vars': 'error'
+  '@typescript-eslint/no-explicit-any': 'error'
+
+overrides:
+  files: '**/*.ts'
+  parser: '@typescript-eslint/parser'
+  rules:
+    no-undef: off
+  

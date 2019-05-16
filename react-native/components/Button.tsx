@@ -1,57 +1,57 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  ViewStyle
+    StyleSheet,
+    TouchableOpacity,
+    Text,
+    ViewStyle,
 } from 'react-native';
 
 const styles = StyleSheet.create({
-  button: {
-    alignItems: 'center',
-    padding: 10
-  },
+    button: {
+        alignItems: 'center',
+        padding: 10,
+    },
 });
 
-interface IButtonProps {
-  title: string,
-  onPress: Function,
-  fontSize: number
-  fontColor?: string,
-  style?: ViewStyle
-  isEmphasized?: boolean,
+interface ButtonProps {
+    title: string;
+    onPress: Function;
+    fontSize: number;
+    fontColor?: string;
+    style?: ViewStyle;
+    isEmphasized?: boolean;
+    children?: Component;
 }
 
-class Button extends Component<IButtonProps> {
- render() {
-    const { 
-      title,
-      onPress,
-      fontSize,
-      fontColor,
-      isEmphasized,
-      style,
-      children
-    } = this.props;
+const Button = (props: ButtonProps) => {
+    const {
+        title,
+        onPress,
+        fontSize,
+        fontColor,
+        isEmphasized,
+        style,
+        children,
+    } = props;
 
-   return (
+    return (
         <TouchableOpacity
+            onPress={_ => onPress(_)}
             style={{ ...styles.button, ...style }}
-            onPress={(_) => onPress()}
         >
-          {children}
-          <Text
-            style={{
-                fontSize,
-                color: fontColor,
-                fontWeight: isEmphasized ? 'bold' : 'normal'
-            }}
-          >
-            {title}
-          </Text>
+            {children}
+            <Text
+                // eslint-disable-next-line react-native/no-inline-styles
+                style={{
+                    fontSize,
+                    color: fontColor,
+                    fontWeight: isEmphasized ? 'bold' : 'normal',
+                }}
+            >
+                {title}
+            </Text>
         </TouchableOpacity>
     );
-  }
-}
+};
 
 export default Button;
