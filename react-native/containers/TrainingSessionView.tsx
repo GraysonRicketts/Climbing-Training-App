@@ -1,76 +1,92 @@
-import React from 'react';
-import { Component } from 'react';
-import { 
+import React, { Component } from 'react';
+import {
     Alert,
     StyleSheet,
     TextInput,
-    View
+    View,
 } from 'react-native';
-import LogClimbModal from './LogClimbModal';
+import {
+    NavigationScreenProps,
+    NavigationStackScreenOptions,
+} from 'react-navigation';
+import LogClimbModal from '../components/LogClimbModal';
 import SessionHeaderButton from '../components/SessionHeaderButton';
-import { formatDate_MMMM_DD_YYYY } from './../util/DateFormatter';
+import { formatDateMMMMDDYYYY } from '../util/DateFormatter';
 import Button from '../components/Button';
 import ClimbList from '../components/ClimbList';
-import { 
+import {
     Climb,
-    Route
+    Route,
 } from '../util/Climbs';
-import { saveSessionToPhone } from './../util/PersistentStore';
+import { saveSessionToPhone } from '../util/PersistentStore';
+import AppColors from '../enums/Colors';
 
-const styles = (StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: '#F5FCFF', // TODO: Use project defined color
-    },
-    header: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    climbList: {
-        flexGrow: 2
+        backgroundColor: AppColors.white,
     },
     titleInput: {
         height: 40,
         paddingLeft: '5%',
         paddingRight: '5%',
-        borderColor: '#BBB', // TODO: Use project defined color
+        borderColor: AppColors.lightGray,
         borderBottomWidth: 0.5,
         borderRadius: 0,
         fontSize: 20,
-        backgroundColor: '#FDFDFD' // TODO: Use project defined color
+        backgroundColor: AppColors.white,
     },
     addButton: {
-        backgroundColor: '#64C373', // TODO: Use project defined color
+        backgroundColor: AppColors.saveGreen,
         width: '100%',
         height: 100,
         paddingTop: 20,
-        paddingBottom: '4%'
+        paddingBottom: '4%',
+    },
+});
+
+
+interface TrainingSessionViewState {
+    startTime: number;
+    endTime?: number;
+    showLogClimbModal: boolean;
+    climbs: Climb[];
+    climbSelected?: Climb;
+    title: string;
+    isEditingRoute: boolean;
+}
+
+class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessionViewState> {
+    public static navigationOptions(navigationState: NavigationScreenProps): NavigationStackScreenOptions {
+        const { navigation } = navigationState;
+
+        return {
+            headerLeft: <SessionHeaderButton
+                isCancel
+                navigation={navigation}
+                navigationParam='cancelSession'
+                title='Discard session'
+            />,
+            headerRight: <SessionHeaderButton
+                navigation={navigation}
+                navigationParam='saveSession'
+                title='Save session'
+            />,
+        };
     }
-}));
 
-interface ITrainingSessionViewProps {
-    navigation: any // TODO: typecheck
-}
+    private key: number;
 
-interface ITrainingSessionViewState {
-    startTime: number
-    endTime?: number
-    showLogClimbModal: boolean
-    climbs: Climb[]
-    climbSelected?: Climb
-    title: string
-    isEditingRoute: boolean
-}
-
-class TrainingSessionView extends Component<ITrainingSessionViewProps, ITrainingSessionViewState> {
-    _key: number;
-
-    constructor(props: ITrainingSessionViewProps) {
+    public constructor(props: NavigationScreenProps) {
         super(props);
-        
-        this._key = 0;
+
+        this.key = 0;
+
+        this.onPreviousClimbPressed = this.onPreviousClimbPressed.bind(this);
+        this.showClimbModal = this.showClimbModal.bind(this);
+        this.hideClimbModal = this.hideClimbModal.bind(this);
+        this.saveClimb = this.saveClimb.bind(this);
 
         this.state = {
             startTime: Date.now(),
@@ -78,68 +94,145 @@ class TrainingSessionView extends Component<ITrainingSessionViewProps, ITraining
             showLogClimbModal: false,
             climbs: [],
             climbSelected: undefined,
-            title: formatDate_MMMM_DD_YYYY(Date.now()),
-            isEditingRoute: false
-        }
+            title: formatDateMMMMDDYYYY(Date.now()),
+            isEditingRoute: false,
+        };
     }
 
-    render() {
-        const {
-            climbSelected,
-            isEditingRoute
-        } = this.state;
+    public componentDidMount() {
+        const { navigation } = this.props;
 
-        return (
-            <View style={styles.container}>
-                <TextInput
-                    style={styles.titleInput}
-                    onChangeText={(text) => this._onTitleInputChanged(text)}
-                    value={this.state.title}
-                    numberOfLines={1}
-                />
-                
-                <ClimbList 
-                    data={this.state.climbs}
-                    selectedKey={(climbSelected && isEditingRoute) ? climbSelected.key : undefined}
-                    onRowPress={this.onPreviousClimbPressed.bind(this)}
-                />
-
-                <Button
-                    title={'Add climb'}
-                    onPress={this.showClimbModal.bind(this, this.props.navigation)}
-                    fontSize={26}
-                    fontColor={'#FEFEFE'} // TODO: Use project defined color
-                    isEmphasized={true}
-                    style={styles.addButton}
-                />
-                
-                <LogClimbModal
-                    isVisible={this.state.showLogClimbModal}
-                    hideModal={this.hideClimbModal.bind(this)}
-                    saveClimb={this.saveClimb.bind(this)}
-                    routeSelected={climbSelected ? climbSelected.route : undefined}
-                    isEditingRoute={isEditingRoute}
-                    climbKey={climbSelected ? climbSelected.key : undefined}
-                />
-            </View>
-        );
-    }
-
-    componentDidMount() {
-        this.props.navigation.setParams({
+        navigation.setParams({
             saveSession: this.saveSession.bind(this),
-            cancelSession: this._showConfirmCancelAlert.bind(this)
-        })
-    }
-
-    _onTitleInputChanged(text: string): void {
-        this.setState({
-            title: text
+            cancelSession: this.showConfirmCancelAlert.bind(this),
         });
     }
 
-    _showConfirmCancelAlert(): void {
-        if (this.state.climbs.length === 0) {
+    private onTitleInputChanged(text: string): void {
+        this.setState({
+            title: text,
+        });
+    }
+
+    private onPreviousClimbPressed(climbKey: number): void {
+        const { climbs } = this.state;
+
+        const climb = climbs.find(c => c.key === climbKey);
+        if (!climb) {
+            return;
+        }
+
+        this.setState(prevState => ({
+            ...prevState,
+            isEditingRoute: true,
+            climbSelected: {
+                key: climb.key,
+                route: climb.route,
+                completed: climb.completed,
+            },
+        }), () => {
+            this.showClimbModal();
+        });
+    }
+
+    private setLogClimbModalVisible(visible: boolean) {
+        this.setState({
+            showLogClimbModal: visible,
+        });
+    }
+
+    private getNextClimbKey() {
+        this.key = this.key + 1;
+        return this.key;
+    }
+
+    private goBack() {
+        const { navigation } = this.props;
+        navigation.goBack();
+    }
+
+    private discardSession() {
+        this.goBack();
+    }
+
+
+    private async saveSession() {
+        const {
+            climbs,
+            title,
+            startTime,
+        } = this.state;
+
+        this.setState({
+            endTime: Date.now(),
+        });
+
+        if (climbs.length > 0) {
+            saveSessionToPhone(climbs, startTime, title);
+        }
+
+        this.goBack();
+    }
+
+    private editClimb(_key: number, newClimb: Climb) {
+        const { climbs } = this.state;
+
+        let updatedClimbs = climbs.slice();
+        updatedClimbs = updatedClimbs.map((climb) => {
+            if (climb.key === _key) {
+                return {
+                    ...climb,
+                    route: newClimb.route,
+                    completed: newClimb.completed,
+                };
+            }
+            return climb;
+        });
+
+        this.setState({
+            climbs: updatedClimbs,
+        });
+    }
+
+    private saveNewClimb(newClimb: Climb) {
+        this.setState(
+            prevState => ({
+                climbs: [...prevState.climbs, newClimb],
+            }),
+        );
+    }
+
+    private saveClimb(route: Route, sentIt: boolean, _key?: number): void {
+        const newClimb: Climb = {
+            key: _key || this.getNextClimbKey(),
+            route: {
+                difficulty: route.difficulty,
+                type: route.type,
+            },
+            completed: sentIt,
+        };
+
+        if (_key) {
+            this.setState({
+                isEditingRoute: false,
+            });
+            this.editClimb(_key, newClimb);
+        } else { // Add new climb
+            this.saveNewClimb(newClimb);
+        }
+    }
+
+    public hideClimbModal(): void {
+        this.setLogClimbModalVisible(false);
+    }
+
+    public showClimbModal(): void {
+        this.setLogClimbModalVisible(true);
+    }
+
+    private showConfirmCancelAlert(): void {
+        const { climbs } = this.state;
+        if (climbs.length === 0) {
             this.discardSession();
             return;
         }
@@ -151,145 +244,60 @@ class TrainingSessionView extends Component<ITrainingSessionViewProps, ITraining
                 {
                     text: 'Go Back',
                     onPress: undefined,
-                    style: 'cancel'
+                    style: 'cancel',
                 },
                 {
                     text: 'Discard',
                     onPress: this.discardSession.bind(this),
-                    style: 'destructive'
+                    style: 'destructive',
                 },
-            ]
+            ],
         );
     }
 
-    showClimbModal(): void {
-        this._setLogClimbModalVisible(true);
-    }
-    
-    hideClimbModal(): void {
-        this._setLogClimbModalVisible(false);
-    }
-
-    onPreviousClimbPressed(climbKey: number): void {
-        const climb = this.state.climbs.find(climb => climb.key === climbKey);
-        if (!climb) {
-            console.error('Tried to edit a climb but no climb was found');
-            return;
-        }
-
-        this.setState((prevState) => ({
-            ...prevState,
-            isEditingRoute: true,
-            climbSelected: {
-                key: climb.key,
-                route: climb.route,
-                completed: climb.completed
-            }
-        }), () => {
-            this.showClimbModal();
-        });
-    }
-
-    saveClimb(route: Route, sentIt: boolean, _key?: number): void {
-        const newClimb: Climb = {
-            key: _key ? _key : this._getClimbingKey(),
-            route: {
-                difficulty: route.difficulty,
-                type: route.type
-            },
-            completed: sentIt,
-        };
-        
-        if (_key) {
-            this.setState({
-                isEditingRoute: false
-            });
-            this._editClimb(_key, newClimb);
-        }
-        else { // Add new climb
-            this._saveNewClimb(newClimb);
-        }
-    }
-
-    _saveNewClimb(newClimb: Climb) {
-        this.setState(
-            prevState => ({
-                climbs: [...prevState.climbs, newClimb]
-            })
-        )
-    }
-
-    _editClimb(_key: number, newClimb: Climb) {
-        let updatedClimbs = this.state.climbs.slice();
-        updatedClimbs = updatedClimbs.map((climb) => {
-            if (climb.key === _key) {
-                return {
-                    ...climb,
-                    route: newClimb.route,
-                    completed: newClimb.completed
-                };
-            }
-            return climb;
-        });
-
-        this.setState({
-            climbs: updatedClimbs
-        });
-    }
-
-    async saveSession() {
-        const { 
-            climbs,
+    public render() {
+        const {
+            climbSelected,
+            isEditingRoute,
+            showLogClimbModal,
             title,
-            startTime
+            climbs,
         } = this.state;
 
-        this.setState({
-            endTime: Date.now()
-        })
+        return (
+            <View style={styles.container}>
+                <TextInput
+                    numberOfLines={1}
+                    onChangeText={text => this.onTitleInputChanged(text)}
+                    style={styles.titleInput}
+                    value={title}
+                />
 
-        if (climbs.length > 0) {
-            saveSessionToPhone(climbs, startTime, title);
-        }
+                <ClimbList
+                    data={climbs}
+                    onRowPress={this.onPreviousClimbPressed}
+                    selectedKey={(climbSelected && isEditingRoute) ? climbSelected.key : undefined}
+                />
 
-        this._goBack();
-    }
+                <Button
+                    fontColor={AppColors.white}
+                    fontSize={26}
+                    isEmphasized
+                    onPress={this.showClimbModal}
+                    style={styles.addButton}
+                    title='Add climb'
+                />
 
-    discardSession() {
-        this._goBack();
-    }
-    
-    _goBack() {
-        this.props.navigation.goBack();
-    }
-
-    _setLogClimbModalVisible(visible: boolean) {
-        this.setState({
-            showLogClimbModal: visible
-        })
-    }
-
-    _getClimbingKey() {
-        this._key = this._key + 1;
-        return this._key;
-    }
-
-    static navigationOptions(navigationState: any) { // TODO: typecheck
-        const navigation = navigationState.navigation;
-        
-        return {
-            headerLeft: <SessionHeaderButton
-                title={'Discard session'}
-                navigation={navigation}
-                navigationParam={'cancelSession'}
-                isCancel={true}
-            />,
-            headerRight: <SessionHeaderButton 
-                title={'Save session'}
-                navigation={navigation}
-                navigationParam={'saveSession'}
-            />
-        }
+                <LogClimbModal
+                    climbKey={climbSelected ? climbSelected.key : undefined}
+                    hideModal={this.hideClimbModal}
+                    isEditingRoute={isEditingRoute}
+                    isVisible={showLogClimbModal}
+                    routeSelected={climbSelected ? climbSelected.route : undefined}
+                    saveClimb={this.saveClimb}
+                />
+            </View>
+        );
     }
 }
 

@@ -1,72 +1,60 @@
 import React from 'react';
-import { Component } from 'react';
+
 import { StyleSheet } from 'react-native';
-import { formatDate_YYYY_MM_DD } from '../util/DateFormatter';
-import { 
+import {
     Calendar,
     DotMarking,
-    DateObject
+    DateObject,
 } from 'react-native-calendars';
 
 const styles = StyleSheet.create({
     calendar: {
-        width: '100%'
-    }
+        width: '100%',
+    },
 });
 
-interface IPreviousClimbCalendarProps {
-    sessionDates: string[] 
-    selectedDate: string
-    onDayPress: Function 
+interface PreviousClimbCalendarProps {
+    sessionDates: string[];
+    selectedDate: string;
+    onDayPress: Function;
 }
 
-class PreviousClimbCalendar extends Component<IPreviousClimbCalendarProps> {
-    constructor(props: IPreviousClimbCalendarProps) {
-        super(props);
+const PreviousClimbCalendar = (props: PreviousClimbCalendarProps) => {
+    const {
+        sessionDates,
+        selectedDate,
+        onDayPress,
+    } = props;
 
-        const todaysDate = Date.parse(Date());
+    const markedDates: { [date: string]: DotMarking } = {};
+    sessionDates.forEach((date: string) => {
+        markedDates[date] = {
+            marked: true,
+            dotColor: 'teal',
+            selected: selectedDate === date,
+        };
+    });
 
-        this.state = {
-            selected: formatDate_YYYY_MM_DD(todaysDate)
-        }
+    if (!markedDates[selectedDate]) {
+        markedDates[selectedDate] = { selected: true };
     }
-    render() {
-        const { 
-            sessionDates,
-            selectedDate,
-            onDayPress 
-        } = this.props;
-        
-        let markedDates: { [date: string] : DotMarking } = {};
-        sessionDates.forEach((date: string) => {
-            markedDates[date] = {
-                marked: true,
-                dotColor: 'teal',
-                selected: selectedDate === date ? true : false
-            }
-        });
-        
-        if (!markedDates[selectedDate]) {
-            markedDates[selectedDate] = {selected: true};
-        }
-        
-        return (
-            <Calendar 
-                current={Date()}
-                style={styles.calendar}
-                markedDates={markedDates}
-                markingType={'simple'}
-                onDayPress={(date: DateObject) => onDayPress(date)}
-                monthFormat={'MMMM yyyy'}
-                hideArrows={false}
-                hideExtraDays={false}
-                disableMonthChange={false}
-                firstDay={1} // If firstDay=1 week starts from Monday
-                hideDayNames={false}
-                showWeekNumbers={false}
-            />
-        )
-    }
-}
+
+    return (
+        <Calendar
+            current={Date()}
+            disableMonthChange={false}
+            firstDay={1}
+            hideArrows={false}
+            hideDayNames={false}
+            hideExtraDays={false}
+            markedDates={markedDates}
+            markingType='simple'
+            monthFormat='MMMM yyyy'
+            onDayPress={(date: DateObject) => onDayPress(date)} // If firstDay=1 week starts from Monday
+            showWeekNumbers={false}
+            style={styles.calendar}
+        />
+    );
+};
 
 export default PreviousClimbCalendar;

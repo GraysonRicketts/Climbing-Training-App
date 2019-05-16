@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { 
+import {
   StyleSheet,
   Text,
   View,

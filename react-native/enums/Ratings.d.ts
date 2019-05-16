@@ -1,7 +1,5 @@
-interface IClimbDifficultyRatings {
-    [ key: string ] : string 
+interface ClimbDifficultyRatings {
+    [key: string]: string;
 }
 
-export { 
-    IClimbDifficultyRatings
-};
+export default ClimbDifficultyRatings;

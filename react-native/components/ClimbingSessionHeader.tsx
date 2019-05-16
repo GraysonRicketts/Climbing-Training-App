@@ -1,30 +1,30 @@
 import React from 'react';
-import { Component } from 'react';
-import { 
+import {
     Text,
-    StyleSheet 
+    StyleSheet,
 } from 'react-native';
+import AppColors from '../enums/Colors';
 
 
 const styles = StyleSheet.create({
     text: {
         fontSize: 16,
         fontWeight: '400',
-        color: '#666', // TODO: Use project defined color
-        backgroundColor: '#F5FCFF' // TODO: Use project defined color
-    }
+        color: AppColors.gray,
+        backgroundColor: AppColors.white,
+    },
 });
 
-interface IClimbingSessionHeaderProps {
-    title: string
+interface ClimbingSessionHeaderProps {
+    title: string;
 }
 
-const ClimbingSessionHeader = (props: IClimbingSessionHeaderProps) => {
+const ClimbingSessionHeader = (props: ClimbingSessionHeaderProps) => {
     const { title } = props;
-    
+
     return (
         <Text style={styles.text}>{title}</Text>
     );
-}
+};
 
 export default ClimbingSessionHeader;

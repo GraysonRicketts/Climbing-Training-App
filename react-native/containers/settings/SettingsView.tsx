@@ -1,60 +1,53 @@
-import React from 'react';
-import { Component } from 'react';
-import { 
-  StyleSheet,
-  Text,
-  View
+import React, { Component } from 'react';
+
+import {
+    StyleSheet,
+    Text,
+    View,
 } from 'react-native';
+import AppColors from '../../enums/Colors';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-    justifyContent: 'center'
-  },
-  explanatoryText: {
-    marginTop: 15,
-    fontSize: 14,
-    width: '100%',
-    textAlign: 'center',
-    color: '#222',
-    position: 'absolute',
-    bottom: 20
-  },
-  linkButton: {
-    width: '100%',
-    borderWidth: 1,
-    borderColor: '#020202',
-    padding: 20,
-    marginBottom: -1,
-    alignItems: 'flex-start'
-  },
+    container: {
+        flex: 1,
+        backgroundColor: AppColors.white,
+        justifyContent: 'center',
+    },
+    explanatoryText: {
+        marginTop: 15,
+        fontSize: 14,
+        width: '100%',
+        textAlign: 'center',
+        color: AppColors.black,
+        position: 'absolute',
+        bottom: 20,
+    },
 });
 
 class Settings extends Component {
-    // TODO: settings zone (screen)
-      // TODO: default grade
-      // TODO: hide grades
-      // TODO: what fields show up when adding climb
-        // TODO: tags
-        // TODO: sent it?
-        // TODO: onsite
-        // TODO: num attempts
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.explanatoryText}>
-          *Customization to come in future release
-        </Text>
-      </View>
-    );
-  }
-
-  static navigationOptions() {
-    return {
-      title: '‍‍Settings',
+    public static navigationOptions() {
+        return {
+            title: '‍‍Settings',
+        };
     }
-  }
+
+    // TODO: settings zone (screen)
+    // TODO: default grade
+    // TODO: hide grades
+    // TODO: what fields show up when adding climb
+    // TODO: tags
+    // TODO: sent it?
+    // TODO: onsite
+    // TODO: num attempts
+    public render() {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.explanatoryText}>
+                    *Customization to come in future release
+                </Text>
+            </View>
+        );
+    }
 }
 
 export default Settings;
