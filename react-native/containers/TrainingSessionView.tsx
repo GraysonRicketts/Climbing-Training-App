@@ -5,7 +5,11 @@ import {
     TextInput,
     View,
 } from 'react-native';
-import LogClimbModal from './LogClimbModal';
+import {
+    NavigationScreenProps,
+    NavigationStackScreenOptions,
+} from 'react-navigation';
+import LogClimbModal from '../components/LogClimbModal';
 import SessionHeaderButton from '../components/SessionHeaderButton';
 import { formatDateMMMMDDYYYY } from '../util/DateFormatter';
 import Button from '../components/Button';
@@ -42,9 +46,6 @@ const styles = StyleSheet.create({
     },
 });
 
-interface TrainingSessionViewProps {
-    navigation: any; // TODO: typecheck
-}
 
 interface TrainingSessionViewState {
     startTime: number;
@@ -56,8 +57,8 @@ interface TrainingSessionViewState {
     isEditingRoute: boolean;
 }
 
-class TrainingSessionView extends Component<TrainingSessionViewProps, TrainingSessionViewState> {
-    public static navigationOptions(navigationState: any) {
+class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessionViewState> {
+    public static navigationOptions(navigationState: NavigationScreenProps): NavigationStackScreenOptions {
         const { navigation } = navigationState;
 
         return {
@@ -77,7 +78,7 @@ class TrainingSessionView extends Component<TrainingSessionViewProps, TrainingSe
 
     private key: number;
 
-    public constructor(props: TrainingSessionViewProps) {
+    public constructor(props: NavigationScreenProps) {
         super(props);
 
         this.key = 0;

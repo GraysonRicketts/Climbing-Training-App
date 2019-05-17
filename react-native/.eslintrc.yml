@@ -48,6 +48,7 @@ rules:
   jsx-quotes:
     - 'error'
     - 'prefer-single'
+  no-multi-str: 'off'
 
   # React-native
   react-native/no-unused-styles: 'error'
@@ -65,7 +66,7 @@ rules:
   react/jsx-filename-extension: 
     - 'error'
     - extensions:
-      - .tsx
+      - '.tsx'
   jsx-a11y/accessible-emoji: 'off'
 
   # JSDoc

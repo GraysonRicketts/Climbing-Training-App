@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { ReactNode } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import AppColors from '../../enums/Colors';
 
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 
 interface StatisticProps {
     title: string;
-    children: Component;
+    children: ReactNode;
 }
 
 const Statistic = (props: StatisticProps) => {

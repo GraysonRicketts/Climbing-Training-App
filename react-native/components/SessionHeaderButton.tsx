@@ -1,12 +1,16 @@
 import React from 'react';
+import {
+    NavigationScreenProp,
+    NavigationRoute,
+    NavigationParams,
+} from 'react-navigation';
 import { Button } from 'react-native';
 import AppColors from '../enums/Colors';
-import { NavigationScreenProp } from 'react-navigation';
 
 interface SaveSessionButtonProps {
     title: string;
-    navigation: NavigationScreenProp;
-    navigationParam: any;
+    navigation: NavigationScreenProp<NavigationRoute<NavigationParams>, NavigationParams>;
+    navigationParam: string;
     isCancel?: boolean;
 }
 
