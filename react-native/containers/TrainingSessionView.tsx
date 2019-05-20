@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 interface TrainingSessionViewState {
     startTime: number;
     endTime?: number;
-    showLogClimbModal: boolean;
+    climbModalIsVisible: boolean;
     climbs: Climb[];
     climbSelected?: Climb;
     isEditingRoute: boolean;
@@ -92,7 +92,7 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
         this.state = {
             startTime: Date.now(),
             endTime: undefined,
-            showLogClimbModal: false,
+            climbModalIsVisible: false,
             climbs: [],
             climbSelected: undefined,
             isEditingRoute: false,
@@ -112,8 +112,8 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
 
     /** @description Prevents the timer render from interrupting the picker selection */
     public shouldComponentUpdate() {
-        const { showLogClimbModal } = this.state;
-        return !showLogClimbModal;
+        const { climbModalIsVisible } = this.state;
+        return !climbModalIsVisible;
     }
 
     /** @description Prevents memory leak by cleaning up infinite interval */
@@ -142,7 +142,7 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
 
     private setLogClimbModalVisible(visible: boolean) {
         this.setState({
-            showLogClimbModal: visible,
+            climbModalIsVisible: visible,
         });
     }
 
@@ -192,6 +192,7 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
         });
 
         this.setState({
+            isEditingRoute: false,
             climbs: updatedClimbs,
         });
     }
@@ -204,7 +205,7 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
         );
     }
 
-    private saveClimb(route: Route, modifier: ClimbModifier, _key?: number): void {
+    private saveClimb(route: Route, modifier: ClimbModifier, _key?: number): Promise<void> {
         const newClimb: Climb = {
             key: _key || this.getNextClimbKey(),
             route: {
@@ -214,21 +215,24 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
             modifier,
         };
 
+        let savePromise: Promise<void>;
         if (_key) {
-            this.setState({
-                isEditingRoute: false,
+            savePromise = new Promise((resolve) => {
+                resolve(this.saveEditedClimb(_key, newClimb));
             });
-            this.saveEditedClimb(_key, newClimb);
         } else { // Add new climb
-            this.saveNewClimb(newClimb);
+            savePromise = new Promise((resolve) => {
+                resolve(this.saveNewClimb(newClimb));
+            });
         }
 
-        this.setState(prevState => (
-            {
-                ...prevState,
+        return savePromise.then(() => {
+            this.setState({
+                climbModalIsVisible: false,
+                climbSelected: undefined,
                 durationSinceLastClimb: 0,
-            }
-        ));
+            });
+        });
     }
 
     public hideClimbModal(): void {
@@ -268,7 +272,7 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
         const {
             climbSelected,
             isEditingRoute,
-            showLogClimbModal,
+            climbModalIsVisible,
             climbs,
             durationSinceStart,
             durationSinceLastClimb,
@@ -301,13 +305,14 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
                     title='Add climb'
                 />
 
-                {showLogClimbModal
+                {climbModalIsVisible
                     ? (
                         <LogClimbModal
                             climbKey={climbSelected ? climbSelected.key : undefined}
+                            climbModifier={climbSelected ? climbSelected.modifier : undefined}
                             hideModal={this.hideClimbModal}
                             isEditingRoute={isEditingRoute}
-                            isVisible={showLogClimbModal}
+                            isVisible={climbModalIsVisible}
                             routeSelected={climbSelected ? climbSelected.route : undefined}
                             saveClimb={this.saveClimb}
                         />

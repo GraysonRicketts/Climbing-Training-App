@@ -70,6 +70,7 @@ interface LogClimbModalProps {
     isEditingRoute: boolean;
     routeSelected?: Route;
     climbKey?: number;
+    climbModifier?: ClimbModifier;
 }
 
 interface NavigationStateKey {
@@ -92,6 +93,8 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
     public constructor(props: LogClimbModalProps) {
         super(props);
 
+        const { climbModifier } = this.props;
+
         this.onTabChanged = this.onTabChanged.bind(this);
         this.onClimbSelectedChange = this.onClimbSelectedChange.bind(this);
         this.saveClimb = this.saveClimb.bind(this);
@@ -100,7 +103,7 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
 
         this.state = {
             searchText: '',
-            modifier: ClimbModifier.none,
+            modifier: climbModifier || ClimbModifier.none,
             routeSelected: {
                 difficulty: HUECO_RATINGS.V0,
                 type: CLIMBING_TYPE.HUECO,
@@ -343,7 +346,7 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
         hideModal();
     }
 
-    public saveClimb() {
+    public async saveClimb() {
         const {
             saveClimb,
             climbKey,
@@ -354,13 +357,11 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
             modifier,
         } = this.state;
 
-        saveClimb(
+        await saveClimb(
             routeSelected,
             modifier,
             climbKey,
         );
-
-        this.hideModal();
     }
 
     public render() {
