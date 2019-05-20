@@ -53,7 +53,7 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
                 isCancel
                 navigation={navigation}
                 navigationParam='cancelSession'
-                title='Discard session'
+                title='Discard'
             />,
             headerRight: <SessionHeaderButton
                 navigation={navigation}
