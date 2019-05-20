@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import {
-    Text,
     StyleSheet,
     View,
     TextInput,
@@ -12,7 +11,6 @@ import {
     SceneMap,
     NavigationState,
 } from 'react-native-tab-view';
-import { Switch } from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
 import ClimbPicker from './ClimbPicker';
 import CLIMBING_TYPE from '../enums/ClimbingTypes';
@@ -45,16 +43,6 @@ const styles = StyleSheet.create({
         borderTopWidth: 0.5,
         borderRadius: 0,
         fontSize: 20,
-    },
-    sentItRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: 3,
-        marginBottom: 3,
-    },
-    sentItText: {
-        flexGrow: 2,
-        fontSize: 18,
     },
     saveButton: {
         backgroundColor: AppColors.saveGreen,
@@ -259,7 +247,6 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
         const { isVisible } = this.props;
         const {
             searchText,
-            sentIt,
             navigationState,
             routeSelected,
         } = this.state;
@@ -276,16 +263,6 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
                 swipeDirection='down'
             >
                 <View style={styles.container}>
-                    <View style={styles.sentItRow}>
-                        <Text style={styles.sentItText}>
-                            Sent it?
-                        </Text>
-                        <Switch
-                            onValueChange={this.onSentSwitchChanged}
-                            value={sentIt}
-                        />
-                    </View>
-
                     <TextInput
                         numberOfLines={1}
                         onChangeText={text => this.onSearchTextChanged(text)}
