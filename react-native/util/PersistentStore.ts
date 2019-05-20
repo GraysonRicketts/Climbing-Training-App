@@ -1,60 +1,26 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import {  
-    ClimbingSession,
-    Climb
-} from './Climbs';
+import { Climb, ClimbingSession } from './Climbs';
 
 /**
  * Async data is stored in a two-dimensional array. It's an an array of climb
- * data arrays. This has two columns. The first column is string date the session 
+ * data arrays. This has two columns. The first column is string date the session
  * happened on. The second column is a stringified JSON
  * of the the climbs that session.
- * 
- * e.g. 
- * [ 
+ * e.g.
+ * [
  *  [ 'day1', 'JSON climb data' ],
  *  [ 'day2', 'JSON climb data' ],
  *  [ 'day3', 'JSON climb data' ],
  *  [ 'day4', 'JSON climb data' ]
  * ]
  */
-type AsyncSessionStorage = [string, string | null][]; 
+type AsyncSessionStorage = [string, string | null][];
 
-async function saveSessionToPhone(climbs: Climb[], startTime: number, title?: string): Promise<void> {
-    const sessionStringified = JSON.stringify(climbs);
-    let sessionKey = startTime.toString();
-    if (title) {
-        sessionKey += `^${title}`;
-    }
-
-    try {
-        await AsyncStorage.setItem(sessionKey, sessionStringified);
-    } catch(error) {
-        console.error(error);
-    }
-}
-
-async function getClimbingSessionsFromPhone(): Promise<ClimbingSession[]> {
-    let rawClimbingSessions;
-    try {
-      rawClimbingSessions = await _getRawSessionData();
-    }
-    catch(error) {
-      console.error(`Failed to get raw session data:  ${error}`);
-      return [];
-    }
-
-    const climbingSessions = _parseRawSessionData(rawClimbingSessions);
-    return climbingSessions;
-}
-
-/**
-* Get the raw string data saved to the device
-*/
-async function _getRawSessionData(): Promise<AsyncSessionStorage | null> {
+/** @description Get the raw string data saved to the device */
+async function getRawSessionData(): Promise<AsyncSessionStorage | null> {
     const sessionKeys = await AsyncStorage.getAllKeys();
 
-    // No sessions saved. Valid outcome for a new user going to the 
+    // No sessions saved. Valid outcome for a new user going to the
     // stats page for the first time.
     if (!sessionKeys) {
         return null;
@@ -65,17 +31,17 @@ async function _getRawSessionData(): Promise<AsyncSessionStorage | null> {
 }
 
 /**
- * Turn the raw string data into strongly-typed state data
- * @param sessions 
+ * @description Turn the raw string data into strongly-typed state data
+ * @param sessions - Sessions stored as strings.
  */
-function _parseRawSessionData(sessions: AsyncSessionStorage | null): ClimbingSession[] {
+function parseRawSessionData(sessions: AsyncSessionStorage | null): ClimbingSession[] {
     if (!sessions) {
         return [];
     }
 
-    let formattedSessions: ClimbingSession[] = [];
+    const formattedSessions: ClimbingSession[] = [];
     sessions.forEach((sessionDataArray) => {
-        const date = parseInt(sessionDataArray[0]);
+        const date = parseInt(sessionDataArray[0], 10);
 
         let climbData: Climb[] = [];
         if (sessionDataArray[1]) {
@@ -84,14 +50,40 @@ function _parseRawSessionData(sessions: AsyncSessionStorage | null): ClimbingSes
 
         formattedSessions.push({
             startTime: date,
-            climbs: climbData
-        })
+            climbs: climbData,
+        });
     });
 
     return formattedSessions;
 }
 
-export {
-    saveSessionToPhone,
-    getClimbingSessionsFromPhone
-};
+/**
+ * @description Saves the session in persistent, non-encrypted storage on the user's phone.
+ * @param climbs - Climbs that happened during a session.
+ * @param startTime - When the session started.
+ */
+async function saveSessionToPhone(climbs: Climb[], startTime: number): Promise<void> {
+    const sessionStringified = JSON.stringify(climbs);
+    const sessionKey = startTime.toString();
+
+    try {
+        await AsyncStorage.setItem(sessionKey, sessionStringified);
+    } catch (error) {
+        // TODO: handle sessions not storing (e.g. send to server?)
+    }
+}
+
+/** @description Gets all of the sessions stored on a user's phone */
+async function getClimbingSessionsFromPhone(): Promise<ClimbingSession[]> {
+    let rawClimbingSessions;
+    try {
+        rawClimbingSessions = await getRawSessionData();
+    } catch (error) {
+        return [];
+    }
+
+    const climbingSessions = parseRawSessionData(rawClimbingSessions);
+    return climbingSessions;
+}
+
+export { saveSessionToPhone, getClimbingSessionsFromPhone };

@@ -1,62 +1,69 @@
+import { Dimensions } from 'react-native';
 import React from 'react';
-import { Component } from 'react';
-import {
-    Dimensions
-} from 'react-native';
+import AppColors from '../../enums/Colors';
+import { ClimbCountsForDifficulty } from '../../util/Climbs';
+
 const ChartKitBarChart = require('react-native-chart-kit').BarChart;
 
 interface ChartKitData {
-  labels: string[],
-  datasets: [{
-    data: number[]
-  }]
-}
-
-interface IBarChartProps {
-  data: any
-}
-
-class BarChart extends Component<IBarChartProps> {
-    render() {
-        const { data } = this.props;
-        const formattedData = this._formatDataForGraph(data);
-
-        const chartConfig = {
-            background: '#F5FCFF', // TODO: use project defined color
-            backgroundGradientFrom: '#F5FCFF',
-            backgroundGradientTo: '#F5FCFF',
-            color: () => '#111'
+    labels: string[];
+    datasets: [
+        {
+            data: number[];
         }
-        const screenWidth = Dimensions.get('window').width * 0.9;
+    ];
+}
 
-        return (
-            <ChartKitBarChart 
-                data={formattedData}
-                width={screenWidth}
-                height={220}
-                chartConfig={chartConfig}
-                fromZero={true}
-            />
-        )
-    }
+interface BarChartProps {
+    data: ClimbCountsForDifficulty;
+}
 
-    _formatDataForGraph(climbData: any): ChartKitData {
-        let data: ChartKitData = {
-          labels: [],
-          datasets: [{
-            data: []
-          }]
-        };
-    
-        Object.keys(climbData).forEach((grade) => {
-          if (climbData[grade]) {
+/**
+ * @description Takes the number of climbs for difficulties in a single type of climbing
+ * and parses it for the ChartKitBarChart component
+ * @param climbData - Number of climbs for different difficulties.
+ */
+function formatDataForGraph(climbData: ClimbCountsForDifficulty): ChartKitData {
+    const data: ChartKitData = {
+        labels: [],
+        datasets: [
+            {
+                data: [],
+            },
+        ],
+    };
+
+    Object.keys(climbData).forEach((grade) => {
+        if (climbData[grade]) {
             data.labels.push(grade);
             data.datasets[0].data.push(climbData[grade]);
-          }
-        });
-    
-        return data;
-      }
+        }
+    });
+
+    return data;
 }
+
+const BarChart = (props: BarChartProps) => {
+    const { data } = props;
+    const formattedData = formatDataForGraph(data);
+
+    const chartConfig = {
+        background: AppColors.white,
+        backgroundGradientFrom: AppColors.white,
+        backgroundGradientTo: AppColors.white,
+        color: () => AppColors.black,
+    };
+    const screenWidth = Dimensions.get('window').width * 0.9;
+
+    return (
+        <ChartKitBarChart
+            chartConfig={chartConfig}
+            data={formattedData}
+            fromZero
+            height={220}
+            width={screenWidth}
+        />
+    );
+};
 
 export default BarChart;

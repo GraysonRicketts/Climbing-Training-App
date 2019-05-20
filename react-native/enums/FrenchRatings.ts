@@ -1,8 +1,8 @@
-import { IClimbDifficultyRatings } from "./Ratings";
+import ClimbDifficultyRatings from './Ratings';
 
-const FrenchRatings: IClimbDifficultyRatings = {
-    '4': '4',
-    '5': '5',
+const FrenchRatings: ClimbDifficultyRatings = {
+    4: '4',
+    5: '5',
     '5+': '5+',
     '6a': '6a',
     '6a+': '6a+',

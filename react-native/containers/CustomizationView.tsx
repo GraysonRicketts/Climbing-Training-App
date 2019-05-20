@@ -1,108 +1,114 @@
-import React from 'react';
-import { Component } from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import React, { Component } from 'react';
+import { NavigationScreenProps } from 'react-navigation';
+import { StyleSheet, Text, View } from 'react-native';
 import Button from '../components/Button';
+import AppColors from '../enums/Colors';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',// TODO: use project defined color
-    justifyContent: 'center'
-  },
-  explanatoryText: {
-    marginTop: 15,
-    fontSize: 14,
-    width: '100%',
-    textAlign: 'center',
-    color: '#222', // TODO: use project defined color
-    position: 'absolute',
-    bottom: 20
-  },
-  linkButton: {
-    width: '100%',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderColor: '#020202',// TODO: use project defined color
-    padding: 20,
-    marginBottom: -1,
-    alignItems: 'flex-start'
-  },
+    container: {
+        flex: 1,
+        backgroundColor: AppColors.white,
+    },
+    explanatoryText: {
+        marginTop: 15,
+        fontSize: 14,
+        width: '100%',
+        textAlign: 'center',
+        color: AppColors.black,
+        position: 'absolute',
+        bottom: 20,
+    },
+    linkButton: {
+        width: '100%',
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderColor: AppColors.black,
+        padding: 20,
+        marginBottom: -1,
+        alignItems: 'flex-start',
+    },
 });
 
-const normalFontColor = '#5396FC';// TODO: use project defined color
-const abnormalFontColor = '#FE5042';// TODO: use project defined color
+class CustomizationView extends Component<NavigationScreenProps> {
+    public static navigationOptions() {
+        return {
+            title: 'Customize',
+        };
+    }
 
-interface IProfileViewProps {
-  navigation: any
-}
+    public constructor(props: NavigationScreenProps) {
+        super(props);
 
-class CustomizationView extends Component<IProfileViewProps> {
-  // TODO: profile (screen)
+        this.pushReportBugView = this.pushReportBugView.bind(this);
+        this.pushSettingsView = this.pushSettingsView.bind(this);
+        this.pushSuggestionView = this.pushSuggestionView.bind(this);
+        this.pushAboutView = this.pushAboutView.bind(this);
+    }
+
+    private pushReportBugView() {
+        const { navigation } = this.props;
+        navigation.push('ReportBug');
+    }
+
+    private pushSettingsView() {
+        const { navigation } = this.props;
+        navigation.push('Settings');
+    }
+
+    private pushSuggestionView() {
+        const { navigation } = this.props;
+        navigation.push('SendSuggestion');
+    }
+
+    private pushAboutView() {
+        const { navigation } = this.props;
+        navigation.push('About');
+    }
+
+    // TODO: profile (screen)
     // TODO: linked account / login info
     // TODO: payment info
-  render() {
-    return (
-      <View style={styles.container}>
-        <Button
-          title='Settings'
-          onPress={this._pushSettingsView.bind(this)}
-          style={styles.linkButton}
-          fontSize={18}
-          fontColor={normalFontColor}
-        />
+    public render() {
+        return (
+            <View style={styles.container}>
+                <Button
+                    fontColor={AppColors.navigationBlue}
+                    fontSize={18}
+                    onPress={this.pushSettingsView}
+                    style={styles.linkButton}
+                    title='Settings'
+                />
 
-        <Button
-          title='Send a suggestion'
-          onPress={this._pushSuggestionView.bind(this)}
-          style={styles.linkButton}
-          fontSize={18}
-          fontColor={normalFontColor}
-        />
-        
-        <Button
-          title='Report a bug'
-          onPress={this._pushReportBugView.bind(this)}
-          style={styles.linkButton}
-          fontSize={20}
-          fontColor={abnormalFontColor}
-        />
+                <Button
+                    fontColor={AppColors.navigationBlue}
+                    fontSize={18}
+                    onPress={this.pushSuggestionView}
+                    style={styles.linkButton}
+                    title='Send a suggestion'
+                />
 
-        <Button
-          title='About'
-          onPress={this._pushAboutView.bind(this)}
-          style={styles.linkButton}
-          fontSize={18}
-          fontColor={normalFontColor}
-        />
+                <Button
+                    fontColor={AppColors.errorRed}
+                    fontSize={20}
+                    onPress={this.pushReportBugView}
+                    style={styles.linkButton}
+                    title='Report a bug'
+                />
 
-        <Text style={styles.explanatoryText}>
-          *Customizable profiles to come in future release
-        </Text>
-      </View>
-    );
-  }
-  
-  _pushReportBugView() {
-    this.props.navigation.push('ReportBug');
-  }
+                <Button
+                    fontColor={AppColors.navigationBlue}
+                    fontSize={18}
+                    onPress={this.pushAboutView}
+                    style={styles.linkButton}
+                    title='About'
+                />
 
-  _pushSettingsView() {
-    this.props.navigation.push('Settings');
-  }
-
-  _pushSuggestionView() {
-    this.props.navigation.push('SendSuggestion');
-  }
-
-  _pushAboutView() {
-    this.props.navigation.push('About');
-  }
-
-  static navigationOptions() {
-    return {
-      title: '‍‍Profile',
+                <Text style={styles.explanatoryText}>
+                *Customizable profiles to come in future release
+                </Text>
+            </View>
+        );
     }
-  }
 }
 
 export default CustomizationView;

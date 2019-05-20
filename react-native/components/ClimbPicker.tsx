@@ -1,42 +1,49 @@
 import React from 'react';
-import { Component } from 'react';
-import { Picker } from 'react-native';
+
+import {
+    Picker,
+    StyleSheet,
+} from 'react-native';
 import CLIMBING_TYPE from '../enums/ClimbingTypes';
 import { Route } from '../util/Climbs';
-import { IClimbDifficultyRatings } from './../enums/Ratings';
+import ClimbDifficultyRatings from '../enums/Ratings';
 
-interface IClimbPickerProps {
-    routeSelected: Route
-    onValuedChange: Function
-    items: IClimbDifficultyRatings
-    type: CLIMBING_TYPE
+const styles = StyleSheet.create({
+    picker: {
+        flexGrow: 1,
+    },
+});
+
+interface ClimbPickerProps {
+    routeSelected: Route;
+    onValuedChange: Function;
+    items: ClimbDifficultyRatings;
+    type: CLIMBING_TYPE;
 }
 
-export default class ClimbPicker extends Component<IClimbPickerProps> {
-    render() {
-        const {
-            routeSelected,
-            onValuedChange,
-            items,
-            type
-        } = this.props;
+const ClimbPicker = (props: ClimbPickerProps) => {
+    const {
+        routeSelected,
+        onValuedChange,
+        items,
+        type,
+    } = props;
 
-        return (
-            <Picker
-                style={{ flexGrow: 1}}
-                selectedValue={routeSelected.difficulty}
-                onValueChange={(difficulty: string) => onValuedChange(difficulty, type)}
-            >
-                {Object.keys(items).map((itemKey) => {
-                    return (
-                        <Picker.Item 
-                            key={itemKey} 
-                            label={itemKey}
-                            value={itemKey}
-                        />
-                    );
-                })}
-            </Picker>
-        );
-    }
-}
+    return (
+        <Picker
+            onValueChange={(difficulty: string) => onValuedChange(difficulty, type)}
+            selectedValue={routeSelected.difficulty}
+            style={styles.picker}
+        >
+            {Object.keys(items).map(itemKey => (
+                <Picker.Item
+                    key={itemKey}
+                    label={itemKey}
+                    value={itemKey}
+                />
+            ))}
+        </Picker>
+    );
+};
+
+export default ClimbPicker;

@@ -1,10 +1,6 @@
-/**
- * App starting point
- */
-
-import { 
-  createStackNavigator, 
-  createAppContainer
+import {
+    createStackNavigator,
+    createAppContainer,
 } from 'react-navigation';
 import WelcomeView from './containers/WelcomeView';
 import CustomizationView from './containers/CustomizationView';
@@ -18,38 +14,38 @@ import AboutView from './containers/settings/AboutView';
 
 
 const MainStack = createStackNavigator(
-  {
-    Welcome: {
-      screen: WelcomeView
+    {
+        Welcome: {
+            screen: WelcomeView,
+        },
+        TrainingSession: {
+            screen: TrainingSessionView,
+        },
+        PreviousSessions: {
+            screen: PreviousSessionsView,
+        },
+        Stats: {
+            screen: StatsView,
+        },
+        Customize: {
+            screen: CustomizationView,
+        },
+        ReportBug: {
+            screen: ReportBugView,
+        },
+        SendSuggestion: {
+            screen: SendSuggestionView,
+        },
+        Settings: {
+            screen: SettingsView,
+        },
+        About: {
+            screen: AboutView,
+        },
     },
-    TrainingSession: {
-      screen: TrainingSessionView
+    {
+        initialRouteName: 'Welcome',
     },
-    PreviousSessions: {
-      screen: PreviousSessionsView
-    },
-    Stats: {
-      screen: StatsView
-    },
-    Profile: {
-      screen: CustomizationView
-    },
-    ReportBug: {
-      screen: ReportBugView
-    },
-    SendSuggestion: {
-      screen: SendSuggestionView
-    },
-    Settings: {
-      screen: SettingsView
-    },
-    About: {
-      screen: AboutView
-    }
-  },
-  {
-    initialRouteName: 'Welcome',
-  }
 );
 
 export default createAppContainer(MainStack);
