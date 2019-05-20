@@ -18,6 +18,7 @@ import {
 } from '../util/Climbs';
 import { saveSessionToPhone } from '../util/PersistentStore';
 import AppColors from '../enums/Colors';
+import TimerRow from '../components/TimerRow';
 
 const styles = StyleSheet.create({
     container: {
@@ -42,6 +43,8 @@ interface TrainingSessionViewState {
     climbs: Climb[];
     climbSelected?: Climb;
     isEditingRoute: boolean;
+    durationSinceStart: number;
+    durationSinceLastClimb: number;
 }
 
 class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessionViewState> {
@@ -65,6 +68,8 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
 
     private key: number;
 
+    private timer: number;
+
     public constructor(props: NavigationScreenProps) {
         super(props);
 
@@ -75,6 +80,14 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
         this.hideClimbModal = this.hideClimbModal.bind(this);
         this.saveClimb = this.saveClimb.bind(this);
 
+        this.timer = setInterval(() => {
+            this.setState(prevState => ({
+                ...prevState,
+                durationSinceStart: prevState.durationSinceStart + 1,
+                durationSinceLastClimb: prevState.durationSinceLastClimb + 1,
+            }));
+        }, 1000);
+
         this.state = {
             startTime: Date.now(),
             endTime: undefined,
@@ -82,6 +95,8 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
             climbs: [],
             climbSelected: undefined,
             isEditingRoute: false,
+            durationSinceStart: 0,
+            durationSinceLastClimb: 0,
         };
     }
 
@@ -92,6 +107,17 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
             saveSession: this.saveSession.bind(this),
             cancelSession: this.showConfirmCancelAlert.bind(this),
         });
+    }
+
+    /** @description Prevents the timer render from interrupting the picker selection */
+    public shouldComponentUpdate() {
+        const { showLogClimbModal } = this.state;
+        return !showLogClimbModal;
+    }
+
+    /** @description Prevents memory leak by cleaning up infinite interval */
+    public componentWillUnmount() {
+        clearInterval(this.timer);
     }
 
     private onPreviousClimbPressed(climbKey: number): void {
@@ -135,7 +161,6 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
         this.goBack();
     }
 
-
     private async saveSession() {
         const {
             climbs,
@@ -153,7 +178,7 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
         this.goBack();
     }
 
-    private editClimb(_key: number, newClimb: Climb) {
+    private saveEditedClimb(_key: number, newClimb: Climb) {
         const { climbs } = this.state;
 
         let updatedClimbs = climbs.slice();
@@ -195,10 +220,17 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
             this.setState({
                 isEditingRoute: false,
             });
-            this.editClimb(_key, newClimb);
+            this.saveEditedClimb(_key, newClimb);
         } else { // Add new climb
             this.saveNewClimb(newClimb);
         }
+
+        this.setState(prevState => (
+            {
+                ...prevState,
+                durationSinceLastClimb: 0,
+            }
+        ));
     }
 
     public hideClimbModal(): void {
@@ -240,10 +272,22 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
             isEditingRoute,
             showLogClimbModal,
             climbs,
+            durationSinceStart,
+            durationSinceLastClimb,
         } = this.state;
 
         return (
             <View style={styles.container}>
+                {climbs.length > 0
+                    ? (
+                        <TimerRow
+                            secondsSinceLastClimb={durationSinceLastClimb}
+                            totalSeconds={durationSinceStart}
+                        />
+                    )
+                    : undefined
+                }
+
                 <ClimbList
                     data={climbs}
                     onRowPress={this.onPreviousClimbPressed}
