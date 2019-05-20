@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
     Alert,
     StyleSheet,
-    TextInput,
     View,
 } from 'react-native';
 import {
@@ -11,7 +10,6 @@ import {
 } from 'react-navigation';
 import LogClimbModal from '../components/LogClimbModal';
 import SessionHeaderButton from '../components/SessionHeaderButton';
-import { formatDateMMMMDDYYYY } from '../util/DateFormatter';
 import Button from '../components/Button';
 import ClimbList from '../components/ClimbList';
 import {
@@ -25,16 +23,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: AppColors.white,
-    },
-    titleInput: {
-        height: 40,
-        paddingLeft: '5%',
-        paddingRight: '5%',
-        borderColor: AppColors.lightGray,
-        borderBottomWidth: 0.5,
-        borderRadius: 0,
-        fontSize: 20,
         backgroundColor: AppColors.white,
     },
     addButton: {
@@ -53,7 +41,6 @@ interface TrainingSessionViewState {
     showLogClimbModal: boolean;
     climbs: Climb[];
     climbSelected?: Climb;
-    title: string;
     isEditingRoute: boolean;
 }
 
@@ -94,7 +81,6 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
             showLogClimbModal: false,
             climbs: [],
             climbSelected: undefined,
-            title: formatDateMMMMDDYYYY(Date.now()),
             isEditingRoute: false,
         };
     }
@@ -105,12 +91,6 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
         navigation.setParams({
             saveSession: this.saveSession.bind(this),
             cancelSession: this.showConfirmCancelAlert.bind(this),
-        });
-    }
-
-    private onTitleInputChanged(text: string): void {
-        this.setState({
-            title: text,
         });
     }
 
@@ -159,7 +139,6 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
     private async saveSession() {
         const {
             climbs,
-            title,
             startTime,
         } = this.state;
 
@@ -168,7 +147,7 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
         });
 
         if (climbs.length > 0) {
-            saveSessionToPhone(climbs, startTime, title);
+            saveSessionToPhone(climbs, startTime);
         }
 
         this.goBack();
@@ -260,19 +239,11 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
             climbSelected,
             isEditingRoute,
             showLogClimbModal,
-            title,
             climbs,
         } = this.state;
 
         return (
             <View style={styles.container}>
-                <TextInput
-                    numberOfLines={1}
-                    onChangeText={text => this.onTitleInputChanged(text)}
-                    style={styles.titleInput}
-                    value={title}
-                />
-
                 <ClimbList
                     data={climbs}
                     onRowPress={this.onPreviousClimbPressed}

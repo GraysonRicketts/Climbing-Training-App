@@ -61,14 +61,10 @@ function parseRawSessionData(sessions: AsyncSessionStorage | null): ClimbingSess
  * @description Saves the session in persistent, non-encrypted storage on the user's phone.
  * @param climbs - Climbs that happened during a session.
  * @param startTime - When the session started.
- * @param title - Optional: User entered title.
  */
-async function saveSessionToPhone(climbs: Climb[], startTime: number, title?: string): Promise<void> {
+async function saveSessionToPhone(climbs: Climb[], startTime: number): Promise<void> {
     const sessionStringified = JSON.stringify(climbs);
-    let sessionKey = startTime.toString();
-    if (title) {
-        sessionKey += `^${title}`;
-    }
+    const sessionKey = startTime.toString();
 
     try {
         await AsyncStorage.setItem(sessionKey, sessionStringified);
