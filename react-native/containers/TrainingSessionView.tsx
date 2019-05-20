@@ -15,6 +15,7 @@ import ClimbList from '../components/ClimbList';
 import {
     Climb,
     Route,
+    ClimbModifier,
 } from '../util/Climbs';
 import { saveSessionToPhone } from '../util/PersistentStore';
 import AppColors from '../enums/Colors';
@@ -132,9 +133,7 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
             ...prevState,
             isEditingRoute: true,
             climbSelected: {
-                key: climb.key,
-                route: climb.route,
-                completed: climb.completed,
+                ...climb,
             },
         }), () => {
             this.showClimbModal();
@@ -186,8 +185,7 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
             if (climb.key === _key) {
                 return {
                     ...climb,
-                    route: newClimb.route,
-                    completed: newClimb.completed,
+                    ...newClimb,
                 };
             }
             return climb;
@@ -206,14 +204,14 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
         );
     }
 
-    private saveClimb(route: Route, sentIt: boolean, _key?: number): void {
+    private saveClimb(route: Route, modifier: ClimbModifier, _key?: number): void {
         const newClimb: Climb = {
             key: _key || this.getNextClimbKey(),
             route: {
                 difficulty: route.difficulty,
                 type: route.type,
             },
-            completed: sentIt,
+            modifier,
         };
 
         if (_key) {
@@ -303,14 +301,19 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
                     title='Add climb'
                 />
 
-                <LogClimbModal
-                    climbKey={climbSelected ? climbSelected.key : undefined}
-                    hideModal={this.hideClimbModal}
-                    isEditingRoute={isEditingRoute}
-                    isVisible={showLogClimbModal}
-                    routeSelected={climbSelected ? climbSelected.route : undefined}
-                    saveClimb={this.saveClimb}
-                />
+                {showLogClimbModal
+                    ? (
+                        <LogClimbModal
+                            climbKey={climbSelected ? climbSelected.key : undefined}
+                            hideModal={this.hideClimbModal}
+                            isEditingRoute={isEditingRoute}
+                            isVisible={showLogClimbModal}
+                            routeSelected={climbSelected ? climbSelected.route : undefined}
+                            saveClimb={this.saveClimb}
+                        />
+                    )
+                    : undefined
+                }
             </View>
         );
     }

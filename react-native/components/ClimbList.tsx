@@ -50,8 +50,8 @@ class ClimbList extends Component<ClimbListProps> {
                             climbKey={climb.key}
                             difficulty={climb.route.difficulty}
                             isSelected={climb.key === selectedKey}
+                            modifier={climb.modifier}
                             onPress={onRowPress}
-                            sentIt={climb.completed}
                         />
                     );
                 }}

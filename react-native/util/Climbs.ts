@@ -5,30 +5,30 @@ type Difficulty = string;
 type Key = number;
 
 /** Holds the number of climbs at different difficulty levels */
-interface ClimbCountsForDifficulty { [difficulty: string]: number }
+export interface ClimbCountsForDifficulty { [difficulty: string]: number }
 
-interface Route {
+export interface Route {
     difficulty: Difficulty;
     type: CLIMB_TYPE;
 }
 
-interface Climb {
-    key: Key;
-    route: Route;
-    completed: boolean;
+export enum ClimbModifier {
+    none,
+    warmUp,
+    redPoint,
+    flash,
+    onSite,
 }
 
-interface ClimbingSession {
+export interface Climb {
+    key: Key;
+    route: Route;
+    modifier: ClimbModifier;
+}
+
+export interface ClimbingSession {
     startTime: number;
     climbs: Climb[];
     endTime?: number;
     title?: string;
 }
-
-export {
-    Difficulty,
-    Route,
-    Climb,
-    ClimbingSession,
-    ClimbCountsForDifficulty,
-};

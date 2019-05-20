@@ -19,8 +19,10 @@ import YOSEMITE_RATINGS from '../enums/YosemiteRatings';
 import HUECO_RATINGS from '../enums/HuecoRatings';
 import FRENCH_RATINGS from '../enums/FrenchRatings';
 import ClimbDifficultyRatings from '../enums/Ratings';
-import { Route } from '../util/Climbs';
+import { Route, ClimbModifier } from '../util/Climbs';
 import AppColors from '../enums/Colors';
+import Images from '../assets/Images';
+import ModifierButton from './ModifierButton';
 
 
 const styles = StyleSheet.create({
@@ -28,12 +30,19 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         margin: 0,
     },
+    screenContainer: {
+        height: 400,
+    },
     container: {
         borderColor: AppColors.lightGray,
         borderTopWidth: 0.5,
         borderRadius: 0,
         backgroundColor: AppColors.white,
         height: 400,
+    },
+    modifierButtonContainer: {
+        flexDirection: 'row',
+        flex: 1,
     },
     exerciseSearch: {
         height: 40,
@@ -70,26 +79,28 @@ interface NavigationStateKey {
 
 interface LogClimbModalState {
     searchText: string;
-    sentIt: boolean;
+    modifier: ClimbModifier;
     routeSelected: Route;
     boulderGradeSelected: string;
     yosemiteGradeSelected: string;
     frenchGradeSelected: string;
-    navigationState: NavigationState<NavigationStateKey>;
+    difficultyPickerNavigationState: NavigationState<NavigationStateKey>;
+    modalNavigationState: NavigationState<NavigationStateKey>;
 }
 
 class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
     public constructor(props: LogClimbModalProps) {
         super(props);
 
-        this.onSentSwitchChanged = this.onSentSwitchChanged.bind(this);
         this.onTabChanged = this.onTabChanged.bind(this);
         this.onClimbSelectedChange = this.onClimbSelectedChange.bind(this);
         this.saveClimb = this.saveClimb.bind(this);
+        this.moveToModifiersTab = this.moveToModifiersTab.bind(this);
+        this.modifierClicked = this.modifierClicked.bind(this);
 
         this.state = {
             searchText: '',
-            sentIt: true,
+            modifier: ClimbModifier.none,
             routeSelected: {
                 difficulty: HUECO_RATINGS.V0,
                 type: CLIMBING_TYPE.HUECO,
@@ -97,12 +108,19 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
             boulderGradeSelected: HUECO_RATINGS.V0,
             yosemiteGradeSelected: YOSEMITE_RATINGS['5.10a'],
             frenchGradeSelected: FRENCH_RATINGS[4],
-            navigationState: {
+            difficultyPickerNavigationState: {
                 index: CLIMBING_TYPE.HUECO,
                 routes: [
-                    { key: 'first', title: 'Hueco' },
-                    { key: 'second', title: 'Yosemite' },
-                    { key: 'third', title: 'French' },
+                    { key: 'hueco', title: 'Hueco' },
+                    { key: 'yosemite', title: 'Yosemite' },
+                    { key: 'french', title: 'French' },
+                ],
+            },
+            modalNavigationState: {
+                index: 0,
+                routes: [
+                    { key: 'difficulty', title: 'difficulty' },
+                    { key: 'modifiers', title: 'modifiers' },
                 ],
             },
         };
@@ -118,8 +136,8 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
     private onTabChanged(tabIndex: number) {
         this.setState(prevState => ({
             ...prevState,
-            navigationState: {
-                ...prevState.navigationState,
+            difficultyPickerNavigationState: {
+                ...prevState.difficultyPickerNavigationState,
                 index: tabIndex,
             },
         }), () => {
@@ -150,11 +168,11 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
                 difficulty,
                 type,
             },
-            boulderGradeSelected: prevState.navigationState.index === CLIMBING_TYPE.HUECO
+            boulderGradeSelected: prevState.difficultyPickerNavigationState.index === CLIMBING_TYPE.HUECO
                 ? difficulty : prevState.boulderGradeSelected,
-            yosemiteGradeSelected: prevState.navigationState.index === CLIMBING_TYPE.YOSEMITE
+            yosemiteGradeSelected: prevState.difficultyPickerNavigationState.index === CLIMBING_TYPE.YOSEMITE
                 ? difficulty : prevState.yosemiteGradeSelected,
-            frenchGradeSelected: prevState.navigationState.index === CLIMBING_TYPE.FRENCH
+            frenchGradeSelected: prevState.difficultyPickerNavigationState.index === CLIMBING_TYPE.FRENCH
                 ? difficulty : prevState.frenchGradeSelected,
         }));
     }
@@ -164,10 +182,6 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
             ...prevState,
             searchText,
         }));
-    }
-
-    private onSentSwitchChanged(didSendRoute: boolean) {
-        this.setState({ sentIt: didSendRoute });
     }
 
     private getValuesForPicker(values: ClimbDifficultyRatings): ClimbDifficultyRatings {
@@ -190,9 +204,9 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
         return filteredValues;
     }
 
-    private createSceneMap(routeSelected: Route) {
+    private createDifficultyPickerSceneMap(routeSelected: Route) {
         return SceneMap({
-            first: () => (
+            hueco: () => (
                 <ClimbPicker
                     items={this.getValuesForPicker(HUECO_RATINGS)}
                     onValuedChange={this.onClimbSelectedChange}
@@ -200,7 +214,7 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
                     type={CLIMBING_TYPE.HUECO}
                 />
             ),
-            second: () => (
+            yosemite: () => (
                 <ClimbPicker
                     items={this.getValuesForPicker(YOSEMITE_RATINGS)}
                     onValuedChange={this.onClimbSelectedChange}
@@ -208,7 +222,7 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
                     type={CLIMBING_TYPE.HUECO}
                 />
             ),
-            third: () => (
+            french: () => (
                 <ClimbPicker
                     items={this.getValuesForPicker(FRENCH_RATINGS)}
                     onValuedChange={this.onClimbSelectedChange}
@@ -219,50 +233,36 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
         });
     }
 
-    public hideModal() {
-        const { hideModal } = this.props;
-        hideModal();
+    private moveToModifiersTab() {
+        this.setState(prevState => ({
+            ...prevState,
+            modalNavigationState: {
+                ...prevState.modalNavigationState,
+                index: 1,
+            },
+        }));
     }
 
-    public saveClimb() {
-        const {
-            saveClimb,
-            climbKey,
-        } = this.props;
-        const {
-            routeSelected,
-            sentIt,
-        } = this.state;
-
-        saveClimb(
-            routeSelected,
-            sentIt,
-            climbKey,
-        );
-
-        this.hideModal();
+    private modifierClicked(modifier: ClimbModifier) {
+        this.setState(prevState => ({
+            ...prevState,
+            modifier,
+        }));
     }
 
-    public render() {
-        const { isVisible } = this.props;
+    private createModalSceneMap() {
         const {
             searchText,
-            navigationState,
             routeSelected,
+            difficultyPickerNavigationState,
+            modifier,
         } = this.state;
 
-        const sceneMap = this.createSceneMap(routeSelected);
+        const difficultyPickerSceneMap = this.createDifficultyPickerSceneMap(routeSelected);
 
-        return (
-            <Modal
-                avoidKeyboard
-                isVisible={isVisible}
-                onBackdropPress={() => this.hideModal()}
-                onSwipeComplete={() => this.hideModal()}
-                style={styles.modal}
-                swipeDirection='down'
-            >
-                <View style={styles.container}>
+        return SceneMap({
+            difficulty: () => (
+                <View style={styles.screenContainer}>
                     <TextInput
                         numberOfLines={1}
                         onChangeText={text => this.onSearchTextChanged(text)}
@@ -277,10 +277,53 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
                             width: Dimensions.get('window').width,
                             height: 320,
                         }}
-                        navigationState={navigationState}
+                        navigationState={difficultyPickerNavigationState}
                         onIndexChange={this.onTabChanged}
-                        renderScene={sceneMap}
+                        renderScene={difficultyPickerSceneMap}
                     />
+
+                    <Button
+                        fontColor={AppColors.white}
+                        fontSize={20}
+                        isEmphasized
+                        onPress={this.moveToModifiersTab}
+                        style={styles.saveButton}
+                        title='Next'
+                    />
+                </View>
+            ),
+            modifiers: () => (
+                <View style={styles.screenContainer}>
+                    <View style={styles.modifierButtonContainer}>
+                        <ModifierButton
+                            image={Images.warmUp}
+                            isSelected={ClimbModifier.warmUp === modifier}
+                            modifier={ClimbModifier.warmUp}
+                            modifierClicked={() => this.modifierClicked(ClimbModifier.warmUp)}
+                        />
+
+                        <ModifierButton
+                            image={Images.onSite}
+                            isSelected={ClimbModifier.onSite === modifier}
+                            modifier={ClimbModifier.onSite}
+                            modifierClicked={() => this.modifierClicked(ClimbModifier.onSite)}
+                        />
+                    </View>
+                    <View style={styles.modifierButtonContainer}>
+                        <ModifierButton
+                            image={Images.flash}
+                            isSelected={ClimbModifier.flash === modifier}
+                            modifier={ClimbModifier.flash}
+                            modifierClicked={() => this.modifierClicked(ClimbModifier.flash)}
+                        />
+
+                        <ModifierButton
+                            image={Images.redPoint}
+                            isSelected={ClimbModifier.redPoint === modifier}
+                            modifier={ClimbModifier.redPoint}
+                            modifierClicked={() => this.modifierClicked(ClimbModifier.redPoint)}
+                        />
+                    </View>
 
                     <Button
                         fontColor={AppColors.white}
@@ -289,6 +332,62 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
                         onPress={this.saveClimb}
                         style={styles.saveButton}
                         title='Save'
+                    />
+                </View>
+            ),
+        });
+    }
+
+    public hideModal() {
+        const { hideModal } = this.props;
+        hideModal();
+    }
+
+    public saveClimb() {
+        const {
+            saveClimb,
+            climbKey,
+        } = this.props;
+
+        const {
+            routeSelected,
+            modifier,
+        } = this.state;
+
+        saveClimb(
+            routeSelected,
+            modifier,
+            climbKey,
+        );
+
+        this.hideModal();
+    }
+
+    public render() {
+        const { isVisible } = this.props;
+        const { modalNavigationState } = this.state;
+
+        const modalSceneMap = this.createModalSceneMap();
+
+        return (
+            <Modal
+                avoidKeyboard
+                isVisible={isVisible}
+                onBackdropPress={() => this.hideModal()}
+                onSwipeComplete={() => this.hideModal()}
+                style={styles.modal}
+                swipeDirection='down'
+            >
+                <View style={styles.container}>
+                    <TabView
+                        initialLayout={{
+                            width: Dimensions.get('window').width,
+                            height: 400,
+                        }}
+                        navigationState={modalNavigationState}
+                        onIndexChange={() => {}} // Controlled programmatically
+                        renderScene={modalSceneMap}
+                        renderTabBar={() => (undefined)} // Hides tabs
                     />
                 </View>
             </Modal>

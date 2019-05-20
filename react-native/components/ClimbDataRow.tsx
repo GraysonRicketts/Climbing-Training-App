@@ -5,8 +5,12 @@ import {
     View,
     Text,
     StyleSheet,
+    Image,
+    ImageSourcePropType,
 } from 'react-native';
 import AppColors from '../enums/Colors';
+import { ClimbModifier } from '../util/Climbs';
+import Images from '../assets/Images';
 
 const ROW_FONT_SIZE = 30;
 
@@ -25,14 +29,30 @@ const styles = StyleSheet.create({
         fontSize: ROW_FONT_SIZE,
         flexGrow: 2,
     },
-    sentText: {
-        fontSize: ROW_FONT_SIZE,
+    modifierIcon: {
+        height: 30,
+        width: 30,
+        margin: 10,
     },
 });
 
+function getModifierImage(modifier: ClimbModifier): ImageSourcePropType | undefined {
+    switch (modifier) {
+        case ClimbModifier.redPoint:
+            return Images.redPoint;
+        case ClimbModifier.flash:
+            return Images.flash;
+        case ClimbModifier.onSite:
+            return Images.onSite;
+        case ClimbModifier.warmUp:
+            return Images.warmUp;
+        default:
+            return undefined;
+    }
+}
 interface ClimbDataRowProps {
     difficulty: string;
-    sentIt: boolean;
+    modifier: ClimbModifier;
     onPress?: Function;
     isSelected?: boolean;
     climbKey?: number;
@@ -41,11 +61,13 @@ interface ClimbDataRowProps {
 const ClimbDataRow = (props: ClimbDataRowProps) => {
     const {
         difficulty,
-        sentIt,
+        modifier,
         isSelected,
         onPress,
         climbKey,
     } = props;
+
+    const modifierImage = getModifierImage(modifier);
 
     return (
         <TouchableHighlight
@@ -55,18 +77,18 @@ const ClimbDataRow = (props: ClimbDataRowProps) => {
             underlayColor={AppColors.white}
         >
             <View
-            // eslint-disable-next-line react-native/no-inline-styles
-                style={{
-                    ...styles.container,
-                    opacity: sentIt ? 1 : 0.25,
-                }}
+                style={styles.container}
             >
                 <Text style={styles.difficultyText}>
                     {difficulty}
                 </Text>
-                <Text style={styles.sentText}>
-                    {sentIt ? '✔️' : '❌'}
-                </Text>
+
+                {modifierImage ? (
+                    <Image
+                        source={modifierImage}
+                        style={styles.modifierIcon}
+                    />
+                ) : undefined }
             </View>
         </TouchableHighlight>
     );

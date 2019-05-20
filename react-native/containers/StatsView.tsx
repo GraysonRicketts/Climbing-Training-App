@@ -12,6 +12,7 @@ import {
     ClimbingSession,
     Climb,
     ClimbCountsForDifficulty,
+    ClimbModifier,
 } from '../util/Climbs';
 import { getClimbingSessionsFromPhone } from '../util/PersistentStore';
 import AppColors from '../enums/Colors';
@@ -30,6 +31,12 @@ const styles = StyleSheet.create({
         color: AppColors.black,
     },
 });
+
+function climbWasCompleted(climb: Climb): boolean {
+    return climb.modifier === ClimbModifier.redPoint
+        || climb.modifier === ClimbModifier.onSite
+        || climb.modifier === ClimbModifier.flash;
+}
 
 function getClimbingTypeName(climbingType: CLIMB_TYPES): string {
     switch (climbingType) {
@@ -152,7 +159,7 @@ class StatsView extends Component<null, StatsViewState> {
         let numCompletedClimbs = 0;
         climbingSessions.forEach((session) => {
             session.climbs.forEach((climb) => {
-                if (climb.completed) {
+                if (climbWasCompleted(climb)) {
                     numCompletedClimbs += 1;
                 }
             });
