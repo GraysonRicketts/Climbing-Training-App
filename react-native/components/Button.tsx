@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, ReactNode } from 'react';
 import {
     StyleSheet,
     TouchableOpacity,
@@ -20,7 +20,7 @@ interface ButtonProps {
     fontColor?: string;
     style?: ViewStyle;
     isEmphasized?: boolean;
-    children?: Component;
+    children?: ReactNode | Component | Element;
 }
 
 const Button = (props: ButtonProps) => {
