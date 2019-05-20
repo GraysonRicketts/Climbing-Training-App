@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 class CustomizationView extends Component<NavigationScreenProps> {
     public static navigationOptions() {
         return {
-            title: '‍‍Profile',
+            title: 'Customize',
         };
     }
 
@@ -72,7 +72,7 @@ class CustomizationView extends Component<NavigationScreenProps> {
         return (
             <View style={styles.container}>
                 <Button
-                    fontColor={AppColors.highlightBlue}
+                    fontColor={AppColors.navigationBlue}
                     fontSize={18}
                     onPress={this.pushSettingsView}
                     style={styles.linkButton}
@@ -80,7 +80,7 @@ class CustomizationView extends Component<NavigationScreenProps> {
                 />
 
                 <Button
-                    fontColor={AppColors.highlightBlue}
+                    fontColor={AppColors.navigationBlue}
                     fontSize={18}
                     onPress={this.pushSuggestionView}
                     style={styles.linkButton}
@@ -96,7 +96,7 @@ class CustomizationView extends Component<NavigationScreenProps> {
                 />
 
                 <Button
-                    fontColor={AppColors.highlightBlue}
+                    fontColor={AppColors.navigationBlue}
                     fontSize={18}
                     onPress={this.pushAboutView}
                     style={styles.linkButton}

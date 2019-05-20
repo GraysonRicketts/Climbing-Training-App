@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         marginLeft: 15,
     },
     link: {
-        color: AppColors.highlightBlue,
+        color: AppColors.linkBlue,
     },
 });
 
@@ -95,6 +95,30 @@ class AboutView extends Component {
 
                 {IconBlurb({
                     text: '* the line chart icon was made by ',
+                    url: 'https://www.freepik.com',
+                    creator: 'Freepik',
+                })}
+
+                {IconBlurb({
+                    text: '* the flash icon was made ',
+                    url: 'https://www.freepik.com',
+                    creator: 'Freepik',
+                })}
+
+                {IconBlurb({
+                    text: '* the onsite icon was made by ',
+                    url: 'https://www.freepik.com',
+                    creator: 'Freepik',
+                })}
+
+                {IconBlurb({
+                    text: '* the redpoint icon was made by ',
+                    url: 'https://www.freepik.com',
+                    creator: 'Freepik',
+                })}
+
+                {IconBlurb({
+                    text: '* the warmup icon was made by ',
                     url: 'https://www.freepik.com',
                     creator: 'Freepik',
                 })}
