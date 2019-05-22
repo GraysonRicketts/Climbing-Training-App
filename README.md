@@ -16,6 +16,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ```bash
 git checkout https://github.com/GraysonRicketts/Climbing-Training-App.git
+cd react-native
 npm install
 react-native run-ios --no-packager
 ```
