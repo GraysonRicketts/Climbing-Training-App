@@ -204,31 +204,33 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
     }
 
     private createDifficultyPickerSceneMap(routeSelected: Route) {
+        const selectedType = routeSelected.type;
+
         return SceneMap({
-            hueco: () => (
+            hueco: () => (selectedType === CLIMBING_TYPE.HUECO ? (
                 <ClimbPicker
                     items={this.getValuesForPicker(HUECO_RATINGS)}
                     onValuedChange={this.onClimbSelectedChange}
                     routeSelected={routeSelected}
                     type={CLIMBING_TYPE.HUECO}
                 />
-            ),
-            yosemite: () => (
+            ) : null),
+            yosemite: () => (selectedType === CLIMBING_TYPE.YOSEMITE ? (
                 <ClimbPicker
                     items={this.getValuesForPicker(YOSEMITE_RATINGS)}
                     onValuedChange={this.onClimbSelectedChange}
                     routeSelected={routeSelected}
                     type={CLIMBING_TYPE.YOSEMITE}
                 />
-            ),
-            french: () => (
+            ) : null),
+            french: () => (selectedType === CLIMBING_TYPE.FRENCH ? (
                 <ClimbPicker
                     items={this.getValuesForPicker(FRENCH_RATINGS)}
                     onValuedChange={this.onClimbSelectedChange}
                     routeSelected={routeSelected}
                     type={CLIMBING_TYPE.FRENCH}
                 />
-            ),
+            ) : null),
         });
     }
 
@@ -279,6 +281,7 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
                         navigationState={difficultyPickerNavigationState}
                         onIndexChange={this.onTabChanged}
                         renderScene={difficultyPickerSceneMap}
+                        swipeEnabled={false}
                     />
 
                     <Button
