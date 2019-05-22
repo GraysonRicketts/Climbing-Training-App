@@ -47,6 +47,7 @@ interface TrainingSessionViewState {
     isEditingRoute: boolean;
     durationSinceStart: number;
     durationSinceLastClimb: number;
+    previousRoute?: Route;
 }
 
 class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessionViewState> {
@@ -207,7 +208,7 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
         );
     }
 
-    private saveClimb(route: Route, modifier: ClimbModifier, _key?: number): Promise<void> {
+    private async saveClimb(route: Route, modifier: ClimbModifier, _key?: number): Promise<void> {
         const newClimb: Climb = {
             key: _key || this.getNextClimbKey(),
             route: {
@@ -228,11 +229,12 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
             });
         }
 
-        return savePromise.then(() => {
+        await savePromise.then(() => {
             this.setState({
                 climbModalIsVisible: false,
                 climbSelected: undefined,
                 lastClimb: Date.now(),
+                previousRoute: newClimb.route,
             });
         });
     }
@@ -278,6 +280,7 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
             climbs,
             durationSinceStart,
             durationSinceLastClimb,
+            previousRoute,
         } = this.state;
 
         return (
@@ -315,7 +318,7 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
                             hideModal={this.hideClimbModal}
                             isEditingRoute={isEditingRoute}
                             isVisible={climbModalIsVisible}
-                            routeSelected={climbSelected ? climbSelected.route : undefined}
+                            routeSelected={previousRoute || undefined}
                             saveClimb={this.saveClimb}
                         />
                     )

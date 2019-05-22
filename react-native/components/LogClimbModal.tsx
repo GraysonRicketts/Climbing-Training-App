@@ -93,7 +93,10 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
     public constructor(props: LogClimbModalProps) {
         super(props);
 
-        const { climbModifier } = this.props;
+        const {
+            climbModifier,
+            routeSelected,
+        } = this.props;
 
         this.onTabChanged = this.onTabChanged.bind(this);
         this.onClimbSelectedChange = this.onClimbSelectedChange.bind(this);
@@ -104,7 +107,7 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
         this.state = {
             searchText: '',
             modifier: climbModifier || ClimbModifier.none,
-            routeSelected: {
+            routeSelected: routeSelected || {
                 difficulty: HUECO_RATINGS.V0,
                 type: CLIMBING_TYPE.HUECO,
             },
@@ -112,7 +115,7 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
             yosemiteGradeSelected: YOSEMITE_RATINGS['5.10a'],
             frenchGradeSelected: FRENCH_RATINGS[4],
             difficultyPickerNavigationState: {
-                index: CLIMBING_TYPE.HUECO,
+                index: routeSelected ? routeSelected.type : CLIMBING_TYPE.HUECO,
                 routes: [
                     { key: 'hueco', title: 'Hueco' },
                     { key: 'yosemite', title: 'Yosemite' },
@@ -127,13 +130,6 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
                 ],
             },
         };
-    }
-
-    public componentWillReceiveProps(props: LogClimbModalProps) {
-        this.setState(prevState => ({
-            ...prevState,
-            routeSelected: props.routeSelected ? props.routeSelected : prevState.routeSelected,
-        }));
     }
 
     private onTabChanged(tabIndex: number) {
@@ -222,7 +218,7 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
                     items={this.getValuesForPicker(YOSEMITE_RATINGS)}
                     onValuedChange={this.onClimbSelectedChange}
                     routeSelected={routeSelected}
-                    type={CLIMBING_TYPE.HUECO}
+                    type={CLIMBING_TYPE.YOSEMITE}
                 />
             ),
             french: () => (
@@ -230,7 +226,7 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
                     items={this.getValuesForPicker(FRENCH_RATINGS)}
                     onValuedChange={this.onClimbSelectedChange}
                     routeSelected={routeSelected}
-                    type={CLIMBING_TYPE.HUECO}
+                    type={CLIMBING_TYPE.FRENCH}
                 />
             ),
         });
@@ -346,7 +342,7 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
         hideModal();
     }
 
-    public async saveClimb() {
+    public saveClimb() {
         const {
             saveClimb,
             climbKey,
@@ -357,7 +353,7 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
             modifier,
         } = this.state;
 
-        await saveClimb(
+        saveClimb(
             routeSelected,
             modifier,
             climbKey,
