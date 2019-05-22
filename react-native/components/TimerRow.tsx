@@ -19,18 +19,18 @@ const styles = StyleSheet.create({
     },
 });
 
-function prettifyMinutesTime(timeInSeconds: number): string {
-    const minutes = timeInSeconds / 60;
+function prettifyMinutesTime(timeInMilliseconds: number): string {
+    const minutes = timeInMilliseconds / 60000;
     const formattedMinutes = minutes.toFixed(0).toString().padStart(2, '0');
 
     return formattedMinutes;
 }
 
-function prettifySecondsTime(timeInSeconds: number): string {
-    const seconds = timeInSeconds % 60;
-    const formattedSeconds = seconds.toString().padStart(2, '0');
+function prettifySecondsTime(timeInMilliseconds: number): string {
+    const seconds = (timeInMilliseconds % 60000) / 1000;
+    const formattedSeconds = seconds.toFixed(0).toString().padStart(2, '0');
 
-    const formattedMinutes = prettifyMinutesTime(timeInSeconds);
+    const formattedMinutes = prettifyMinutesTime(timeInMilliseconds);
 
     return `${formattedMinutes} : ${formattedSeconds}`;
 }

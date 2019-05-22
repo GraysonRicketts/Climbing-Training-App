@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
 
 interface TrainingSessionViewState {
     startTime: number;
+    lastClimb: number;
     endTime?: number;
     climbModalIsVisible: boolean;
     climbs: Climb[];
@@ -84,20 +85,21 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
         this.timer = setInterval(() => {
             this.setState(prevState => ({
                 ...prevState,
-                durationSinceStart: prevState.durationSinceStart + 1,
-                durationSinceLastClimb: prevState.durationSinceLastClimb + 1,
+                durationSinceStart: Date.now() - prevState.startTime,
+                durationSinceLastClimb: Date.now() - prevState.lastClimb,
             }));
         }, 1000);
 
         this.state = {
             startTime: Date.now(),
+            lastClimb: Date.now(),
             endTime: undefined,
             climbModalIsVisible: false,
             climbs: [],
             climbSelected: undefined,
             isEditingRoute: false,
-            durationSinceStart: 0,
-            durationSinceLastClimb: 0,
+            durationSinceStart: Date.now(),
+            durationSinceLastClimb: Date.now(),
         };
     }
 
@@ -230,7 +232,7 @@ class TrainingSessionView extends Component<NavigationScreenProps, TrainingSessi
             this.setState({
                 climbModalIsVisible: false,
                 climbSelected: undefined,
-                durationSinceLastClimb: 0,
+                lastClimb: Date.now(),
             });
         });
     }
