@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     icon: {
-        height: 50,
-        width: 50,
+        height: 30,
+        width: 30,
     },
     selected: {
         backgroundColor: AppColors.saveGreen,
@@ -41,7 +41,7 @@ function getModifierName(modifier: ClimbModifier): string {
         case ClimbModifier.onSite:
             return 'Onsite';
         default:
-            return '';
+            return 'Failed';
     }
 }
 
@@ -57,7 +57,7 @@ const ModifierButton = (props: SaveSessionButtonProps) => {
 
     return (
         <Button
-            fontSize={28}
+            fontSize={20}
             onPress={modifierClicked}
             style={isSelected ? {
                 ...styles.selected,

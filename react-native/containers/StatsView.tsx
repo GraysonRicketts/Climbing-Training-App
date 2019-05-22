@@ -51,15 +51,6 @@ function getClimbingTypeName(climbingType: CLIMB_TYPES): string {
     }
 }
 
-function formatStatistic(statistic: number | null): string {
-    if (!statistic) {
-        return 'No data';
-    }
-
-    const formattedStatistic = `% ${statistic.toFixed(2)}`;
-    return formattedStatistic;
-}
-
 interface HistogramTypeData {
     type: CLIMB_TYPES;
     data: ClimbCountsForDifficulty | null;
@@ -94,15 +85,12 @@ class StatsView extends Component<null, StatsViewState> {
     private getAvgNumPerSession(): string {
         const avgNumberOfClimbsPerSession = this.calculateAvgNumPerSession();
 
-        const formattedAverage = formatStatistic(avgNumberOfClimbsPerSession);
+        if (!avgNumberOfClimbsPerSession) {
+            return 'No data';
+        }
+
+        const formattedAverage = `${avgNumberOfClimbsPerSession.toFixed(0)}`;
         return formattedAverage;
-    }
-
-    private getPercentSent(): string {
-        const percentSent = this.calculatePercentSent();
-
-        const formattedPercentSent = formatStatistic(percentSent);
-        return formattedPercentSent;
     }
 
     private getTotalNumberOfClimbs(): number {
@@ -195,13 +183,8 @@ class StatsView extends Component<null, StatsViewState> {
         return climbsForType;
     }
 
-    // TODO: # of onsites
-    // TODO: ranking how it felt / comments
-    // TODO: types (e.g. slab, crimp, overhang)
-    // TODO: personal tags
     public render() {
         const avgNumPerSession = this.getAvgNumPerSession();
-        const percentSent = this.getPercentSent();
         const typeHistogramData = this.getTypeHistogramData();
         let distKeyId = 0;
 
@@ -210,12 +193,6 @@ class StatsView extends Component<null, StatsViewState> {
                 <Statistic title='Average number of climbs a session'>
                     <Text style={styles.statistic}>
                         {avgNumPerSession}
-                    </Text>
-                </Statistic>
-
-                <Statistic title='Percent of successful climbs'>
-                    <Text style={styles.statistic}>
-                        {percentSent}
                     </Text>
                 </Statistic>
 

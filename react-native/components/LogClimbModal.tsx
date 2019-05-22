@@ -93,7 +93,10 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
     public constructor(props: LogClimbModalProps) {
         super(props);
 
-        const { climbModifier } = this.props;
+        const {
+            climbModifier,
+            routeSelected,
+        } = this.props;
 
         this.onTabChanged = this.onTabChanged.bind(this);
         this.onClimbSelectedChange = this.onClimbSelectedChange.bind(this);
@@ -104,7 +107,7 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
         this.state = {
             searchText: '',
             modifier: climbModifier || ClimbModifier.none,
-            routeSelected: {
+            routeSelected: routeSelected || {
                 difficulty: HUECO_RATINGS.V0,
                 type: CLIMBING_TYPE.HUECO,
             },
@@ -112,7 +115,7 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
             yosemiteGradeSelected: YOSEMITE_RATINGS['5.10a'],
             frenchGradeSelected: FRENCH_RATINGS[4],
             difficultyPickerNavigationState: {
-                index: CLIMBING_TYPE.HUECO,
+                index: routeSelected ? routeSelected.type : CLIMBING_TYPE.HUECO,
                 routes: [
                     { key: 'hueco', title: 'Hueco' },
                     { key: 'yosemite', title: 'Yosemite' },
@@ -127,13 +130,6 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
                 ],
             },
         };
-    }
-
-    public componentWillReceiveProps(props: LogClimbModalProps) {
-        this.setState(prevState => ({
-            ...prevState,
-            routeSelected: props.routeSelected ? props.routeSelected : prevState.routeSelected,
-        }));
     }
 
     private onTabChanged(tabIndex: number) {
@@ -208,31 +204,33 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
     }
 
     private createDifficultyPickerSceneMap(routeSelected: Route) {
+        const selectedType = routeSelected.type;
+
         return SceneMap({
-            hueco: () => (
+            hueco: () => (selectedType === CLIMBING_TYPE.HUECO ? (
                 <ClimbPicker
                     items={this.getValuesForPicker(HUECO_RATINGS)}
                     onValuedChange={this.onClimbSelectedChange}
                     routeSelected={routeSelected}
                     type={CLIMBING_TYPE.HUECO}
                 />
-            ),
-            yosemite: () => (
+            ) : null),
+            yosemite: () => (selectedType === CLIMBING_TYPE.YOSEMITE ? (
                 <ClimbPicker
                     items={this.getValuesForPicker(YOSEMITE_RATINGS)}
                     onValuedChange={this.onClimbSelectedChange}
                     routeSelected={routeSelected}
-                    type={CLIMBING_TYPE.HUECO}
+                    type={CLIMBING_TYPE.YOSEMITE}
                 />
-            ),
-            french: () => (
+            ) : null),
+            french: () => (selectedType === CLIMBING_TYPE.FRENCH ? (
                 <ClimbPicker
                     items={this.getValuesForPicker(FRENCH_RATINGS)}
                     onValuedChange={this.onClimbSelectedChange}
                     routeSelected={routeSelected}
-                    type={CLIMBING_TYPE.HUECO}
+                    type={CLIMBING_TYPE.FRENCH}
                 />
-            ),
+            ) : null),
         });
     }
 
@@ -283,6 +281,7 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
                         navigationState={difficultyPickerNavigationState}
                         onIndexChange={this.onTabChanged}
                         renderScene={difficultyPickerSceneMap}
+                        swipeEnabled={false}
                     />
 
                     <Button
@@ -297,6 +296,15 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
             ),
             modifiers: () => (
                 <View style={styles.screenContainer}>
+                    <View style={styles.modifierButtonContainer}>
+                        <ModifierButton
+                            image={Images.failed}
+                            isSelected={ClimbModifier.failed === modifier}
+                            modifier={ClimbModifier.failed}
+                            modifierClicked={() => this.modifierClicked(ClimbModifier.failed)}
+                        />
+                    </View>
+
                     <View style={styles.modifierButtonContainer}>
                         <ModifierButton
                             image={Images.warmUp}
@@ -346,7 +354,7 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
         hideModal();
     }
 
-    public async saveClimb() {
+    public saveClimb() {
         const {
             saveClimb,
             climbKey,
@@ -357,7 +365,7 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
             modifier,
         } = this.state;
 
-        await saveClimb(
+        saveClimb(
             routeSelected,
             modifier,
             climbKey,

@@ -33,12 +33,13 @@ function formatDataForGraph(climbData: ClimbCountsForDifficulty): ChartKitData {
         ],
     };
 
-    Object.keys(climbData).forEach((grade) => {
-        if (climbData[grade]) {
-            data.labels.push(grade);
-            data.datasets[0].data.push(climbData[grade]);
-        }
-    });
+    Object.keys(climbData).sort()
+        .forEach((grade) => {
+            if (climbData[grade]) {
+                data.labels.push(grade);
+                data.datasets[0].data.push(climbData[grade]);
+            }
+        });
 
     return data;
 }
