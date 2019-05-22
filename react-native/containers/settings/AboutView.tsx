@@ -122,6 +122,12 @@ class AboutView extends Component {
                     url: 'https://www.freepik.com',
                     creator: 'Freepik',
                 })}
+
+                {IconBlurb({
+                    text: '* the failure icon was made by ',
+                    url: 'https://www.flaticon.com/authors/eleonor-wang',
+                    creator: 'Elonor Wang',
+                })}
             </View>
         );
     }

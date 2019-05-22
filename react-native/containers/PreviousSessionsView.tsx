@@ -143,7 +143,7 @@ class PreviousSessions extends Component<null, PreviousSessionsState> {
                             <ClimbDataRow
                                 difficulty={climb.route.difficulty}
                                 key={climb.key}
-                                sentIt={climb.completed}
+                                modifier={climb.modifier}
                             />
                         )}
                         renderSectionHeader={({ section: { title } }) => (

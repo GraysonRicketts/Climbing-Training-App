@@ -295,6 +295,15 @@ class LogClimbModal extends Component<LogClimbModalProps, LogClimbModalState> {
                 <View style={styles.screenContainer}>
                     <View style={styles.modifierButtonContainer}>
                         <ModifierButton
+                            image={Images.failed}
+                            isSelected={ClimbModifier.failed === modifier}
+                            modifier={ClimbModifier.failed}
+                            modifierClicked={() => this.modifierClicked(ClimbModifier.failed)}
+                        />
+                    </View>
+
+                    <View style={styles.modifierButtonContainer}>
+                        <ModifierButton
                             image={Images.warmUp}
                             isSelected={ClimbModifier.warmUp === modifier}
                             modifier={ClimbModifier.warmUp}

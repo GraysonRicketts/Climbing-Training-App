@@ -46,6 +46,8 @@ function getModifierImage(modifier: ClimbModifier): ImageSourcePropType | undefi
             return Images.onSite;
         case ClimbModifier.warmUp:
             return Images.warmUp;
+        case ClimbModifier.failed:
+            return Images.failed;
         default:
             return undefined;
     }
