@@ -18,6 +18,7 @@ export enum ClimbModifier {
     redPoint,
     flash,
     onSite,
+    failed,
 }
 
 export interface Climb {
