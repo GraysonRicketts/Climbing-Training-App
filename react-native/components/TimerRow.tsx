@@ -21,14 +21,14 @@ const styles = StyleSheet.create({
 
 function prettifyMinutesTime(timeInMilliseconds: number): string {
     const minutes = timeInMilliseconds / 60000;
-    const formattedMinutes = minutes.toFixed(0).toString().padStart(2, '0');
+    const formattedMinutes = Math.floor(minutes).toString().padStart(2, '0');
 
     return formattedMinutes;
 }
 
-function prettifySecondsTime(timeInMilliseconds: number): string {
+function prettifySinceLastClimb(timeInMilliseconds: number): string {
     const seconds = (timeInMilliseconds % 60000) / 1000;
-    const formattedSeconds = seconds.toFixed(0).toString().padStart(2, '0');
+    const formattedSeconds = Math.floor(seconds).toString().padStart(2, '0');
 
     const formattedMinutes = prettifyMinutesTime(timeInMilliseconds);
 
@@ -47,7 +47,7 @@ const TimerRow = (props: TimerRowProps) => {
     } = props;
 
     const formattedTotalTime = prettifyMinutesTime(totalSeconds);
-    const formattedSecondsSinceLastClimb = prettifySecondsTime(secondsSinceLastClimb);
+    const formattedSecondsSinceLastClimb = prettifySinceLastClimb(secondsSinceLastClimb);
 
     return (
         <View style={styles.container}>
