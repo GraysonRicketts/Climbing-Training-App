@@ -2,12 +2,12 @@
 
 Climb on is an app for tracking climbing training sessions. **This app is not currently being worked on. I may continue with it again. In the meantime, I've written up a summary of the project under the "postmortem section.**
 
-<div display="flex" align-items="center" justify-content="center">
-<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/home-screen.png" width="50%" display="inline-block" margin-bottom="10px"/>
-<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/session-page.png" width="50%" display="inline-block" margin-bottom="10px"/>
-<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/session-page-2.png" width="50%" display="inline-block" margin-bottom="10px"/>
-<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/previous.png" width="50% display="inline-block" margin-bottom="10px"/>
-<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/statistics.png" width="50%" display="inline-block" margin-bottom="10px"/>
+<div>
+<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/home-screen.png" width="48%" display="inline-block" margin-bottom="10px" margin-right="2%"/>
+<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/session-page.png" width="48%" display="inline-block" margin-bottom="10px"/>
+<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/session-page-2.png" width="48%" display="inline-block" margin-bottom="10px" margin-right="2%"/>
+<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/previous.png" width="48% display="inline-block" margin-bottom="10px"/>
+<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/statistics.png" width="48%" display="inline-block" margin-bottom="10px"/>
 </div>
 
 ## Postmortem
