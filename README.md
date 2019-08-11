@@ -2,11 +2,13 @@
 
 Climb on is an app for tracking climbing training sessions. **This app is not currently being worked on. I may continue with it again. In the meantime, I've written up a summary of the project under the "postmortem section.**
 
-<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/home-screen.png" width="50%" />
-<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/session-page.png" width="50%" />
-<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/session-page-2.png" width="50%" />
-<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/previous.png" width="50% />
-<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/statistics.png" width="50%" />
+<div display="flex" align-items="center" justify-content="center">
+<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/home-screen.png" width="50%" display="inline-block" margin-bottom="10px"/>
+<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/session-page.png" width="50%" display="inline-block" margin-bottom="10px"/>
+<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/session-page-2.png" width="50%" display="inline-block" margin-bottom="10px"/>
+<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/previous.png" width="50% display="inline-block" margin-bottom="10px"/>
+<img src="https://raw.githubusercontent.com/GraysonRicketts/Climbing-Training-App/master/readme-pictures/statistics.png" width="50%" display="inline-block" margin-bottom="10px"/>
+</div>
 
 ## Postmortem
 After taking a break from this project I no longer was interested in continuing. However, it was a fun learning experience and I like to document what went well, why I stopped, what didn't go well, and what I'm going to take into the next project.
